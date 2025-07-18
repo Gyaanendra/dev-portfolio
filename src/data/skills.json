@@ -1,0 +1,488 @@
+{
+   "skills": [
+      {
+         "name": "P5.js",
+         "url": "https://img.shields.io/badge/p5.js-ED225D?style=for-the-badge&logo=p5.js&logoColor=FFFFFF&labelColor=black"
+      },
+      {
+         "name": "JavaScript",
+         "url": "https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E&labelColor=black"
+      },
+      {
+         "name": "jQuery",
+         "url": "https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white"
+      },
+      {
+         "name": "HTML5",
+         "url": "https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"
+      },
+      {
+         "name": "CSS3",
+         "url": "https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"
+      },
+      {
+         "name": "React",
+         "url": "https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"
+      },
+      {
+         "name": "React Native",
+         "url": "https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"
+      },
+      {
+         "name": "Next.js",
+         "url": "https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"
+      },
+      {
+         "name": "Express.js",
+         "url": "https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"
+      },
+      {
+         "name": "TailwindCSS",
+         "url": "https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"
+      },
+      {
+         "name": "Three.js",
+         "url": "https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white"
+      },
+      {
+         "name": "EJS",
+         "url": "https://img.shields.io/badge/ejs-%23B4CA65.svg?style=for-the-badge&logo=ejs&logoColor=black"
+      },
+      {
+         "name": "NPM",
+         "url": "https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white"
+      },
+      {
+         "name": "Vercel",
+         "url": "https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white"
+      },
+      {
+         "name": "Expo",
+         "url": "https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37"
+      },
+      {
+         "name": "Python",
+         "url": "https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"
+      },
+      {
+         "name": "FastAPI",
+         "url": "https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi"
+      },
+      {
+         "name": "Flask",
+         "url": "https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white"
+      },
+      {
+         "name": "Gunicorn",
+         "url": "https://img.shields.io/badge/gunicorn-%298729.svg?style=for-the-badge&logo=gunicorn&logoColor=white"
+      },
+      {
+         "name": "Streamlit",
+         "url": "https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white"
+      },
+      {
+         "name": "NumPy",
+         "url": "https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white"
+      },
+      {
+         "name": "Pandas",
+         "url": "https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"
+      },
+      {
+         "name": "Matplotlib",
+         "url": "https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black"
+      },
+      {
+         "name": "scikit-learn",
+         "url": "https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white"
+      },
+      {
+         "name": "SciPy",
+         "url": "https://img.shields.io/badge/SciPy-%230C55A5.svg?style=for-the-badge&logo=scipy&logoColor=%white"
+      },
+      {
+         "name": "PyTorch",
+         "url": "https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white"
+      },
+      {
+         "name": "TensorFlow",
+         "url": "https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white"
+      },
+      {
+         "name": "Git",
+         "url": "https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white"
+      },
+      {
+         "name": "GitHub",
+         "url": "https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"
+      },
+      {
+         "name": "Docker",
+         "url": "https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white"
+      },
+      {
+         "name": "Postan",
+         "url": "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white"
+      },
+      {
+         "name": "PostgreSQL",
+         "url": "https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white"
+      },
+      {
+         "name": "Firebase",
+         "url": "https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase"
+      },
+      {
+         "name": "Render",
+         "url": "https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white"
+      },
+      {
+         "name": "Markdown",
+         "url": "https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white"
+      },
+      {
+         "name": "Bash Script",
+         "url": "https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white"
+      },
+      {
+         "name": "Arduino",
+         "url": "https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white"
+      },
+      {
+         "name": "ESP32",
+         "url": "https://img.shields.io/badge/ESP32-E7352C?style=for-the-badge&logo=espressif&logoColor=white"
+      },
+      {
+         "name": "Figma",
+         "url": "https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white"
+      },
+      {
+         "name": "Canva",
+         "url": "https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white"
+      }
+   ],
+   "skillsw": [
+      {
+         "name": "P5.js",
+         "url": "https://img.shields.io/badge/p5.js-white?style=for-the-badge&logo=p5.js&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "JavaScript",
+         "url": "https://img.shields.io/badge/javascript-white?style=for-the-badge&logo=javascript&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "jQuery",
+         "url": "https://img.shields.io/badge/jquery-white?style=for-the-badge&logo=jquery&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "HTML5",
+         "url": "https://img.shields.io/badge/html5-white?style=for-the-badge&logo=html5&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "CSS3",
+         "url": "https://img.shields.io/badge/css3-white?style=for-the-badge&logo=css3&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "React",
+         "url": "https://img.shields.io/badge/react-white?style=for-the-badge&logo=react&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "React Native",
+         "url": "https://img.shields.io/badge/react_native-white?style=for-the-badge&logo=react&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Next.js",
+         "url": "https://img.shields.io/badge/Next-white?style=for-the-badge&logo=next.js&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Express.js",
+         "url": "https://img.shields.io/badge/express.js-white?style=for-the-badge&logo=express&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "TailwindCSS",
+         "url": "https://img.shields.io/badge/tailwindcss-white?style=for-the-badge&logo=tailwind-css&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Three.js",
+         "url": "https://img.shields.io/badge/threejs-white?style=for-the-badge&logo=three.js&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "EJS",
+         "url": "https://img.shields.io/badge/ejs-white?style=for-the-badge&logo=ejs&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "NPM",
+         "url": "https://img.shields.io/badge/NPM-white?style=for-the-badge&logo=npm&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Vercel",
+         "url": "https://img.shields.io/badge/vercel-white?style=for-the-badge&logo=vercel&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Expo",
+         "url": "https://img.shields.io/badge/expo-white?style=for-the-badge&logo=expo&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Python",
+         "url": "https://img.shields.io/badge/python-white?style=for-the-badge&logo=python&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "FastAPI",
+         "url": "https://img.shields.io/badge/FastAPI-white?style=for-the-badge&logo=fastapi&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Flask",
+         "url": "https://img.shields.io/badge/flask-white?style=for-the-badge&logo=flask&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Gunicorn",
+         "url": "https://img.shields.io/badge/gunicorn-white?style=for-the-badge&logo=gunicorn&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Streamlit",
+         "url": "https://img.shields.io/badge/Streamlit-white?style=for-the-badge&logo=streamlit&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "NumPy",
+         "url": "https://img.shields.io/badge/numpy-white?style=for-the-badge&logo=numpy&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Pandas",
+         "url": "https://img.shields.io/badge/pandas-white?style=for-the-badge&logo=pandas&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Matplotlib",
+         "url": "https://img.shields.io/badge/Matplotlib-white?style=for-the-badge&logo=Matplotlib&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "scikit-learn",
+         "url": "https://img.shields.io/badge/scikit--learn-white?style=for-the-badge&logo=scikit-learn&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "SciPy",
+         "url": "https://img.shields.io/badge/SciPy-white?style=for-the-badge&logo=scipy&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "PyTorch",
+         "url": "https://img.shields.io/badge/PyTorch-white?style=for-the-badge&logo=PyTorch&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "TensorFlow",
+         "url": "https://img.shields.io/badge/TensorFlow-white?style=for-the-badge&logo=TensorFlow&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Git",
+         "url": "https://img.shields.io/badge/git-white?style=for-the-badge&logo=git&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "GitHub",
+         "url": "https://img.shields.io/badge/github-white?style=for-the-badge&logo=github&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Docker",
+         "url": "https://img.shields.io/badge/docker-white?style=for-the-badge&logo=docker&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Postman",
+         "url": "https://img.shields.io/badge/Postman-white?style=for-the-badge&logo=postman&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "PostgreSQL",
+         "url": "https://img.shields.io/badge/postgres-white?style=for-the-badge&logo=postgresql&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Firebase",
+         "url": "https://img.shields.io/badge/firebase-white?style=for-the-badge&logo=firebase&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Render",
+         "url": "https://img.shields.io/badge/Render-white?style=for-the-badge&logo=render&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Markdown",
+         "url": "https://img.shields.io/badge/markdown-white?style=for-the-badge&logo=markdown&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Bash Script",
+         "url": "https://img.shields.io/badge/bash_script-white?style=for-the-badge&logo=gnu-bash&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Arduino",
+         "url": "https://img.shields.io/badge/-Arduino-white?style=for-the-badge&logo=Arduino&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "ESP32",
+         "url": "https://img.shields.io/badge/ESP32-white?style=for-the-badge&logo=espressif&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Figma",
+         "url": "https://img.shields.io/badge/figma-white?style=for-the-badge&logo=figma&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Canva",
+         "url": "https://img.shields.io/badge/Canva-white?style=for-the-badge&logo=Canva&logoColor=black&labelColor=white&color=white"
+      }
+   ],
+   "skillsb": [
+      {
+         "name": "P5.js",
+         "url": "https://img.shields.io/badge/p5.js-black?style=for-the-badge&logo=p5.js&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "JavaScript",
+         "url": "https://img.shields.io/badge/javascript-black?style=for-the-badge&logo=javascript&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "jQuery",
+         "url": "https://img.shields.io/badge/jquery-black?style=for-the-badge&logo=jquery&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "HTML5",
+         "url": "https://img.shields.io/badge/html5-black?style=for-the-badge&logo=html5&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "CSS3",
+         "url": "https://img.shields.io/badge/css3-black?style=for-the-badge&logo=css3&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "React",
+         "url": "https://img.shields.io/badge/react-black?style=for-the-badge&logo=react&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "React Native",
+         "url": "https://img.shields.io/badge/react_native-black?style=for-the-badge&logo=react&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Next.js",
+         "url": "https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Express.js",
+         "url": "https://img.shields.io/badge/express.js-black?style=for-the-badge&logo=express&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "TailwindCSS",
+         "url": "https://img.shields.io/badge/tailwindcss-black?style=for-the-badge&logo=tailwind-css&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Three.js",
+         "url": "https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "EJS",
+         "url": "https://img.shields.io/badge/ejs-black?style=for-the-badge&logo=ejs&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "NPM",
+         "url": "https://img.shields.io/badge/NPM-black?style=for-the-badge&logo=npm&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Vercel",
+         "url": "https://img.shields.io/badge/vercel-black?style=for-the-badge&logo=vercel&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Expo",
+         "url": "https://img.shields.io/badge/expo-black?style=for-the-badge&logo=expo&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Python",
+         "url": "https://img.shields.io/badge/python-black?style=for-the-badge&logo=python&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "FastAPI",
+         "url": "https://img.shields.io/badge/FastAPI-black?style=for-the-badge&logo=fastapi&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Flask",
+         "url": "https://img.shields.io/badge/flask-black?style=for-the-badge&logo=flask&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Gunicorn",
+         "url": "https://img.shields.io/badge/gunicorn-black?style=for-the-badge&logo=gunicorn&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Streamlit",
+         "url": "https://img.shields.io/badge/Streamlit-black?style=for-the-badge&logo=streamlit&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "NumPy",
+         "url": "https://img.shields.io/badge/numpy-black?style=for-the-badge&logo=numpy&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Pandas",
+         "url": "https://img.shields.io/badge/pandas-black?style=for-the-badge&logo=pandas&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Matplotlib",
+         "url": "https://img.shields.io/badge/Matplotlib-black?style=for-the-badge&logo=Matplotlib&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "scikit-learn",
+         "url": "https://img.shields.io/badge/scikit--learn-black?style=for-the-badge&logo=scikit-learn&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "SciPy",
+         "url": "https://img.shields.io/badge/SciPy-black?style=for-the-badge&logo=scipy&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "PyTorch",
+         "url": "https://img.shields.io/badge/PyTorch-black?style=for-the-badge&logo=PyTorch&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "TensorFlow",
+         "url": "https://img.shields.io/badge/TensorFlow-black?style=for-the-badge&logo=TensorFlow&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Git",
+         "url": "https://img.shields.io/badge/git-black?style=for-the-badge&logo=git&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "GitHub",
+         "url": "https://img.shields.io/badge/github-black?style=for-the-badge&logo=github&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Docker",
+         "url": "https://img.shields.io/badge/docker-black?style=for-the-badge&logo=docker&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Postman",
+         "url": "https://img.shields.io/badge/Postman-black?style=for-the-badge&logo=postman&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "PostgreSQL",
+         "url": "https://img.shields.io/badge/postgres-black?style=for-the-badge&logo=postgresql&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Firebase",
+         "url": "https://img.shields.io/badge/firebase-black?style=for-the-badge&logo=firebase&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Render",
+         "url": "https://img.shields.io/badge/Render-black?style=for-the-badge&logo=render&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Markdown",
+         "url": "https://img.shields.io/badge/markdown-black?style=for-the-badge&logo=markdown&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Bash Script",
+         "url": "https://img.shields.io/badge/bash_script-black?style=for-the-badge&logo=gnu-bash&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Arduino",
+         "url": "https://img.shields.io/badge/-Arduino-black?style=for-the-badge&logo=Arduino&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "ESP32",
+         "url": "https://img.shields.io/badge/ESP32-black?style=for-the-badge&logo=espressif&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Figma",
+         "url": "https://img.shields.io/badge/figma-black?style=for-the-badge&logo=figma&logoColor=white&labelColor=black&color=black"
+      },
+      {
+         "name": "Canva",
+         "url": "https://img.shields.io/badge/Canva-black?style=for-the-badge&logo=Canva&logoColor=white&labelColor=black&color=black"
+      }
+   ]
+}

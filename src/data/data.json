@@ -1,0 +1,377 @@
+{
+   "name": "Gyanendra Prakash",
+   "initials": "GP",
+   "url": "https://portfolio-zeta-one-39.vercel.app/",
+   "location": "Mohali Punjab, India",
+   "locationLink": "/",
+   "description": "A curious developer/undergraduate with a growing interest in AI, LLMs, and the evolving landscape of intelligent systems.",
+   "summary": "I am **Gyanendra Prakash**, a **second-year Bachelor of Technology student** from **India**, currently pursuing **Computer Science Engineering**. While still early in my academic journey, I am deeply passionate about the world of **Artificial Intelligence**, especially **Large Language Models**, **intelligent agents**, and seamless **AI integrations**. Beyond academics, I enjoy immersing myself in **video games**, exploring **cinematic universes**, and experimenting with new **recipes in the kitchen**.",
+   "avatarUrl": "/images/me1.jpg",
+   "skills": [
+      {
+         "name": "JavaScript",
+         "url": "https://img.shields.io/badge/javascript-white?style=for-the-badge&logo=javascript&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "HTML5",
+         "url": "https://img.shields.io/badge/html5-white?style=for-the-badge&logo=html5&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "CSS3",
+         "url": "https://img.shields.io/badge/css3-white?style=for-the-badge&logo=css3&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "React",
+         "url": "https://img.shields.io/badge/react-white?style=for-the-badge&logo=react&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "React Native",
+         "url": "https://img.shields.io/badge/react_native-white?style=for-the-badge&logo=react&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "TailwindCSS",
+         "url": "https://img.shields.io/badge/tailwindcss-white?style=for-the-badge&logo=tailwind-css&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Python",
+         "url": "https://img.shields.io/badge/python-white?style=for-the-badge&logo=python&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "FastAPI",
+         "url": "https://img.shields.io/badge/FastAPI-white?style=for-the-badge&logo=fastapi&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Flask",
+         "url": "https://img.shields.io/badge/flask-white?style=for-the-badge&logo=flask&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Streamlit",
+         "url": "https://img.shields.io/badge/Streamlit-white?style=for-the-badge&logo=streamlit&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "NumPy",
+         "url": "https://img.shields.io/badge/numpy-white?style=for-the-badge&logo=numpy&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Pandas",
+         "url": "https://img.shields.io/badge/pandas-white?style=for-the-badge&logo=pandas&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Matplotlib",
+         "url": "https://img.shields.io/badge/Matplotlib-white?style=for-the-badge&logo=Matplotlib&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "scikit-learn",
+         "url": "https://img.shields.io/badge/scikit--learn-white?style=for-the-badge&logo=scikit-learn&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "SciPy",
+         "url": "https://img.shields.io/badge/SciPy-white?style=for-the-badge&logo=scipy&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "PyTorch",
+         "url": "https://img.shields.io/badge/PyTorch-white?style=for-the-badge&logo=PyTorch&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "TensorFlow",
+         "url": "https://img.shields.io/badge/TensorFlow-white?style=for-the-badge&logo=TensorFlow&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Git",
+         "url": "https://img.shields.io/badge/git-white?style=for-the-badge&logo=git&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "GitHub",
+         "url": "https://img.shields.io/badge/github-white?style=for-the-badge&logo=github&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "PostgreSQL",
+         "url": "https://img.shields.io/badge/postgres-white?style=for-the-badge&logo=postgresql&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Firebase",
+         "url": "https://img.shields.io/badge/firebase-white?style=for-the-badge&logo=firebase&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "Bash Script",
+         "url": "https://img.shields.io/badge/bash_script-white?style=for-the-badge&logo=gnu-bash&logoColor=black&labelColor=white&color=white"
+      },
+      {
+         "name": "ESP32",
+         "url": "https://img.shields.io/badge/ESP32-white?style=for-the-badge&logo=espressif&logoColor=black&labelColor=white&color=white"
+      }
+   ],
+   "navbar": [
+      {
+         "href": "/",
+         "label": "Home"
+      }
+   ],
+   "contact": {
+      "email": "gyanendraprakash10@gmail.com",
+      "tel": "+91 9779515993",
+      "social": {
+         "GitHub": {
+            "name": "GitHub",
+            "url": "https://github.com/Gyaanendra",
+            "navbar": true
+         },
+         "LinkedIn": {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/gyanendra-prakash-3b6293324/",
+            "navbar": true
+         },
+         "X": {
+            "name": "X",
+            "url": "https://x.com/Gyaanendra1",
+            "navbar": true
+         },
+         "email": {
+            "name": "Send Email",
+            "url": "mailto:gyanendraprakash10@gmail.com",
+            "navbar": true
+         }
+      }
+   },
+   "work": [
+      {
+         "company": "Ezlearn",
+         "href": "https://ezlearn.in/",
+         "badges": [],
+         "location": "Remote",
+         "title": "Backend Intern",
+         "logoUrl": "/images/work-experience/ez.png",
+         "start": "Apr 2024",
+         "end": "Present",
+         "description": [
+            " **•** Joined Ezlearn as a Backend Django **Intern** in April, 2025.",
+            " **•** Started my work with **optimizing** the load on several **API endpoints**.",
+            " **•**  Helped in creating a **simpler and more efficient course purchase flow**.",
+            " **•**  Also implemented several **high-quality features** to enhance the **user experience**."
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": "https://ezlearn.in/"
+            }
+         ]
+      },
+      {
+         "company": "nexCarft",
+         "href": "https://skillarena.in/",
+         "badges": [],
+         "location": "Remote",
+         "title": "AppDev Intern",
+         "logoUrl": "/images/work-experience/nex.png",
+         "start": "Jan 2024",
+         "end": "Mar 2024",
+         "description": [
+            "**•**  Improved and maintained core backend systems written in the **MERN** stack",
+            "**•**  Implemented a **real-time chat application** backend utilizing WebSockets and FastAPI"
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": "https://skillarena.in/"
+            }
+         ]
+      }
+   ],
+   "education": [
+      {
+         "school": "Bennett University",
+         "href": "https://bennett.edu.in/",
+         "degree": "Bachelor's of Technology in Computer Science Engineering",
+         "logoUrl": "/images/bennett.png",
+         "start": "2024",
+         "end": "2028"
+      },
+      {
+         "school": "Goverment Model Senior Secondary School Sector 35-D",
+         "href": "https://gmsss35.com/",
+         "degree": "Senior Secondary (CBSE) | XII - 86.6%",
+         "logoUrl": "/images/gmsss35.png",
+         "start": "2022",
+         "end": "2024"
+      },
+      {
+         "school": "Manav Mangal Smart School",
+         "href": "https://manavmangal.school/mmss-64-mohali",
+         "degree": "Secondary (CBSE) | X - 88.8%",
+         "logoUrl": "/images/mmss.png",
+         "start": "2010",
+         "end": "2022"
+      }
+   ],
+   "projects": [
+      {
+         "title": "cooming soon 1",
+         "href": "",
+         "dates": "Nov 2024 - Present",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Next.js",
+            "Typescript",
+            "LLaMa3.2",
+            "Web Scraping"
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": ""
+            },
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project1.jpg"
+      },
+      {
+         "title": "cooming soon 2",
+         "href": "",
+         "dates": "September 2024 - October 2024",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Next.js",
+            "Typescript",
+            "CopilotKit",
+            "Appwrite"
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": ""
+            },
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project2.jpg"
+      },
+      {
+         "title": "cooming soon 3",
+         "href": "",
+         "dates": "April 2023 - March 2023",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Java",
+            "XML",
+            "Firebase",
+            "Android Studio"
+         ],
+         "links": [
+            {
+               "type": "Play Store",
+               "href": ""
+            },
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project3.jpg"
+      },
+      {
+         "title": "cooming soon 4",
+         "href": "",
+         "dates": "Dec 2022 - Jan 2023",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Python",
+            "Tkinter",
+            "SQLite"
+         ],
+         "links": [
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project4.jpg"
+      }
+   ],
+   "positions": [
+      {
+         "title": "Junior core Tech Member",
+         "dates": "Sep 2024 - Jun 2025",
+         "location": "Artificial Intelligence Society, Bennett University",
+         "description": "I worked with AIS to organise various events and Workshops. Also worked on its website, which helped me be updated with various kinds of technologies.",
+         "image": "/images/ais.jpg",
+         "links": [
+            {
+               "title": "LinkedIn",
+               "href": "https://www.linkedin.com/company/ais-bennett/posts/?feedView=all"
+            },
+            {
+               "title": "Website",
+               "href": "https://aiswebsite-new.vercel.app/home"
+            }
+         ]
+      },
+      {
+         "title": "Fullstack Developer and tech team",
+         "dates": "Feb 2025 - May 2025",
+         "location": "International Affairs Society, Bennett University",
+         "description": "I worked part time with them and help them build Website with a CMS",
+         "image": "/images/ias.jpg",
+         "links": [
+            {
+               "title": "LinkedIn",
+               "href": "https://www.linkedin.com/company/international-affairs-society-bennet/"
+            }
+         ]
+      },
+      {
+         "title": "Tech team",
+         "dates": "August 2023 - May 2024",
+         "location": "SPARK E-Cell, Bennett University",
+         "description": "As the technical member i helped in creation and managment of a live autioning webite for and an event called Spark aution bid, Where participaints where given 30 seconds to think and buy a startup , Team or invidual with highest total worth of startups bought would win.",
+         "image": "/images/spark.jpg",
+         "links": [
+            {
+               "title": "LinkedIn",
+               "href": "https://www.linkedin.com/company/spark-e-cell/"
+            }
+         ]
+      },
+      {
+         "title": "Tech Member",
+         "dates": "September 2022 - May 2023",
+         "location": "Centre for Law, Technology and Innovation, Bennett University",
+         "description": "CLTI was a new and unique club launched in 2025 at Bennett University. As a member, I helped organize various fun games and stalls, and played a crucial role in the hackathon LexHack — a one-of-a-kind event that combined building websites with defending them in a simulated courtroom setting.",
+         "image": "/images/clti.jpg",
+         "links": [
+            {
+               "title": "LinkedIn",
+               "href": "https://www.linkedin.com/company/clti-bu/"
+            }
+         ]
+      }
+   ],
+   "achievements": [
+      {
+         "title": "Netruon",
+         "dates": "Apr 2024",
+         "location": "NST Riverhood campus",
+         "image": "/images/achievements/nst.jpeg"
+      },
+      {
+         "title": "Netruon",
+         "dates": "Apr 2024",
+         "location": "NST Riverhood campus",
+         "image": "/images/achievements/nst2.jpg"
+      },
+      {
+         "title": "Hackaccino",
+         "dates": "Apr 2025",
+         "location": "CSI Bennett University",
+         "image": "/images/achievements/hackachino.jpeg"
+      }
+   ]
+}

@@ -1,0 +1,31 @@
+---
+const {education} = Astro.props
+---
+
+<div class="flex min-h-0 min-w-0 w-full flex-col gap-y-3">
+   <h2 class="text-3xl font-bold">Education</h2>
+   {
+      education.map((edu: any) => (
+         <div class="block pointer-events-none py-1">
+            <div class="rounded-lg bg-card text-card-foreground flex">
+               <div class="flex-grow items-center flex-col group">
+                  <div class="flex flex-col">
+                     <div class="flex">
+                        <span class="relative flex shrink-0 overflow-hidden rounded-full border border-gray-200 size-10 m-auto bg-muted-background  mr-4">
+                           <img class="aspect-square h-full w-full object-contain" alt={edu.school} src={edu.logoUrl}>
+                        </span>
+                        <div class="w-full">
+                           <div class="flex items-center justify-between gap-x-2 text-base">
+                              <h3 class="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">{edu.school}</h3>
+                              <div class="text-xs sm:text-sm tabular-nums text-muted-foreground text-right mr-0">{edu.start} - {edu.end}</div>
+                           </div>
+                           <div class="text-xs">{edu.degree}</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      ))
+   }
+</div>

@@ -1,0 +1,20 @@
+---
+import { remark } from 'remark';
+import html from 'remark-html';
+import { FileText } from "lucide-astro";
+const {summary} = Astro.props
+const processedSummary= await remark()
+  .use(html)
+  .process(summary);
+---
+<div class="flex gap-y-1 flex-col">
+   <h2 class="text-4xl font-bold ">About</h2>
+      <p class="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+         <div  set:html={processedSummary} />
+      </p>
+      <div class="flex items-center justify-end mt-4 ">
+      <a href="/resume.pdf" target="_blank"  >
+      <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 flex gap-1">Download Resume <FileText size={18} /></button>
+      </a>
+   </div>
+</div>

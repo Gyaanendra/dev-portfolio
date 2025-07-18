@@ -1,0 +1,19 @@
+---
+
+const {name , description , avatarUrl }  = Astro.props
+---   
+   
+   
+<div class="mx-auto w-full max-w-2xl space-y-2">
+  <div class="gap-3 flex justify-between">
+    <div class="flex-col flex flex-1 space-y-1.5">
+      <h1 class="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+        {`Hi, I'm ${name.split(" ")[0]}`}
+      </h1>
+      <p class="max-w-[600px] md:text-xl">{description}</p>
+    </div>
+    <div class="size-44  hover:shadow-lg hover:shadow-foreground/20 transition-all duration-300 ease-in-out rounded-full overflow-hidden">
+      <img alt={name} src={avatarUrl} class="" />
+    </div>
+  </div>
+</div>
