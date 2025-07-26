@@ -27,17 +27,14 @@ interface linkOBJ {
           class="block w-full px-4 py-4 cursor-pointer bg-white"
         >
           <div class="flex items-center gap-2">
-            <div class="flex items-center space-x-4 flex-1 min-w-0 ">
-              <div class="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+            <div class="flex items-centr space-x-4 flex-1 min-w-0 ">
+              <div class="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center overflow-hidden shrink-0">
                 <img 
                   src={job.logoUrl} 
                   alt={`${job.company} logo`}
                   class="w-full h-full rounded-full  object-contain"
-                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+                  loading="lazy"
                 />
-                <div class="w-full h-full  rounded-full text-black text-lg font-bold items-center justify-center hidden">
-                  {job.company.charAt(0)}
-                </div>
               </div>
                <div class="flex">
 
