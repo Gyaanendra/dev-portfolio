@@ -28,11 +28,11 @@ interface linkOBJ {
         >
           <div class="flex items-center gap-2">
             <div class="flex items-center space-x-4 flex-1 min-w-0 ">
-              <div class="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+              <div class="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center overflow-hidden">
                 <img 
                   src={job.logoUrl} 
                   alt={`${job.company} logo`}
-                  class="w-full h-full rounded-full object-cover"
+                  class="w-full h-full rounded-full  object-contain"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
                 />
                 <div class="w-full h-full  rounded-full text-black text-lg font-bold items-center justify-center hidden">
@@ -42,7 +42,7 @@ interface linkOBJ {
                <div class="flex">
 
               <div class="flex-1 min-w-0">
-                <h3 class="text-lg font-semibold text-gray-900 truncate">{job.title}</h3>
+                <h3 class="text-xs sm:text-sm font-semibold text-gray-900 truncate">{job.title}</h3>
                 <p class="text-sm text-gray-600 truncate">{job.company} • {job.location}</p>
               </div>
                <svg 
