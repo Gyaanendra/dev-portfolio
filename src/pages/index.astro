@@ -61,7 +61,7 @@ import Contact from "../components/Contact.astro";
           <Projects/>
         </section>
         <section id="positions" class="w-full">
-          <Clubs/>
+          <Clubs pos={data.positions}/>
         </section>
         <section id="achievements" class="w-full">
           <Achievements achievements={data.achievements} client:load/>
@@ -69,6 +69,7 @@ import Contact from "../components/Contact.astro";
          <section id="contact" class="w-full">
           <Contact/>
         </section> 
+        
 
   </main>
 </Layout>

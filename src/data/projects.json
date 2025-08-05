@@ -1,0 +1,95 @@
+{
+   "projects": [
+      {
+         "title": "cooming soon 1",
+         "href": "",
+         "dates": "Nov 2024 - Present",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Next.js",
+            "Typescript",
+            "LLaMa3.2",
+            "Web Scraping"
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": ""
+            },
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project1.jpg"
+      },
+      {
+         "title": "cooming soon 2",
+         "href": "",
+         "dates": "September 2024 - October 2024",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Next.js",
+            "Typescript",
+            "CopilotKit",
+            "Appwrite"
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": ""
+            },
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project2.jpg"
+      },
+      {
+         "title": "cooming soon 3",
+         "href": "",
+         "dates": "April 2023 - March 2023",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Java",
+            "XML",
+            "Firebase",
+            "Android Studio"
+         ],
+         "links": [
+            {
+               "type": "Play Store",
+               "href": ""
+            },
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project3.jpg"
+      },
+      {
+         "title": "cooming soon 4",
+         "href": "",
+         "dates": "Dec 2022 - Jan 2023",
+         "active": true,
+         "description": "",
+         "technologies": [
+            "Python",
+            "Tkinter",
+            "SQLite"
+         ],
+         "links": [
+            {
+               "type": "Source",
+               "href": ""
+            }
+         ],
+         "image": "/images/projects/project4.jpg"
+      }
+   ]
+}
