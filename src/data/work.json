@@ -1,0 +1,46 @@
+{
+   "work": [
+      {
+         "company": "Ezlearn",
+         "href": "https://ezlearn.in/",
+         "badges": [],
+         "location": "Remote",
+         "title": "Backend Intern",
+         "logoUrl": "/images/work-experience/ez.png",
+         "start": "Apr 2024",
+         "end": "Present",
+         "description": [
+            " **•** Joined Ezlearn as a Backend Django **Intern** in April, 2025.",
+            " **•** Started my work with **optimizing** the load on several **API endpoints**.",
+            " **•**  Helped in creating a **simpler and more efficient course purchase flow**.",
+            " **•**  Also implemented several **high-quality features** to enhance the **user experience**."
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": "https://ezlearn.in/"
+            }
+         ]
+      },
+      {
+         "company": "nexCarft",
+         "href": "https://skillarena.in/",
+         "badges": [],
+         "location": "Remote",
+         "title": "AppDev Intern",
+         "logoUrl": "/images/work-experience/nex.png",
+         "start": "Jan 2024",
+         "end": "Mar 2024",
+         "description": [
+            "**•**  Improved and maintained core backend systems written in the **MERN** stack",
+            "**•**  Implemented a **real-time chat application** backend utilizing WebSockets and FastAPI"
+         ],
+         "links": [
+            {
+               "type": "Website",
+               "href": "https://skillarena.in/"
+            }
+         ]
+      }
+   ]
+}

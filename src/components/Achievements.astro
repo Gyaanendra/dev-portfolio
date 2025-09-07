@@ -1,0 +1,104 @@
+---
+// Import achievements data
+import data from '../data/achievements.json';
+
+// Use custom achievements if provided, otherwise use imported data
+const finalAchievements = data.achievements || [];
+
+// Helper functions for navigation
+const getPrevSlideIndex = (currentIndex:number, totalSlides: number) => {
+  return currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
+};
+
+const getNextSlideIndex = (currentIndex:number, totalSlides: number) => {
+  return currentIndex === totalSlides - 1 ? 0 : currentIndex + 1;
+};
+---
+
+<div class="relative w-full">
+  <div class="space-y-12 w-full py-12">
+    <div class="flex flex-col items-center justify-center space-y-4 text-center">
+      <div class="space-y-2">
+        <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+          Achievements
+        </h2>
+        <p class="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          {finalAchievements.length === 0 
+            ? "No achievements to display yet."
+            : "During my time in university, I attended 4 hackathons. I like to keep exploring and learning new things."
+          }
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {finalAchievements.length > 0 && (
+    <div>
+      <!-- Main Carousel -->
+      <div class="carousel w-full">
+        {finalAchievements.map((achievement:any, index:number) => (
+          <div id={`slide${index + 1}`} class="carousel-item relative w-full">
+            <img
+              src={achievement.image}
+              alt={achievement.title}
+              class="w-full h-96 object-cover"
+            />
+            
+            <!-- Overlay with achievement info -->
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+              <h3 class="text-white text-xl font-bold mb-1">
+                {achievement.title}
+              </h3>
+              <p class="text-white/90 text-sm mb-1">{achievement.dates}</p>
+              <p class="text-white/75 text-sm">{achievement.location}</p>
+              {achievement.description && (
+                <p class="text-white/70 text-xs mt-2">{achievement.description}</p>
+              )}
+            </div>
+
+            <!-- Navigation arrows -->
+            {  (
+              <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                <a 
+                  href={`#slide${getPrevSlideIndex(index, finalAchievements.length) + 1}`}
+                  class="btn btn-circle"
+                  aria-label="Previous slide"
+                >
+                  ❮
+                </a>
+                <a 
+                  href={`#slide${getNextSlideIndex(index, finalAchievements.length) + 1}`}
+                  class="btn btn-circle"
+                  aria-label="Next slide"
+                >
+                  ❯
+                </a>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <!-- Indicator dots -->
+      {  (
+        <div class="flex w-full justify-center gap-2 py-2">
+          {finalAchievements.map((_, index) => (
+            <a 
+              href={`#slide${index + 1}`}
+              class="btn btn-xs"
+              aria-label={`Go to slide ${index + 1}`}
+            >
+              {index + 1}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  )}
+</div>
+
+<style>
+  .text-muted-foreground {
+    color: #6b7280;
+  }
+</style>

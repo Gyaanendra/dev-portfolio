@@ -8,7 +8,7 @@ import Education from "../components/Education.astro"
 import Skills from "../components/Skills.astro";
 import Projects from "../components/Projects.astro";
 import Clubs from "../components/Clubs.astro";
-import Achievements from"../components/Achievements.jsx";
+import Achievements from"../components/Achievements.astro";
 import Contact from "../components/Contact.astro";
 ---
 
@@ -49,22 +49,22 @@ import Contact from "../components/Contact.astro";
         <About summary={data.summary} />
       </section>
          <section id="work" class="w-full">
-            <Work work={data.work}/>
+            <Work />
         </section>
         <section id="education" class="w-full">
         <Education education={data.education}/>
         </section>
         <section id="skills" class="w-full">
-          <Skills skills={data.skills}/>
+          <Skills />
         </section>
         <section id="projects " class="w-full">
           <Projects/>
         </section>
         <section id="positions" class="w-full">
-          <Clubs pos={data.positions}/>
+          <Clubs />
         </section>
         <section id="achievements" class="w-full">
-          <Achievements achievements={data.achievements} client:load/>
+          <Achievements />
         </section>
          <section id="contact" class="w-full">
           <Contact/>

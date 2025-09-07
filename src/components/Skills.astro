@@ -1,5 +1,6 @@
 ---
-const {skills} = Astro.props
+import data from '../data/skills.json';
+const {skillswf} = data
 ---
 
 
@@ -7,7 +8,7 @@ const {skills} = Astro.props
    <h2 class="text-3xl font-bold text-black">Skills</h2>
    <div class="flex flex-wrap gap-2 justify-center items-center">
       {
-         skills.map((skill: any) => (
+         skillswf.map((skill: any) => (
             <img 
                src={skill.url} 
                alt={skill.name}

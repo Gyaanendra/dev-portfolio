@@ -1,7 +1,7 @@
 ---
 // WorkExperience.astro
-const {work} = Astro.props
-
+import data from '../data/work.json';
+const {work} = data
 // Function to parse markdown-style bold text
 import { remark } from 'remark';
 import html from 'remark-html';

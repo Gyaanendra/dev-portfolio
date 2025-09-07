@@ -1,0 +1,22 @@
+{
+   "achievements": [
+      {
+         "title": "Netruon",
+         "dates": "Apr 2024",
+         "location": "NST Riverhood campus",
+         "image": "/images/achievements/nst.jpeg"
+      },
+      {
+         "title": "Netruon",
+         "dates": "Apr 2024",
+         "location": "NST Riverhood campus",
+         "image": "/images/achievements/nst2.jpg"
+      },
+      {
+         "title": "Hackaccino",
+         "dates": "Apr 2025",
+         "location": "CSI Bennett University",
+         "image": "/images/achievements/hackachino.jpeg"
+      }
+   ]
+}
