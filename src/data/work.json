@@ -7,8 +7,8 @@
          "location": "Remote",
          "title": "Backend Intern",
          "logoUrl": "/images/work-experience/ez.png",
-         "start": "Apr 2024",
-         "end": "Present",
+         "start": "Apr 2025",
+         "end": "Sep 2025",
          "description": [
             " **•** Joined Ezlearn as a Backend Django **Intern** in April, 2025.",
             " **•** Started my work with **optimizing** the load on several **API endpoints**.",
@@ -24,21 +24,22 @@
       },
       {
          "company": "nexCarft",
-         "href": "https://skillarena.in/",
+         "href": "",
          "badges": [],
          "location": "Remote",
          "title": "AppDev Intern",
          "logoUrl": "/images/work-experience/nex.png",
-         "start": "Jan 2024",
-         "end": "Mar 2024",
+         "start": "Jan 2025",
+         "end": "Mar 2025",
          "description": [
-            "**•**  Improved and maintained core backend systems written in the **MERN** stack",
-            "**•**  Implemented a **real-time chat application** backend utilizing WebSockets and FastAPI"
+            " **•** Helped in creating mobile app for clients using React Native.",
+            "**•**  Worked on several features and bug fixes in the app.",
+            "**•**  Got to learn a lot about mobile app development and its challenges."
          ],
          "links": [
             {
                "type": "Website",
-               "href": "https://skillarena.in/"
+               "href": ""
             }
          ]
       }

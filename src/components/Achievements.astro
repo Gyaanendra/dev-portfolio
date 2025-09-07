@@ -35,7 +35,7 @@ const getNextSlideIndex = (currentIndex:number, totalSlides: number) => {
   {finalAchievements.length > 0 && (
     <div>
       <!-- Main Carousel -->
-      <div class="carousel w-full">
+      <div class="carousel w-full rounded-2xl">
         {finalAchievements.map((achievement:any, index:number) => (
           <div id={`slide${index + 1}`} class="carousel-item relative w-full">
             <img
@@ -55,26 +55,6 @@ const getNextSlideIndex = (currentIndex:number, totalSlides: number) => {
                 <p class="text-white/70 text-xs mt-2">{achievement.description}</p>
               )}
             </div>
-
-            <!-- Navigation arrows -->
-            {  (
-              <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                <a 
-                  href={`#slide${getPrevSlideIndex(index, finalAchievements.length) + 1}`}
-                  class="btn btn-circle"
-                  aria-label="Previous slide"
-                >
-                  ❮
-                </a>
-                <a 
-                  href={`#slide${getNextSlideIndex(index, finalAchievements.length) + 1}`}
-                  class="btn btn-circle"
-                  aria-label="Next slide"
-                >
-                  ❯
-                </a>
-              </div>
-            )}
           </div>
         ))}
       </div>

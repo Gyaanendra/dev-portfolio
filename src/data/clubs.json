@@ -1,60 +1,79 @@
-{
-   "pos": [
-      {
-         "title": "Junior core Tech Member",
-         "dates": "Sep 2024 - Jun 2025",
-         "location": "Artificial Intelligence Society, Bennett University",
-         "description": "I worked with AIS to organise various events and Workshops. Also worked on its website, which helped me be updated with various kinds of technologies.",
-         "image": "/images/ais.jpg",
-         "links": [
-            {
-               "title": "LinkedIn",
-               "href": "https://www.linkedin.com/company/ais-bennett/posts/?feedView=all"
-            },
-            {
-               "title": "Website",
-               "href": "https://ais-web-two.vercel.app/"
-            }
-         ]
-      },
-      {
-         "title": "Fullstack Developer and tech team",
-         "dates": "Feb 2025 - May 2025",
-         "location": "International Affairs Society, Bennett University",
-         "description": "I worked part time with them and help them build Website with a CMS",
-         "image": "/images/ias.jpg",
-         "links": [
-            {
-               "title": "LinkedIn",
-               "href": "https://www.linkedin.com/company/international-affairs-society-bennet/"
-            }
-         ]
-      },
-      {
-         "title": "Tech team",
-         "dates": "August 2023 - May 2024",
-         "location": "SPARK E-Cell, Bennett University",
-         "description": "As the technical member i helped in creation and managment of a live autioning webite for and an event called Spark aution bid, Where participaints where given 30 seconds to think and buy a startup , Team or invidual with highest total worth of startups bought would win.",
-         "image": "/images/spark.jpg",
-         "links": [
-            {
-               "title": "LinkedIn",
-               "href": "https://www.linkedin.com/company/spark-e-cell/"
-            }
-         ]
-      },
-      {
-         "title": "Tech Member",
-         "dates": "September 2022 - May 2023",
-         "location": "Centre for Law, Technology and Innovation, Bennett University",
-         "description": "CLTI was a new and unique club launched in 2025 at Bennett University. As a member, I helped organize various fun games and stalls, and played a crucial role in the hackathon LexHack — a one-of-a-kind event that combined building websites with defending them in a simulated courtroom setting.",
-         "image": "/images/clti.jpg",
-         "links": [
-            {
-               "title": "LinkedIn",
-               "href": "https://www.linkedin.com/company/clti-bu/"
-            }
-         ]
-      }
-   ]
-}
+[
+   {
+      "organization": "Artificial Intelligence Society, Bennett University",
+      "image": "/images/ais.jpg",
+      "links": [
+         {
+            "title": "LinkedIn",
+            "href": "https://www.linkedin.com/company/ais-bennett/posts/?feedView=all"
+         },
+         {
+            "title": "Website",
+            "href": "https://ais-web-two.vercel.app/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Chief Technical Officer",
+            "dates": "August 2025 - Present",
+            "description": "I worked with AIS to organise various events and Workshops. Also worked on its website, which helped me be updated with various kinds of technologies."
+         },
+         {
+            "title": "Junior core Tech Member",
+            "dates": "Sep 2024 - August 2025",
+            "description": "I worked with AIS to organise various events and Workshops. Also worked on its website, which helped me be updated with various kinds of technologies."
+         }
+      ]
+   },
+   {
+      "organization": "International Affairs Society, Bennett University",
+      "image": "/images/ias.jpg",
+      "links": [
+         {
+            "title": "LinkedIn",
+            "href": "https://www.linkedin.com/company/international-affairs-society-bennet/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Fullstack Developer and tech team",
+            "dates": "Feb 2025 - May 2025",
+            "description": "I worked part time with them and help them build Website with a CMS"
+         }
+      ]
+   },
+   {
+      "organization": "SPARK E-Cell, Bennett University",
+      "image": "/images/spark.jpg",
+      "links": [
+         {
+            "title": "LinkedIn",
+            "href": "https://www.linkedin.com/company/spark-e-cell/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Tech team",
+            "dates": "August 2023 - May 2024",
+            "description": "As the technical member i helped in creation and managment of a live autioning webite for and an event called Spark aution bid, Where participaints where given 30 seconds to think and buy a startup , Team or invidual with highest total worth of startups bought would win."
+         }
+      ]
+   },
+   {
+      "organization": "Centre for Law, Technology and Innovation, Bennett University",
+      "image": "/images/clti.jpg",
+      "links": [
+         {
+            "title": "LinkedIn",
+            "href": "https://www.linkedin.com/company/clti-bu/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Tech Member",
+            "dates": "September 2022 - May 2023",
+            "description": "CLTI was a new and unique club launched in 2025 at Bennett University. As a member, I helped organize various fun games and stalls, and played a crucial role in the hackathon LexHack — a one-of-a-kind event that combined building websites with defending them in a simulated courtroom setting."
+         }
+      ]
+   }
+]

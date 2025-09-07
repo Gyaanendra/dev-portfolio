@@ -3,41 +3,95 @@ import projects from '../data/projects.json';
 ---
 
 <div class="space-y-12 w-full py-12">
-   <div class="flex flex-col items-center justify-center space-y-4 text-center">
-      <div class="space-y-2">
-         <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
-            Projects
-         </h2>
-         <p class="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            I like to build projects. I have built a lot of projects, here
-            are just some of my{" "}
-            <span class="font-bold">favorites</span>.
-         </p>
-      </div>
-   </div>
-   
-   <!-- Projects Grid -->
-   <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 max-w-3xl mx-auto px-4">
-      {projects.projects.map((project) => (
-      <div class="card bg-base-100 w-full shadow-sm">
-      <figure>
-         <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes" 
-            class="w-full h-48 object-cover" />
-      </figure>
-      <div class="card-body">
-         <h2 class="card-title">
-            Card Title
-            <div class="badge badge-secondary">NEW</div>
-         </h2>
-         <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-         <div class="card-actions justify-end">
-            <div class="badge badge-outline">Fashion</div>
-            <div class="badge badge-outline">Products</div>
-         </div>
-      </div>
-      </div>
-      ))}
-   </div>
+  <div class="flex flex-col items-center justify-center space-y-4 text-center">
+    <div class="space-y-2">
+      <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+        Projects
+      </h2>
+      <p class="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+        I like to build projects. I have built a lot of projects, here
+        are just some of my <span class="font-bold">favorites</span>.
+      </p>
+    </div>
+  </div>
+
+  <!-- Swiper Carousel -->
+  <swiper-container
+    slides-per-view="1"
+    space-between="24"
+    pagination="true"
+    breakpoints={JSON.stringify({
+      640: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 2 },
+    })}
+    class="max-w-3xl mx-auto px-2.5"
+  >
+    {projects.projects.map((project) => (
+      <swiper-slide>
+        <div class="card bg-base-100 w-full shadow-sm mb-12">
+          <figure>
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              alt={project.title || "Project Image"}
+              class="w-full h-48 object-cover"
+            />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">
+              {project.title || "Card Title"}
+            </h2>
+            <p>{project.description || "A card component has a figure, a body part, and inside body there are title and actions parts"}</p>
+            <div class="card-actions justify-end">
+               {project.links.map((tag) => (
+                <div class="badge badge-outline">{tag.type}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+    ))}
+  </swiper-container>
+  <!-- second row -->
+  <swiper-container
+    slides-per-view="1"
+    space-between="24"
+    pagination="true"
+    breakpoints={JSON.stringify({
+      640: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 2 },
+    })}
+    class="max-w-3xl mx-auto px-2.5"
+  >
+    {projects.projects.map((project) => (
+      <swiper-slide>
+        <div class="card bg-base-100 w-full shadow-sm mb-12">
+          <figure>
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              alt={project.title || "Project Image"}
+              class="w-full h-48 object-cover"
+            />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">
+              {project.title || "Card Title"}
+            </h2>
+            <p>{project.description || "A card component has a figure, a body part, and inside body there are title and actions parts"}</p>
+            <div class="card-actions justify-end">
+              {project.links.map((tag) => (
+                <div class="badge badge-outline">{tag.type}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+    ))}
+  </swiper-container>
+
+  <script>
+    import { register } from 'swiper/element/bundle';
+    register();
+  </script>
 </div>
