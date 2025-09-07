@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Disallow specific paths if needed (e.g., for private or build artifacts)
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap reference (optional, if you have one)
+Sitemap: https://gyanendra.vihar.in/sitemap.xml
+
+# See also: /llms.txt for AI/LLM-specific instructions and opt-out policies

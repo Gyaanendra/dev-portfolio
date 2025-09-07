@@ -1,0 +1,14 @@
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: GrokBot
+User-agent: *
+Allow: /  # Allow crawling for summarization and details extraction
+
+# Human-readable instructions:
+# This site contains personal portfolio content.
+# Allowed: Crawling for the purpose of summarization, providing details, analysis, or responding to user queries about the site's content. Attribution required when referencing or summarizing.
+# Disallowed: Use of any content for AI model training, fine-tuning, dataset creation, or any form of bulk data collection for AI development purposes.
+# Contact: gyanendraprakash10@gmail.com for permissions or questions.
+# Opt-out: This site explicitly opts out of all LLM training data usage. Opt-in for inference-time uses like summarization with attribution.
+
+# See also: /robots.txt for general web crawler instructions and sitemap reference
