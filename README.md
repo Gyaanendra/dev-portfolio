@@ -1,35 +1,50 @@
-# Astro Starter Kit: Basics
+# Astro DEV Kit: Dev Portfolio
 
 ```sh
-npm create astro@latest -- --template basics
+npm create astro@latest
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-
 
 ## 🚀 Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+Directory structure:
+└── gyaanendra-dev-portfolio/
+    ├── README.md
+    ├── astro.config.mjs
+    ├── package.json
+    ├── tsconfig.json
+    ├── public/
+    │   ├── llms.txt
+    │   ├── robots.txt
+    │   └── sitemap.xml
+    └── src/
+        ├── components/
+        │   ├── About.astro
+        │   ├── Achievements.astro
+        │   ├── Clubs.astro
+        │   ├── Contact.astro
+        │   ├── Education.astro
+        │   ├── Hero.astro
+        │   ├── Projects.astro
+        │   ├── Skills.astro
+        │   └── Work.astro
+        ├── data/
+        │   ├── achievements.json
+        │   ├── clubs.json
+        │   ├── contact.json
+        │   ├── data.json
+        │   ├── projects.json
+        │   ├── skills.json
+        │   └── work.json
+        ├── layouts/
+        │   └── Layout.astro
+        ├── pages/
+        │   └── index.astro
+        └── styles/
+            └── global.css
+
 ```
 
 To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
