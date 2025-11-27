@@ -1,14 +1,20 @@
 {
    "achievements": [
       {
+         "title": "Club Battle",
+         "dates": "Apr 2025",
+         "location": "AIS Bennett University",
+         "image": "/images/achievements/club._battle.jpg"
+      },
+      {
          "title": "Netruon",
-         "dates": "Apr 2024",
+         "dates": "Apr 2025",
          "location": "NST Riverhood campus",
          "image": "/images/achievements/nst.jpeg"
       },
       {
          "title": "Netruon",
-         "dates": "Apr 2024",
+         "dates": "Apr 2025",
          "location": "NST Riverhood campus",
          "image": "/images/achievements/nst2.jpg"
       },
@@ -17,6 +23,12 @@
          "dates": "Apr 2025",
          "location": "CSI Bennett University",
          "image": "/images/achievements/hackachino.jpeg"
+      },
+      {
+         "title": "LEXHack",
+         "dates": "Apr 2025",
+         "location": "Bennett University",
+         "image": "/images/achievements/lex.jpg"
       }
    ]
 }

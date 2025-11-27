@@ -42,8 +42,7 @@ import Contact from "../components/Contact.astro";
             <p class="text-sm text-black">Thank you for your patience!</p>
         </div>
     </div> -->
-      <section id="hero">
-         <Hero name={data.name}  description={data.description} avatarUrl={data.avatarUrl}  />
+       <Hero name={data.name}  description={data.description} avatarUrl={data.avatarUrl}  />
       </section>
       <section id="about" class="w-full">
         <About summary={data.summary} />
@@ -69,6 +68,7 @@ import Contact from "../components/Contact.astro";
          <section id="contact" class="w-full">
           <Contact/>
         </section> 
+        <section id="hero">
         
 
   </main>
