@@ -1,16 +1,15 @@
 ---
-import data from '../data/skills.json';
-const {skillswf} = data
+import data from "../data/skills.json";
+const { skillswf } = data;
 ---
-
 
 <div class="flex min-h-0 min-w-0 w-full flex-col gap-y-3">
    <h2 class="text-3xl font-bold text-black">Skills</h2>
    <div class="flex flex-wrap gap-2 justify-center items-center">
       {
          skillswf.map((skill: any) => (
-            <img 
-               src={skill.url} 
+            <img
+               src={skill.url}
                alt={skill.name}
                class="transition-transform hover:scale-105 border border-neutral-950"
             />

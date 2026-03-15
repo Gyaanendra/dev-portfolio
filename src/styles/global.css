@@ -2,3 +2,79 @@
 @plugin "daisyui" {
   themes: lofi --default;
 }
+
+@theme {
+  --font-sans: 'Griff', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-Light-BF6495133b3bc1a.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-LightItalic-BF6495133b3b5e1.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-Regular-BF6495133b2b6c5.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-RegularItalic-BF6495133abab6e.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-Medium-BF6495133b3027d.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-MediumItalic-BF6495133b422d8.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-Semibold-BF6495133b1afa7.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-SemiboldItalic-BF6495133b25884.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-Bold-BF6495133b09ca8.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Griff';
+  src: url('/griff-font-family/Griff-BoldItalic-BF6495133b1475c.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+

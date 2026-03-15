@@ -1,5 +1,56 @@
 [
    {
+      "organization": "Free and Open Source Software Club, Bennett University",
+      "image": "/images/foss-bu.jpg",
+      "links": [
+         {
+            "title": "LinkedIn",
+            "href": "https://www.linkedin.com/company/foss-bu/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Core Member",
+            "dates": "Sep 2024 - Present",
+            "description": "Contributed to open source projects and organized workshops."
+         }
+      ]
+   },
+   {
+      "organization": "GeeksforGeeks Club, Bennett University",
+      "image": "/images/gfg-bu.jpg",
+      "links": [
+         {
+            "title": "LinkedIn",
+            "href": "https://www.linkedin.com/company/gfg-bu/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Tech Co-Head",
+            "dates": "Aug 2023 - Present",
+            "description": "Participated in coding competitions and study groups."
+         }
+      ]
+   },
+   {
+      "organization": "IEEE Club, Bennett University",
+      "image": "/images/ieee-bu.jpg",
+      "links": [
+         {
+            "title": "LinkedIn",
+            "href": "https://www.linkedin.com/company/ieee-bu/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Tech Co-Head",
+            "dates": "Jan 2024 - Present",
+            "description": "Attended technical talks and contributed to projects."
+         }
+      ]
+   },
+   {
       "organization": "Artificial Intelligence Society, Bennett University",
       "image": "/images/ais.jpg",
       "links": [

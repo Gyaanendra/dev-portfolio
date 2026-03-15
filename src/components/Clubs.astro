@@ -1,54 +1,75 @@
 ---
-import data from '../data/clubs.json';
-const pos = data
+import data from "../data/clubs.json";
+const pos = data;
 ---
+
+<div class="space-y-8">
+  <div class="flex flex-col items-center text-center space-y-2">
+    <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+      Clubs & Societies
+    </h2>
+    <p class="text-muted-foreground md:text-lg">
+      I was a part of multiple societies and clubs during college to meet new
+      people, learn, and grow.
+    </p>
+  </div>
   <div class="relative">
     <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200"></div>
-    
-    {pos.map((exp:any) => (
-      <div class="relative flex items-start mb-6">
-        <div class="mr-4">
-          <div class="avatar">
-          <div class="ring-gray-300 ring-offset-base-100 w-12 rounded-full ring-2 ring-offset-2">
-            <img src={exp.image || "/placeholder.svg"} />
-          </div>
-        </div>
-        </div>
-        
-        <div class="flex-1 border-b border-gray-200 pb-2">
-          <div class="mb-2 relative">
-          {exp.post.length > 1 && (
-            <div class="absolute left-0 top-2 bottom-2 w-1 bg-gradient-to-b from-gray-300 to-gray-400 ml-1.5 rounded-full shadow-sm"></div>
-          )}
-          {exp.post.map((p:any, index:number) => (
-            <div class="relative flex items-start mb-4">
-              {exp.post.length > 1 && (
-                <div class="absolute left-0 top-2 w-3 h-3 bg-white border-2 border-gray-400 rounded-full ml-1 z-10 shadow-sm"></div>
-              )}
-              <div class={exp.post.length > 1 ? "ml-6" : ""}>
-                <h3 class="text-lg text-gray-900 font-bold mb-1">
-                  {p.title} 
-                  <span class="inline-block text-gray-600 text-xs font-medium px-3 py-1 rounded-md mb-0.5">
-                    {p.dates}
-                  </span>
-                </h3>
-                <p class="text-gray-700 font-medium text-xs">{exp.location}</p>
-                <p class="text-gray-700 mb-3 text-sm leading-relaxed">{p.description}</p>
+
+    {
+      pos.map((exp: any) => (
+        <div class="relative flex items-start mb-6">
+          <div class="mr-4">
+            <div class="avatar">
+              <div class="ring-gray-300 ring-offset-base-100 w-12 rounded-full ring-2 ring-offset-2">
+                <img src={exp.image || "/placeholder.svg"} />
               </div>
             </div>
-          ))}
-        </div>
-          
-          <div class="pt-1">
-            <div class="flex gap-2 flex-wrap">
-              {exp.links.map((link : any) => (
-                <a href={link.href} class="inline-flex items-center px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-700 text-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors">
-                  {link.title}
-                </a>
+          </div>
+
+          <div class="flex-1 border-b border-gray-200 pb-2">
+            <div class="mb-2 relative">
+              {exp.post.length > 1 && (
+                <div class="absolute left-0 top-2 bottom-2 w-px bg-gray-200 ml-2 rounded-full" />
+              )}
+              {exp.post.map((p: any, index: number) => (
+                <div class="relative flex items-start mb-4">
+                  {exp.post.length > 1 && (
+                    <div class="absolute left-0 top-2.5 w-2 h-2 bg-gray-300 rounded-full ml-1.5 z-10" />
+                  )}
+                  <div class={exp.post.length > 1 ? "ml-6" : ""}>
+                    <h3 class="text-lg text-gray-900 font-bold mb-1">
+                      {p.title}
+                      <span class="inline-block text-gray-600 text-xs font-medium px-3 py-1 rounded-md mb-0.5">
+                        {p.dates}
+                      </span>
+                    </h3>
+                    <p class="text-gray-700 font-medium text-xs">
+                      {exp.location}
+                    </p>
+                    <p class="text-gray-700 mb-3 text-sm leading-relaxed">
+                      {p.description}
+                    </p>
+                  </div>
+                </div>
               ))}
+            </div>
+
+            <div class="pt-1">
+              <div class="flex gap-2 flex-wrap">
+                {exp.links.map((link: any) => (
+                  <a
+                    href={link.href}
+                    class="inline-flex items-center px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-700 text-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors"
+                  >
+                    {link.title}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
+</div>
