@@ -93,7 +93,7 @@ interface linkOBJ {
                   const processedDescription = await remark()
                     .use(html)
                     .process(desc);
-                  return <div set:html={processedDescription} class="mb-2 sm:mb-3 [&>p]:mb-2 [&>ul]:mb-2 [&>ol]:mb-2 [&>li]:mb-1" />
+                  return <div set:html={processedDescription} class="markdown-content mb-2 sm:mb-3 [&>p]:mb-2 [&>ul]:mb-2 [&>ol]:mb-2 [&>li]:mb-1" />
                 })}
               </div>
               
@@ -164,21 +164,21 @@ interface linkOBJ {
   
   /* Enhanced content styling for mobile */
   @media (max-width: 640px) {
-    .peer:checked ~ div [set\\:html] {
+    .peer:checked ~ div .markdown-content {
       line-height: 1.6;
     }
     
-    .peer:checked ~ div [set\\:html] p {
+    .peer:checked ~ div .markdown-content p {
       margin-bottom: 0.75rem;
     }
     
-    .peer:checked ~ div [set\\:html] ul,
-    .peer:checked ~ div [set\\:html] ol {
+    .peer:checked ~ div .markdown-content ul,
+    .peer:checked ~ div .markdown-content ol {
       margin-left: 1rem;
       margin-bottom: 0.75rem;
     }
     
-    .peer:checked ~ div [set\\:html] li {
+    .peer:checked ~ div .markdown-content li {
       margin-bottom: 0.25rem;
     }
   }
