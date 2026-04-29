@@ -66,7 +66,7 @@
       },
       {
          "title": "KnightSight EdgeVision — ANPR",
-         "href": "https://huggingface.co/spaces/Gyaanendra/deepsight-sapiens",
+         "href": "https://huggingface.co/spaces/gyaanendra/deepsightsapiens",
          "dates": "2025",
          "active": true,
          "description": "Edge-optimized Automatic Number Plate Recognition system achieving 99.49% mAP@50 with only 2.6M parameters. Two-stage pipeline (vehicle → plate detection) with dual OCR engines, ONNX export for ~6ms inference, and night-vision CLAHE preprocessing.",
