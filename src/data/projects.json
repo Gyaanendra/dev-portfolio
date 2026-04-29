@@ -65,6 +65,70 @@
          }
       },
       {
+         "title": "KnightSight EdgeVision — ANPR",
+         "href": "https://huggingface.co/spaces/Gyaanendra/deepsight-sapiens",
+         "dates": "2025",
+         "active": true,
+         "description": "Edge-optimized Automatic Number Plate Recognition system achieving 99.49% mAP@50 with only 2.6M parameters. Two-stage pipeline (vehicle → plate detection) with dual OCR engines, ONNX export for ~6ms inference, and night-vision CLAHE preprocessing.",
+         "technologies": [
+            "YOLOv11",
+            "PyTorch",
+            "ONNX",
+            "OpenCV",
+            "Streamlit",
+            "Fast-Plate-OCR"
+         ],
+         "links": [
+            {
+               "type": "GitHub",
+               "href": "https://github.com/Gyaanendra/deepsight-sapiens"
+            },
+            {
+               "type": "Live Demo",
+               "href": "https://huggingface.co/spaces/Gyaanendra/deepsight-sapiens"
+            }
+         ],
+         "image": "/pro/knightsight.png",
+         "floatingImages": {
+            "topRight": {
+               "src": "/pro/knightsight/1.png",
+               "width": "100px",
+               "zIndex": 20,
+               "x": "90%",
+               "y": "0%",
+               "z": "30px",
+               "mobile": {
+                  "x": "88%",
+                  "y": "0%"
+               }
+            },
+            "middleLeft": {
+               "src": "",
+               "width": "140px",
+               "zIndex": 20,
+               "x": "-2%",
+               "y": "44%",
+               "z": "50px",
+               "mobile": {
+                  "x": "0%",
+                  "y": "38%"
+               }
+            },
+            "bottomRight": {
+               "src": "/pro/knightsight/2.png",
+               "width": "125px",
+               "zIndex": -1,
+               "x": "96%",
+               "y": "96%",
+               "z": "-20px",
+               "mobile": {
+                  "x": "94%",
+                  "y": "98%"
+               }
+            }
+         }
+      },
+      {
          "title": "Penguin Predictor",
          "href": "https://github.com/Gyaanendra/Penguin-Predictor",
          "dates": "2025",
