@@ -31,7 +31,7 @@ This portfolio represents my journey as a developer, showcasing projects, skills
 | :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
 | ![Astro](https://img.shields.io/badge/Astro-FF5D01?style=flat-square&logo=astro&logoColor=white) | ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white) | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white) |
 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) |     ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white)      |     ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)      |
-|  ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)   |           ![NPM](https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white)            | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white) |
+|  ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)   |           ![PNPM](https://img.shields.io/badge/PNPM-F69220?style=flat-square&logo=pnpm&logoColor=white)            | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white) |
 
 </div>
 
@@ -83,7 +83,7 @@ gyaanendra-dev-portfolio/
 ### Prerequisites
 
 - Node.js 16+
-- npm/yarn/pnpm
+- pnpm
 
 ### Installation
 
@@ -95,20 +95,20 @@ git clone https://github.com/your-username/gyaanendra-dev-portfolio.git
 cd gyaanendra-dev-portfolio
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm dev
 ```
 
 ### 🔧 **Available Scripts**
 
-| Command           | Description                                     |
-| ----------------- | ----------------------------------------------- |
-| `npm run dev`     | 🚀 Start development server at `localhost:4321` |
-| `npm run build`   | 🏗️ Build production site to `./dist/`           |
-| `npm run preview` | 👀 Preview build locally                        |
-| `npm run astro`   | 🛠️ Run Astro CLI commands                       |
+| Command          | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `pnpm dev`       | 🚀 Start development server at `localhost:4321` |
+| `pnpm build`     | 🏗️ Build production site to `./dist/`           |
+| `pnpm preview`   | 👀 Preview build locally                        |
+| `pnpm astro`     | 🛠️ Run Astro CLI commands                       |
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 import { remark } from "remark";
 import html from "remark-html";
-import { FileText } from "lucide-astro";
+import { FileText } from "@lucide/astro";
 const { summary } = Astro.props;
 const processedSummary = await remark().use(html).process(summary);
 ---
