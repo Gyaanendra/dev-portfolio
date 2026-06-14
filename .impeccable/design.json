@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-14T16:12:00Z",
+  "title": "Design System: Gyanendra Prakash Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Emerald Green", "canonical": "#00a65a", "tonalRamp": ["#002b17", "#004726", "#006336", "#008047", "#00a65a", "#12c776", "#45e69b", "#8fffc9"] },
+      "primary-dark": { "role": "primary", "displayName": "Neon Green", "canonical": "#00ff88", "tonalRamp": ["#00331b", "#005c31", "#008c4b", "#00c268", "#00ff88", "#45ffa7", "#8fffc9", "#d4ffe9"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display Serif", "purpose": "Hero and major section headings only." },
+      "body": { "displayName": "Body Mono", "purpose": "Paragraphs, lists, tags, and all data blocks." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out-exponential", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Tactile scale transitions, menu toggles, and reveal timings." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [],
+  "narrative": {
+    "northStar": "The Editorial Sanctuary",
+    "overview": "This visual system features high-contrast layouts, fine lines, structural typography, and strict spacing constraints. It uses monospaced elements for structured data and a serif style for headings.",
+    "keyCharacteristics": [
+      "High-contrast background/foreground values",
+      "Serif display headers matched with monospace body typography",
+      "Fine borders (1px solid) without shadows",
+      "Direct state transition animations (active: scale(0.97))"
+    ],
+    "rules": [
+      { "name": "The Single-Accent Rule", "body": "Only the accent color (emerald/neon green) is used for visual highlights. No other colored accents are permitted.", "section": "colors" },
+      { "name": "The Shadow Prohibition", "body": "Box shadows are not allowed on cards or standard containers. Spacing and thin borders are the sole dividers of sections.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do preserve the monochrome-editorial aesthetics.",
+      "Do keep text alignments aligned to structural grid margins."
+    ],
+    "donts": [
+      "Don't use multi-color gradient accents.",
+      "Don't apply round corners with radius > 8px.",
+      "Don't use box-shadow with blur > 8px alongside a border."
+    ]
+  }
+}

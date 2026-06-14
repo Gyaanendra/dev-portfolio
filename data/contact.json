@@ -1,0 +1,28 @@
+{
+   "contact": {
+      "email": "gyanendraprakash10@gmail.com",
+      "tel": "+91 9779515993",
+      "social": {
+         "GitHub": {
+            "name": "GitHub",
+            "url": "https://github.com/Gyaanendra",
+            "navbar": true
+         },
+         "LinkedIn": {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/gyanendra-prakash-3b6293324/",
+            "navbar": true
+         },
+         "X": {
+            "name": "X",
+            "url": "https://x.com/Gyaanendra1",
+            "navbar": true
+         },
+         "email": {
+            "name": "Send Email",
+            "url": "mailto:gyanendraprakash10@gmail.com",
+            "navbar": true
+         }
+      }
+   }
+}

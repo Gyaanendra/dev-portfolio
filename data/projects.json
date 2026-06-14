@@ -1,0 +1,77 @@
+{
+   "projects": [
+      {
+         "title": "Fake News Classifier",
+         "href": "https://github.com/Gyaanendra/AIML-PROJECT-CSET312",
+         "dates": "2025",
+         "active": true,
+         "description": "LLM-augmented fake news detection using fine-tuned deep learning models. FastAPI backend + frontend UI.",
+         "technologies": [
+            "Python",
+            "PyTorch",
+            "Hugging Face",
+            "Ollama"
+         ],
+         "links": [
+            {
+               "type": "GitHub",
+               "href": "https://github.com/Gyaanendra/AIML-PROJECT-CSET312"
+            }
+         ],
+         "image": "/pro/fakenews2.png"
+      },
+      {
+         "title": "KnightSight EdgeVision",
+         "href": "https://huggingface.co/spaces/gyaanendra/deepsightsapiens",
+         "dates": "2025",
+         "active": true,
+         "description": "Edge-optimized ANPR system achieving 99.49% mAP@50 with only 2.6M params. Dual OCR + night vision.",
+         "technologies": [
+            "YOLOv11",
+            "PyTorch",
+            "ONNX",
+            "OpenCV"
+         ],
+         "links": [
+            {
+               "type": "GitHub",
+               "href": "https://github.com/Gyaanendra/deepsight-sapiens"
+            },
+            {
+               "type": "Live Demo",
+               "href": "https://huggingface.co/spaces/gyaanendra/deepsightsapiens"
+            }
+         ],
+         "image": "/pro/knightsight.png"
+      },
+      {
+         "title": "Penguin Classifier",
+         "href": "https://github.com/Gyaanendra/Penguin-Predictor",
+         "dates": "2025",
+         "active": true,
+         "description": "Species classification using morphological data with Streamlit visualization and Scikit-learn pipeline.",
+         "technologies": [
+            "Python",
+            "Streamlit",
+            "Scikit-learn"
+         ],
+         "links": [
+            {
+               "type": "GitHub",
+               "href": "https://github.com/Gyaanendra/Penguin-Predictor"
+            }
+         ],
+         "image": "/pro/penguin.png"
+      },
+      {
+         "title": "Coming Soon",
+         "href": "",
+         "dates": "2025",
+         "active": true,
+         "description": "More projects are currently under development. Stay tuned for updates!",
+         "technologies": [],
+         "links": [],
+         "image": "/comingsoon.png"
+      }
+   ]
+}

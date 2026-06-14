@@ -1,0 +1,36 @@
+{
+   "name": "Gyanendra Prakash",
+   "initials": "GP",
+   "url": "https://dev-portfolio-taupe-five.vercel.app/",
+   "location": "Mohali Punjab, India",
+   "locationLink": "/",
+   "description": "A curious developer/undergraduate with a growing interest in AI, LLMs, and the evolving landscape of intelligent systems.",
+   "summary": "I am **Gyanendra Prakash**, a **second-year Bachelor of Technology student** from **India**, currently pursuing **Computer Science Engineering**. While still early in my academic journey, I am deeply passionate about the world of **Artificial Intelligence**, especially **Large Language Models**, **intelligent agents**, and seamless **AI integrations**. I have also **won 3 hackathons**, where I enjoyed solving complex problems and collaborating with talented teams. I love **self-hosting things** and have a **Hermes agent in the cloud**, along with a **personal old desktop PC to server project**. Beyond tech, I enjoy immersing myself in **video games**, exploring **cinematic universes**, and experimenting with new **recipes in the kitchen**.",
+   "avatarUrl": "/images/me1.jpg",
+   "education": [
+      {
+         "school": "Bennett University",
+         "href": "https://bennett.edu.in/",
+         "degree": "Bachelor's of Technology in Computer Science Engineering",
+         "logoUrl": "/images/bennett.png",
+         "start": "2024",
+         "end": "2028"
+      },
+      {
+         "school": "Goverment Model Senior Secondary School Sector 35-D",
+         "href": "https://gmsss35.com/",
+         "degree": "Senior Secondary (CBSE) | XII - 86.6%",
+         "logoUrl": "/images/gmsss35.png",
+         "start": "2022",
+         "end": "2024"
+      },
+      {
+         "school": "Manav Mangal Smart School",
+         "href": "https://manavmangal.school/mmss-64-mohali",
+         "degree": "Secondary (CBSE) | X - 88.8%",
+         "logoUrl": "/images/mmss.png",
+         "start": "2010",
+         "end": "2022"
+      }
+   ]
+}

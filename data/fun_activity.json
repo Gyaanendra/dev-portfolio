@@ -1,0 +1,64 @@
+{
+   "fun": [
+      {
+         "title": "Club Battle",
+         "dates": "Nov 2025",
+         "location": "AIS Bennett University",
+         "image": "/images/fun/club._battle.jpg"
+      },
+      {
+         "title": "Netruon",
+         "dates": "Apr 2025",
+         "location": "NST Riverhood campus",
+         "image": "/images/fun/nst2.jpg"
+      },
+      {
+         "title": "Netruon",
+         "dates": "Apr 2025",
+         "location": "NST Riverhood campus",
+         "image": "/images/fun/nst.jpeg"
+      },
+      {
+         "title": "Hackaccino",
+         "dates": "Apr 2025",
+         "location": "CSI Bennett University",
+         "image": "/images/fun/hackachino.jpeg"
+      },
+      {
+         "title": "LEXHack",
+         "dates": "Apr 2025",
+         "location": "Bennett University",
+         "image": "/images/fun/lex.jpg"
+      },
+      {
+         "title": "Uphoria 2026",
+         "dates": "Feb 2026",
+         "location": "Bennett University",
+         "image": "/images/fun/fest2.jpg"
+      },
+      {
+         "title": "Hostel Gang",
+         "dates": "",
+         "location": "Bennett University",
+         "image": "/images/fun/hostelGang.jpg"
+      },
+      {
+         "title": "Uphoria 2026",
+         "dates": "Feb 2026",
+         "location": "Bennett University",
+         "image": "/images/fun/fest1.jpg"
+      },
+      {
+         "title": "Day Out",
+         "dates": "2025",
+         "location": "Delhi",
+         "image": "/images/fun/dayout2.jpg"
+      },
+      {
+         "title": "Day Out",
+         "dates": "2025",
+         "location": "Delhi",
+         "image": "/images/fun/dayout1.jpg"
+      }
+   ]
+}
