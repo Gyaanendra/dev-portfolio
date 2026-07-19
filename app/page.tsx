@@ -22,6 +22,7 @@ export default function Home() {
   const [isNavTransitioning, setIsNavTransitioning] = useState(false);
   const [isNavActive, setIsNavActive] = useState(false);
   const [isTextVisible, setIsTextVisible] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const lenis = useLenis();
 
@@ -317,7 +318,8 @@ export default function Home() {
             G.Prakash
           </a>
 
-          <div className="flex items-center gap-4 text-xs md:text-sm">
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-4 text-sm">
             <a
               href="#about"
               onClick={(e) => handleNavClick(e, "#about")}
@@ -346,7 +348,6 @@ export default function Home() {
               [contact]
             </a>
 
-            {/* Theme Switcher Button */}
             <button
               onClick={toggleTheme}
               className="ml-2 px-2 py-1 border border-border-custom hover:border-accent hover:text-accent bg-card transition-colors duration-200 text-xs flex items-center rounded"
@@ -355,7 +356,75 @@ export default function Home() {
               [{theme === "light" ? "dark" : "light"}]
             </button>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="md:hidden flex flex-col gap-1.5 p-2 text-muted hover:text-accent transition-colors"
+            aria-label="Open menu"
+          >
+            <span className="block w-5 h-[1.5px] bg-current rounded-full" />
+            <span className="block w-5 h-[1.5px] bg-current rounded-full" />
+            <span className="block w-5 h-[1.5px] bg-current rounded-full" />
+          </button>
         </div>
+
+        {/* Mobile slide-in panel */}
+        <>
+          {/* Backdrop */}
+          <div
+            className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 md:hidden ${
+              mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          {/* Panel */}
+          <div
+            className={`fixed top-0 right-0 z-50 h-full w-56 bg-background border-l border-border-custom transition-transform duration-300 ease-out md:hidden ${
+              mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
+          >
+            <div className="flex flex-col gap-2 p-8 pt-24">
+              <a
+                href="#about"
+                onClick={(e) => { handleNavClick(e, "#about"); setMobileMenuOpen(false); }}
+                className={`text-lg font-serif transition-colors ${
+                  activeSection === "about" ? "text-accent" : "text-muted hover:text-accent"
+                }`}
+              >
+                [about]
+              </a>
+              <a
+                href="#projects"
+                onClick={(e) => { handleNavClick(e, "#projects"); setMobileMenuOpen(false); }}
+                className={`text-lg font-serif transition-colors ${
+                  activeSection === "projects" ? "text-accent" : "text-muted hover:text-accent"
+                }`}
+              >
+                [projects]
+              </a>
+              <a
+                href="#contact"
+                onClick={(e) => { handleNavClick(e, "#contact"); setMobileMenuOpen(false); }}
+                className={`text-lg font-serif transition-colors ${
+                  activeSection === "contact" ? "text-accent" : "text-muted hover:text-accent"
+                }`}
+              >
+                [contact]
+              </a>
+
+              <div className="mt-6 pt-6 border-t border-border-custom">
+                <button
+                  onClick={(e) => { toggleTheme(e); setMobileMenuOpen(false); }}
+                  className="text-sm text-muted hover:text-accent transition-colors font-mono"
+                >
+                  [{theme === "light" ? "dark" : "light"}]
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       </nav>
 
       {/* Main Container */}

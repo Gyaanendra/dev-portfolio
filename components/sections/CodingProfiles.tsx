@@ -257,22 +257,39 @@ function HeatmapCard({
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          {/* Year selector — pills matching Stepcode style */}
-          <div className="flex border border-border-custom rounded-sm overflow-hidden">
-            {yearOptions.map((opt) => (
-              <button
-                key={opt.label}
-                onClick={() => setMode(opt.value)}
-                className={`px-2.5 py-1 text-[11px] font-mono font-medium transition-colors duration-150 ${
-                  opt.value === mode
-                    ? "bg-accent text-background"
-                    : "text-muted hover:text-foreground hover:bg-card"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
+          {/* Year selector — pills on sm+, dropdown on mobile */}
+            {/* Pills: sm+ */}
+            <div className="hidden sm:flex border border-border-custom rounded-sm overflow-hidden">
+              {yearOptions.map((opt) => (
+                <button
+                  key={opt.label}
+                  onClick={() => setMode(opt.value)}
+                  className={`px-2.5 py-1 text-[11px] font-mono font-medium transition-colors duration-150 ${
+                    opt.value === mode
+                      ? "bg-accent text-background"
+                      : "text-muted hover:text-foreground hover:bg-card"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Dropdown: mobile only */}
+            <select
+              value={mode === null ? "Recent" : String(mode)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setMode(val === "Recent" ? null : Number(val));
+              }}
+              className="sm:hidden px-2 py-1 text-[11px] font-mono bg-card border border-border-custom rounded-sm text-foreground focus:outline-none focus:border-accent appearance-none cursor-pointer"
+            >
+              {yearOptions.map((opt) => (
+                <option key={opt.label} value={opt.label}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
 
           {/* Refresh */}
           <button
