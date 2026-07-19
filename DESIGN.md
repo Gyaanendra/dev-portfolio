@@ -12,10 +12,10 @@ colors:
   border-dark: "#1f1f1f"
 typography:
   display:
-    fontFamily: "var(--font-instrument-serif), serif"
+    fontFamily: "var(--font-space-grotesk), sans-serif"
     fontSize: "clamp(2.5rem, 7vw, 4.5rem)"
   body:
-    fontFamily: "var(--font-ibm-plex-mono), monospace"
+    fontFamily: "var(--font-jetbrains-mono), monospace"
     fontSize: "14px"
 rounded:
   sm: "2px"
@@ -57,8 +57,8 @@ A high-contrast neutral layout punctuated by a single neon green/emerald green a
 
 ## 3. Typography
 
-**Display Font:** Instrument Serif (with fallback serif)
-**Body Font:** IBM Plex Mono (with fallback monospace)
+**Display Font:** Space Grotesk (geometric sans-serif, via CSS var `--font-space-grotesk` mapped as `--font-serif`)
+**Body Font:** JetBrains Mono (monospace, via CSS var `--font-jetbrains-mono` mapped as `--font-mono`)
 
 ### Hierarchy
 - **Display** (weight: 400, size: text-6xl to text-9xl, font: serif): Hero header hierarchy and title highlights.

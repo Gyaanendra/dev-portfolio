@@ -7,9 +7,8 @@ export default function Projects() {
       className="scroll-mt-24 flex flex-col gap-8 fade-up-element"
     >
       <div className="border-b border-border-custom pb-4">
-        <h2 className="font-mono text-sm tracking-widest uppercase flex items-center gap-3">
-          <span className="text-accent font-semibold">02</span>
-          <span className="text-muted/60">Projects</span>
+        <h2 className="font-serif text-5xl md:text-6xl tracking-tight">
+          05 / Projects
         </h2>
       </div>
 

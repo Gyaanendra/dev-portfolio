@@ -57,8 +57,8 @@ export default function Skills() {
       </div>
 
       <p className="text-xs text-muted max-w-lg mb-2 fade-up-item delay-100">
-        Dynamic horizontal index of tools, packages, and frameworks. Hover over
-        a skill block to lock focus.
+        Dynamic horizontal index of tools, packages, and frameworks. Hover to
+        pause the scroll and inspect.
       </p>
 
       <div className="border-y border-border-custom py-6 flex flex-col gap-6 select-none bg-card/20 relative fade-up-item delay-200">

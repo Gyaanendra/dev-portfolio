@@ -7,7 +7,7 @@ export default function Contact() {
       className="scroll-mt-24 flex flex-col gap-12 relative py-12 min-h-[40vh] justify-center items-center text-center fade-up-element overflow-hidden"
     >
       {/* Faded Background Text */}
-      <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none opacity-[0.02] dark:opacity-[0.03]">
+      <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none opacity-[0.05] dark:opacity-[0.06]">
         <span className="font-serif text-9xl sm:text-[14rem] md:text-[18rem] font-bold tracking-tighter leading-none whitespace-nowrap">
           G.Prakash
         </span>

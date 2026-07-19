@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import HeatmapGrid, { CalendarDay } from "@/components/HeatmapGrid";
 
 const GITHUB_USER = "Gyaanendra";
@@ -122,27 +123,50 @@ function computeStats(weeks: CalendarDay[][]) {
 
 // ─── Tooltip ─────────────────────────────────────────────────────
 
-function Tooltip({
-  text,
-  x,
-  y,
-  visible,
-}: {
+function Tooltip({ text, rect, visible }: {
   text: string;
-  x: number;
-  y: number;
+  rect: { top: number; left: number; width: number; height: number; bottom: number };
   visible: boolean;
 }) {
-  if (!visible) return null;
-  return (
+  if (!visible || typeof window === "undefined") return null;
+
+  const gap = 8;
+  const arrowSize = 5;
+  const estimatedH = 32;
+  const above = rect.top > estimatedH + gap + arrowSize;
+
+  return createPortal(
     <div
-      className="fixed pointer-events-none z-50"
-      style={{ left: x + 14, top: y + 14 }}
+      className="fixed z-[9999] pointer-events-none"
+      style={{
+        left: rect.left + rect.width / 2,
+        top: above ? rect.top - gap : rect.bottom + gap,
+        transform: above ? "translateX(-50%) translateY(-100%)" : "translateX(-50%)",
+      }}
     >
-      <div className="bg-foreground text-background text-[11px] font-mono px-3 py-1.5 rounded-[4px] shadow-lg whitespace-nowrap border border-border-custom">
+      <div className="relative bg-[#1c1c1c] text-white/90 text-[11px] font-mono px-3 py-1.5 rounded-[5px] whitespace-nowrap shadow-lg">
         {text}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 w-0 h-0"
+          style={{
+            ...(above
+              ? {
+                  bottom: `-${arrowSize}px`,
+                  borderLeft: `${arrowSize}px solid transparent`,
+                  borderRight: `${arrowSize}px solid transparent`,
+                  borderTop: `${arrowSize}px solid #1c1c1c`,
+                }
+              : {
+                  top: `-${arrowSize}px`,
+                  borderLeft: `${arrowSize}px solid transparent`,
+                  borderRight: `${arrowSize}px solid transparent`,
+                  borderBottom: `${arrowSize}px solid #1c1c1c`,
+                }),
+          }}
+        />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -168,7 +192,11 @@ function HeatmapCard({
   const hasDataRef = useRef(false);
 
   // Tooltip state
-  const [tooltip, setTooltip] = useState({ text: "", x: 0, y: 0, visible: false });
+  const [tooltip, setTooltip] = useState<{
+    text: string;
+    rect: { top: number; left: number; width: number; height: number; bottom: number };
+    visible: boolean;
+  }>({ text: "", rect: { top: 0, left: 0, width: 0, height: 0, bottom: 0 }, visible: false });
 
   const fetchData = useCallback(
     async (m: number | null, forceRefresh = false) => {
@@ -364,13 +392,13 @@ function HeatmapCard({
           weeks={weeks}
           type={platform}
           year={mode}
-          onHover={(e, text) => setTooltip({ text, x: e.clientX, y: e.clientY, visible: true })}
+          onHover={(rect, text) => setTooltip({ text, rect, visible: true })}
           onLeave={() => setTooltip((t) => ({ ...t, visible: false }))}
         />
       )}
 
       {/* Floating tooltip */}
-      <Tooltip text={tooltip.text} x={tooltip.x} y={tooltip.y} visible={tooltip.visible} />
+      <Tooltip text={tooltip.text} rect={tooltip.rect} visible={tooltip.visible} />
     </div>
   );
 }

@@ -8,10 +8,18 @@ export interface CalendarDay {
   level: number; // 0-4
 }
 
+interface CellRect {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+  bottom: number;
+}
+
 interface HeatmapGridProps {
   weeks: CalendarDay[][];
   type: "github" | "leetcode";
-  onHover: (e: React.MouseEvent, text: string) => void;
+  onHover: (rect: CellRect, text: string) => void;
   onLeave: () => void;
   year: number | null;
 }
@@ -117,10 +125,17 @@ export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: Hea
                           day: "numeric",
                         })
                       : "";
-                    const label = type === "github" ? "contributions" : "submissions";
+                    const plural = type === "github" ? "contributions" : "submissions";
+                    const singular = type === "github" ? "contribution" : "submission";
+                    const label = day.count === 1 ? singular : plural;
                     const hoverText = day.date
                       ? `${day.count} ${label} on ${dateLabel}`
                       : "";
+
+                    const handleHover = (e: React.MouseEvent) => {
+                      const r = e.currentTarget.getBoundingClientRect();
+                      onHover({ top: r.top, left: r.left, width: r.width, height: r.height, bottom: r.bottom }, hoverText);
+                    };
 
                     return (
                       <div
@@ -130,8 +145,8 @@ export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: Hea
                         <div
                           className="w-[12px] h-[12px] rounded-[3.5px] cursor-pointer transition-transform duration-75 hover:scale-[1.25] hover:z-10 hover:outline hover:outline-[1.5px] hover:outline-offset-[1px] hover:outline-foreground"
                           style={{ backgroundColor: cellColor }}
-                          onMouseEnter={(e) => onHover(e, hoverText)}
-                          onMouseMove={(e) => onHover(e, hoverText)}
+                          onMouseEnter={handleHover}
+                          onMouseMove={handleHover}
                           onMouseLeave={onLeave}
                         />
                       </div>
