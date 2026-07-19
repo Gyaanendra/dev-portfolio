@@ -364,7 +364,7 @@ export default function Home() {
         <About />
         <Skills />
         <Experience />
-        <CodingProfiles theme={theme} />
+        <CodingProfiles />
         <Projects />
         <EducationClubs />
         <Activities />

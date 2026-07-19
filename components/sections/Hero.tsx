@@ -9,7 +9,7 @@ export default function Hero() {
     >
       <div className="flex-1 flex flex-col gap-6 text-left">
         {/* Huge screen-filling typography */}
-        <h1 className="text-6xl sm:text-8xl md:text-9xl font-serif leading-none tracking-tighter text-foreground select-none relative z-10 break-words md:-ml-2">
+        <h1 className="text-6xl sm:text-8xl md:text-9xl font-serif leading-none tracking-tighter text-foreground select-none relative z-10 break-words">
           {"Hi, I'm"}
           <br />
           <span className="text-accent italic font-normal tracking-wide relative">
