@@ -429,6 +429,7 @@ html.lenis body {
   .photo-card { animation: none !important; }
   .badge-pill  { animation: none !important; }
   .hero-fade   { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .mobile-menu-overlay { transition-duration: 0.01ms !important; }
 }
 
 /* ─── END HERO ANIMATIONS ─────────────────────────────────────── */

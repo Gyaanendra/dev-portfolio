@@ -23,6 +23,17 @@ export default function Home() {
   const [isNavActive, setIsNavActive] = useState(false);
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const [menuOrigin, setMenuOrigin] = useState({ x: 0, y: 0 });
+
+  const closeMenu = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setClosing(false);
+    }, 200);
+  };
 
   const lenis = useLenis();
 
@@ -359,7 +370,14 @@ export default function Home() {
 
           {/* Mobile hamburger */}
           <button
-            onClick={() => setMobileMenuOpen(true)}
+            ref={hamburgerRef}
+            onClick={() => {
+              if (hamburgerRef.current) {
+                const r = hamburgerRef.current.getBoundingClientRect();
+                setMenuOrigin({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+              }
+              setMobileMenuOpen(true);
+            }}
             className="md:hidden flex flex-col gap-1.5 p-2 text-muted hover:text-accent transition-colors"
             aria-label="Open menu"
           >
@@ -368,64 +386,85 @@ export default function Home() {
             <span className="block w-5 h-[1.5px] bg-current rounded-full" />
           </button>
         </div>
+      </nav>
 
-        {/* Mobile slide-in panel */}
-        <>
-          {/* Backdrop */}
+      {/* Mobile circular menu overlay */}
+      <>
+        {/* Overlay */}
+        <div
+          className={`mobile-menu-overlay fixed inset-0 z-50 bg-black/60 backdrop-blur-lg md:hidden ${
+            mobileMenuOpen ? "" : "pointer-events-none"
+          }`}
+          style={{
+            clipPath: `circle(${mobileMenuOpen ? "141%" : "0%"} at ${menuOrigin.x || 9999}px ${menuOrigin.y || 0}px)`,
+            transition: "clip-path 500ms cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 300ms ease",
+          }}
+          onClick={closeMenu}
+        >
+          {/* Content wrapper */}
           <div
-            className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 md:hidden ${
-              mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-            onClick={() => setMobileMenuOpen(false)}
-          />
-
-          {/* Panel */}
-          <div
-            className={`fixed top-0 right-0 z-50 h-full w-56 bg-background/80 backdrop-blur-lg border-l border-border-custom transition-transform duration-300 ease-out md:hidden ${
-              mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-            }`}
+            onClick={(e) => e.stopPropagation()}
+            className="flex flex-col items-center justify-center h-full gap-10"
           >
-            <div className="flex flex-col gap-2 p-8 pt-24">
-              <a
-                href="#about"
-                onClick={(e) => { handleNavClick(e, "#about"); setMobileMenuOpen(false); }}
-                className={`text-lg font-serif transition-colors ${
-                  activeSection === "about" ? "text-accent" : "text-muted hover:text-accent"
-                }`}
-              >
-                [about]
-              </a>
-              <a
-                href="#projects"
-                onClick={(e) => { handleNavClick(e, "#projects"); setMobileMenuOpen(false); }}
-                className={`text-lg font-serif transition-colors ${
-                  activeSection === "projects" ? "text-accent" : "text-muted hover:text-accent"
-                }`}
-              >
-                [projects]
-              </a>
-              <a
-                href="#contact"
-                onClick={(e) => { handleNavClick(e, "#contact"); setMobileMenuOpen(false); }}
-                className={`text-lg font-serif transition-colors ${
-                  activeSection === "contact" ? "text-accent" : "text-muted hover:text-accent"
-                }`}
-              >
-                [contact]
-              </a>
+            {/* Close button */}
+            <button
+              onClick={closeMenu}
+              className="absolute top-5 right-5 p-1 text-white/60 hover:text-white transition-colors"
+              aria-label="Close menu"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <line x1="4" y1="4" x2="20" y2="20" />
+                <line x1="20" y1="4" x2="4" y2="20" />
+              </svg>
+            </button>
 
-              <div className="mt-6 pt-6 border-t border-border-custom">
+            {[
+              { href: "#about", label: "[about]", id: "about", delay: 140 },
+              { href: "#projects", label: "[projects]", id: "projects", delay: 220 },
+              { href: "#contact", label: "[contact]", id: "contact", delay: 300 },
+            ].map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                onClick={(e) => { handleNavClick(e, item.href); closeMenu(); }}
+                className="text-3xl font-serif transition-colors"
+                style={{
+                  transitionDuration: "400ms, 400ms, 200ms",
+                  transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1), ease",
+                  transitionProperty: "opacity, transform, color",
+                  transitionDelay: mobileMenuOpen && !closing ? `${item.delay}ms` : "0ms",
+                  opacity: mobileMenuOpen && !closing ? 1 : 0,
+                  transform: mobileMenuOpen && !closing ? "translateY(0)" : "translateY(24px)",
+                }}
+              >
+                <span className={activeSection === item.id ? "text-accent" : "text-white/90 hover:text-accent"}>
+                  {item.label}
+                </span>
+              </a>
+            ))}
+
+            {/* Theme toggle */}
+            <div
+              style={{
+                transitionDuration: "400ms",
+                transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+                transitionProperty: "opacity",
+                transitionDelay: mobileMenuOpen && !closing ? "380ms" : "0ms",
+                opacity: mobileMenuOpen && !closing ? 1 : 0,
+              }}
+            >
+              <div className="pt-4 border-t border-white/20">
                 <button
-                  onClick={(e) => { toggleTheme(e); setMobileMenuOpen(false); }}
-                  className="text-sm text-muted hover:text-accent transition-colors font-mono"
+                  onClick={(e) => { toggleTheme(e); closeMenu(); }}
+                  className="text-base text-white/60 hover:text-white transition-colors font-mono"
                 >
                   [{theme === "light" ? "dark" : "light"}]
                 </button>
               </div>
             </div>
           </div>
-        </>
-      </nav>
+        </div>
+      </>
 
       {/* Main Container */}
       <main className="max-w-5xl mx-auto px-6 pt-32 flex flex-col gap-24 md:gap-36">
