@@ -381,7 +381,7 @@ export default function Home() {
 
           {/* Panel */}
           <div
-            className={`fixed top-0 right-0 z-50 h-full w-56 bg-background border-l border-border-custom transition-transform duration-300 ease-out md:hidden ${
+            className={`fixed top-0 right-0 z-50 h-full w-56 bg-background/80 backdrop-blur-lg border-l border-border-custom transition-transform duration-300 ease-out md:hidden ${
               mobileMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
           >
