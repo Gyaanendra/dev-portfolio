@@ -8,8 +8,18 @@
     --accent: #00a65a;
     --border: #e5e5e5;
     --noise-opacity: 0.008;
-    --font-serif: var(--font-instrument-serif);
-    --font-mono: var(--font-ibm-plex-mono);
+    --font-serif: var(--font-space-grotesk);
+    --font-mono: var(--font-jetbrains-mono);
+    --gh-0: #ebedf0;
+    --gh-1: #9be9a8;
+    --gh-2: #40c463;
+    --gh-3: #30a14e;
+    --gh-4: #216e39;
+    --lc-0: #ebedf0;
+    --lc-1: #fcd6a5;
+    --lc-2: #f9a84d;
+    --lc-3: #f4871f;
+    --lc-4: #d96c06;
 }
 
 .dark {
@@ -20,6 +30,16 @@
     --accent: #00ff88;
     --border: #1f1f1f;
     --noise-opacity: 0.012;
+    --gh-0: #161b22;
+    --gh-1: #0e4429;
+    --gh-2: #006d32;
+    --gh-3: #26a641;
+    --gh-4: #39d353;
+    --lc-0: #161b22;
+    --lc-1: #3b2300;
+    --lc-2: #704300;
+    --lc-3: #b86e00;
+    --lc-4: #ffa116;
 }
 
 @theme {
