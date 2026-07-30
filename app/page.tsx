@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { flushSync } from "react-dom";
 import { useLenis } from "lenis/react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
@@ -16,7 +16,6 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [activeSection, setActiveSection] = useState<string>("about");
 
   const [isNavTransitioning, setIsNavTransitioning] = useState(false);
@@ -32,7 +31,7 @@ export default function Home() {
     setTimeout(() => {
       setMobileMenuOpen(false);
       setClosing(false);
-    }, 200);
+    }, 300);
   };
 
   const lenis = useLenis();
@@ -44,17 +43,17 @@ export default function Home() {
 
     setIsNavTransitioning(true);
     
-    // 1. Start sliding bars down/up (30ms delay to register DOM insertion)
+    // 1. Start sliding bars down/up
     setTimeout(() => {
       setIsNavActive(true);
     }, 30);
 
-    // 2. Bars fully cover screen by 640ms. At 650ms, fade in the green hollow text "Gyanendra."
+    // 2. Bars fully cover screen by 640ms. At 650ms, fade in text
     setTimeout(() => {
       setIsTextVisible(true);
     }, 650);
 
-    // 3. Keep text visible. At 1250ms, jump page scroll instantly under the hood while covered
+    // 3. Keep text visible. Jump page scroll under hood while covered
     setTimeout(() => {
       lenis?.scrollTo(targetId, {
         offset: -96,
@@ -69,13 +68,13 @@ export default function Home() {
       setActiveSection(targetId.substring(1));
     }, 1250);
 
-    // 4. At 1450ms, start peeling the bars away AND fade the text out simultaneously
+    // 4. Start peeling bars away AND fade text out simultaneously
     setTimeout(() => {
       setIsTextVisible(false);
       setIsNavActive(false);
     }, 1450);
 
-    // 5. At 2100ms (after bars fully open), unmount overlay
+    // 5. Unmount overlay
     setTimeout(() => {
       setIsNavTransitioning(false);
     }, 2100);
@@ -88,17 +87,14 @@ export default function Home() {
 
     setIsNavTransitioning(true);
     
-    // 1. Start sliding bars down/up
     setTimeout(() => {
       setIsNavActive(true);
     }, 30);
 
-    // 2. Fade in the green hollow text
     setTimeout(() => {
       setIsTextVisible(true);
     }, 650);
 
-    // 3. Jump page scroll instantly to top under the hood while covered
     setTimeout(() => {
       lenis?.scrollTo(0, {
         immediate: true,
@@ -109,13 +105,11 @@ export default function Home() {
       setActiveSection("about");
     }, 1250);
 
-    // 4. Start peeling the bars away AND fade the text out simultaneously
     setTimeout(() => {
       setIsTextVisible(false);
       setIsNavActive(false);
     }, 1450);
 
-    // 5. Unmount overlay
     setTimeout(() => {
       setIsNavTransitioning(false);
     }, 2100);
@@ -124,61 +118,6 @@ export default function Home() {
   // DOM References for high performance updates
   const cursorRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
-
-  // Initialize theme
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    if (savedTheme) {
-      setTimeout(() => {
-        setTheme(savedTheme);
-      }, 0);
-      if (savedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    } else {
-      // Light is default as requested ("keep the default light")
-      setTimeout(() => {
-        setTheme("light");
-      }, 0);
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  // Theme Toggle Handler
-  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    
-    document.documentElement.style.setProperty("--click-x", `${x}px`);
-    document.documentElement.style.setProperty("--click-y", `${y}px`);
-
-    const nextTheme = theme === "light" ? "dark" : "light";
-    
-    if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setTheme(nextTheme);
-      localStorage.setItem("theme", nextTheme);
-      if (nextTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      return;
-    }
-
-    document.startViewTransition(() => {
-      flushSync(() => {
-        setTheme(nextTheme);
-        localStorage.setItem("theme", nextTheme);
-        if (nextTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      });
-    });
-  };
 
   // Setup scroll progress and custom cursor tracking
   useEffect(() => {
@@ -292,7 +231,7 @@ export default function Home() {
         className="custom-cursor hidden pointer-events-none md:block"
       />
 
-      {/* Cool staggered page transition curtain overlay */}
+      {/* Staggered page transition curtain overlay */}
       {isNavTransitioning && (
         <div
           className={`fixed inset-0 z-[10002] flex transition-overlay ${
@@ -329,8 +268,8 @@ export default function Home() {
             G.Prakash
           </a>
 
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-4 text-sm">
+          {/* Desktop nav links & theme toggle */}
+          <div className="hidden md:flex items-center gap-5 text-sm">
             <a
               href="#about"
               onClick={(e) => handleNavClick(e, "#about")}
@@ -359,16 +298,10 @@ export default function Home() {
               [contact]
             </a>
 
-            <button
-              onClick={toggleTheme}
-              className="ml-2 px-2 py-1 border border-border-custom hover:border-accent hover:text-accent bg-card transition-colors duration-200 text-xs flex items-center rounded"
-              title="Toggle theme"
-            >
-              [{theme === "light" ? "dark" : "light"}]
-            </button>
+            <ThemeToggle className="ml-1" />
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile Morphing Hamburger Button */}
           <button
             ref={hamburgerRef}
             onClick={() => {
@@ -376,58 +309,62 @@ export default function Home() {
                 const r = hamburgerRef.current.getBoundingClientRect();
                 setMenuOrigin({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
               }
-              setMobileMenuOpen(true);
+              if (mobileMenuOpen) {
+                closeMenu();
+              } else {
+                setMobileMenuOpen(true);
+              }
             }}
-            className="md:hidden flex flex-col gap-1.5 p-2 text-muted hover:text-accent transition-colors"
-            aria-label="Open menu"
+            className="md:hidden relative z-50 flex flex-col justify-center items-center w-10 h-10 rounded-sm text-muted hover:text-accent focus:outline-none transition-colors"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            <span className="block w-5 h-[1.5px] bg-current rounded-full" />
-            <span className="block w-5 h-[1.5px] bg-current rounded-full" />
-            <span className="block w-5 h-[1.5px] bg-current rounded-full" />
+            <span
+              className={`block w-5 h-[1.5px] bg-current rounded-full transition-transform duration-300 origin-center ${
+                mobileMenuOpen ? "rotate-45 translate-y-[3px]" : "-translate-y-[4px]"
+              }`}
+            />
+            <span
+              className={`block w-5 h-[1.5px] bg-current rounded-full transition-opacity duration-200 ${
+                mobileMenuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block w-5 h-[1.5px] bg-current rounded-full transition-transform duration-300 origin-center ${
+                mobileMenuOpen ? "-rotate-45 -translate-y-[3px]" : "translate-y-[4px]"
+              }`}
+            />
           </button>
         </div>
       </nav>
 
       {/* Mobile circular menu overlay */}
-      <>
-        {/* Overlay */}
+      <div
+        className={`mobile-menu-overlay fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden ${
+          mobileMenuOpen ? "" : "pointer-events-none"
+        }`}
+        style={{
+          clipPath: `circle(${mobileMenuOpen && !closing ? "141%" : "0%"} at ${menuOrigin.x || 9999}px ${menuOrigin.y || 0}px)`,
+          transition: "clip-path 500ms cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 300ms ease",
+        }}
+        onClick={closeMenu}
+      >
+        {/* Content wrapper */}
         <div
-          className={`mobile-menu-overlay fixed inset-0 z-50 bg-black/60 backdrop-blur-lg md:hidden ${
-            mobileMenuOpen ? "" : "pointer-events-none"
-          }`}
-          style={{
-            clipPath: `circle(${mobileMenuOpen ? "141%" : "0%"} at ${menuOrigin.x || 9999}px ${menuOrigin.y || 0}px)`,
-            transition: "clip-path 500ms cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 300ms ease",
-          }}
-          onClick={closeMenu}
+          onClick={(e) => e.stopPropagation()}
+          className="flex flex-col items-center justify-between h-full pt-28 pb-12 px-8 max-w-sm mx-auto"
         >
-          {/* Content wrapper */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="flex flex-col items-center justify-center h-full gap-10"
-          >
-            {/* Close button */}
-            <button
-              onClick={closeMenu}
-              className="absolute top-5 right-5 p-1 text-white/60 hover:text-white transition-colors"
-              aria-label="Close menu"
-            >
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="4" y1="4" x2="20" y2="20" />
-                <line x1="20" y1="4" x2="4" y2="20" />
-              </svg>
-            </button>
-
+          {/* Section list */}
+          <div className="flex flex-col items-center gap-8 w-full">
             {[
-              { href: "#about", label: "[about]", id: "about", delay: 140 },
-              { href: "#projects", label: "[projects]", id: "projects", delay: 220 },
-              { href: "#contact", label: "[contact]", id: "contact", delay: 300 },
+              { href: "#about", label: "[about]", id: "about", num: "01", delay: 140 },
+              { href: "#projects", label: "[projects]", id: "projects", num: "02", delay: 220 },
+              { href: "#contact", label: "[contact]", id: "contact", num: "03", delay: 300 },
             ].map((item) => (
               <a
                 key={item.id}
                 href={item.href}
                 onClick={(e) => { handleNavClick(e, item.href); closeMenu(); }}
-                className="text-3xl font-serif transition-colors"
+                className="group relative flex items-center justify-between w-full pb-3 border-b border-border-custom font-serif text-3xl transition-all"
                 style={{
                   transitionDuration: "400ms, 400ms, 200ms",
                   transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1), ease",
@@ -437,34 +374,55 @@ export default function Home() {
                   transform: mobileMenuOpen && !closing ? "translateY(0)" : "translateY(24px)",
                 }}
               >
-                <span className={activeSection === item.id ? "text-accent" : "text-white/90 hover:text-accent"}>
+                <span className="text-xs font-mono text-muted group-hover:text-accent transition-colors">
+                  {item.num}.
+                </span>
+                <span className={activeSection === item.id ? "text-accent" : "text-foreground group-hover:text-accent transition-colors"}>
                   {item.label}
                 </span>
               </a>
             ))}
+          </div>
 
-            {/* Theme toggle */}
-            <div
-              style={{
-                transitionDuration: "400ms",
-                transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-                transitionProperty: "opacity",
-                transitionDelay: mobileMenuOpen && !closing ? "380ms" : "0ms",
-                opacity: mobileMenuOpen && !closing ? 1 : 0,
-              }}
-            >
-              <div className="pt-4 border-t border-white/20">
-                <button
-                  onClick={(e) => { toggleTheme(e); closeMenu(); }}
-                  className="text-base text-white/60 hover:text-white transition-colors font-mono"
-                >
-                  [{theme === "light" ? "dark" : "light"}]
-                </button>
-              </div>
+          {/* Footer Controls inside Mobile Menu */}
+          <div
+            className="flex flex-col items-center gap-6 w-full pt-6"
+            style={{
+              transitionDuration: "400ms",
+              transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionProperty: "opacity, transform",
+              transitionDelay: mobileMenuOpen && !closing ? "360ms" : "0ms",
+              opacity: mobileMenuOpen && !closing ? 1 : 0,
+              transform: mobileMenuOpen && !closing ? "translateY(0)" : "translateY(16px)",
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-muted font-mono">Theme:</span>
+              <ThemeToggle />
+            </div>
+
+            {/* Social links */}
+            <div className="flex items-center gap-6 text-xs text-muted font-mono">
+              <a
+                href="https://github.com/Gyaanendra"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors"
+              >
+                GitHub ↗
+              </a>
+              <a
+                href="https://www.linkedin.com/in/gyaanendra"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors"
+              >
+                LinkedIn ↗
+              </a>
             </div>
           </div>
         </div>
-      </>
+      </div>
 
       {/* Main Container */}
       <main className="max-w-5xl mx-auto px-6 pt-32 flex flex-col gap-24 md:gap-36">

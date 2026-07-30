@@ -1,12 +1,16 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import dataJson from "@/data/data.json";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { MorphingText } from "@/components/MorphingText";
 
-type BadgeDef = {
+type OrbitBadgeDef = {
   label: string;
-  className: string;
-  dur: string;
-  del: string;
   icon: React.ReactNode;
+  angleDeg: number;
 };
 
 function SvgIcon({ children, viewBox = "0 0 20 20" }: { children: React.ReactNode; viewBox?: string }) {
@@ -60,12 +64,6 @@ const icons = {
       <line x1="11.5" y1="15.5" x2="15.5" y2="11.5" />
     </SvgIcon>
   ),
-  Terminal: (
-    <SvgIcon>
-      <path d="M3 5l5 5-5 5" />
-      <line x1="11" y1="16" x2="17" y2="16" />
-    </SvgIcon>
-  ),
   Nextjs: (
     <SvgIcon viewBox="0 0 20 20">
       <rect x="2" y="2" width="16" height="16" rx="3" />
@@ -89,100 +87,144 @@ const icons = {
       <path d="M12 12c.4.6 1.2 1 2 1s1.5-.4 1.5-1-.5-.9-1.2-1.1l-.6-.2c-1-.3-1.8-1-1.8-2.1s.9-2 2.1-2c.8 0 1.5.3 2 .8" stroke="#fff" />
     </SvgIcon>
   ),
-  PyTorch: (
-    <SvgIcon>
-      <polygon points="10,2 3,16 17,16" />
-      <rect x="8.5" y="16" width="3" height="3" rx="0.5" />
-    </SvgIcon>
-  ),
-  Threejs: (
-    <SvgIcon>
-      <polygon points="10,2 18,15 2,15" />
-      <line x1="10" y1="2" x2="10" y2="15" />
-      <line x1="3" y1="11" x2="17" y2="11" />
-    </SvgIcon>
-  ),
-  TailwindCSS: (
-    <SvgIcon>
-      <path d="M4 13c0-3 1.5-5 4-6C6 8 5.5 10 6 12c.8 2 2.5 3 5 3 0 0-3 1-5 3-2 2-2 4 0 6 2-2 1.5-4 3-5 1.5-1 3.5-1 5-1" />
-    </SvgIcon>
-  ),
-  Firebase: (
-    <SvgIcon viewBox="0 0 20 20">
-      <path d="M4 17l3-14 4 7-2 3" />
-      <path d="M11 10l3-6 2 10-6 2" />
-      <path d="M7 17l4-8 3 6" />
-    </SvgIcon>
-  ),
 } satisfies Record<string, React.ReactNode>;
 
-const badges: BadgeDef[] = [
-  { label: "React",       className: "top-[2%] left-[2%] 2xl:left-[6%] hidden md:block",                               dur: "4.7s", del: "0.15s", icon: icons.React },
-  { label: "Next.js",     className: "top-[6%] left-[16%] hidden lg:block",                                             dur: "5.1s", del: "0.50s", icon: icons.Nextjs },
-  { label: "Python",      className: "top-[1%] right-[3%] 2xl:right-[7%] hidden md:block",                              dur: "5.3s", del: "0.70s", icon: icons.Python },
-  { label: "TypeScript",  className: "top-[7%] right-[16%] hidden lg:block",                                            dur: "4.5s", del: "0.25s", icon: icons.TypeScript },
-  { label: "Git",         className: "top-[24%] left-[1%] 2xl:left-[4%] hidden md:block",                               dur: "4.2s", del: "1.10s", icon: icons.Git },
-  { label: "Docker",      className: "top-[27%] right-[1%] 2xl:right-[5%] hidden lg:block",                             dur: "5.8s", del: "0.05s", icon: icons.Docker },
-  { label: "LLMs",        className: "top-[42%] left-[1%] 2xl:left-[3%] hidden md:block",                               dur: "6.1s", del: "0.55s", icon: icons.LLMs },
-  { label: "PostgreSQL",  className: "top-[46%] right-[1%] 2xl:right-[4%] hidden md:block",                             dur: "4.9s", del: "1.35s", icon: icons.PostgreSQL },
-  { label: "Three.js",    className: "bottom-[26%] left-[2%] hidden lg:block",                                          dur: "5.5s", del: "0.40s", icon: icons.Threejs },
-  { label: "PyTorch",     className: "bottom-[20%] right-[3%] hidden lg:block",                                         dur: "4.3s", del: "0.95s", icon: icons.PyTorch },
-  { label: "TailwindCSS", className: "bottom-[10%] left-[7%] hidden xl:block",                                          dur: "6.3s", del: "0.18s", icon: icons.TailwindCSS },
-  { label: "Firebase",    className: "bottom-[6%] right-[7%] hidden xl:block",                                          dur: "5.0s", del: "1.45s", icon: icons.Firebase },
+// 8 Orbit Badges spaced evenly around 360 deg
+const orbitBadges: OrbitBadgeDef[] = [
+  { label: "React",       icon: icons.React,      angleDeg: 0 },
+  { label: "Next.js",     icon: icons.Nextjs,     angleDeg: 45 },
+  { label: "Python",      icon: icons.Python,     angleDeg: 90 },
+  { label: "TypeScript",  icon: icons.TypeScript, angleDeg: 135 },
+  { label: "LLMs",        icon: icons.LLMs,       angleDeg: 180 },
+  { label: "Docker",      icon: icons.Docker,     angleDeg: 225 },
+  { label: "PostgreSQL",  icon: icons.PostgreSQL, angleDeg: 270 },
+  { label: "Git",         icon: icons.Git,        angleDeg: 315 },
+];
+
+const MORPH_TERMS = [
+  "Gyanendra",
+  "AI Engineer",
+  "Full Stack Developer",
+  "Tech Hobbyist",
+  "Problem Solver",
 ];
 
 export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [orbitRadius, setOrbitRadius] = useState({ rx: 330, ry: 205 });
+
+  // Calculate dynamic responsive orbit radii so badges float cleanly outside photo cards
+  useEffect(() => {
+    const updateRadius = () => {
+      const w = window.innerWidth;
+      const cardW = Math.max(160, Math.min(w * 0.3, 340));
+      const stackHalfW = cardW * 0.8;
+      const rx = Math.max(280, stackHalfW + 85);
+      const ry = Math.max(175, cardW * 0.68);
+      setOrbitRadius({ rx, ry });
+    };
+
+    updateRadius();
+    window.addEventListener("resize", updateRadius);
+    return () => window.removeEventListener("resize", updateRadius);
+  }, []);
+
+  useGSAP(
+    () => {
+      if (!containerRef.current) return;
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) return;
+
+      // ─── Staggered Entrance Animation ───
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.from(".hero-gsap-photo", {
+        y: 40,
+        opacity: 0,
+        scale: 0.95,
+        duration: 1.1,
+      })
+        .from(
+          ".hero-gsap-title",
+          {
+            y: 35,
+            opacity: 0,
+            duration: 0.9,
+          },
+          "-=0.7"
+        )
+        .from(
+          ".hero-gsap-desc",
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+          },
+          "-=0.5"
+        );
+    },
+    { scope: containerRef }
+  );
+
   return (
     <section
+      ref={containerRef}
       id="hero"
-      className="relative flex items-center justify-center min-h-[90vh] pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden"
+      className="relative flex items-center justify-center min-h-[90vh] pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden select-none"
     >
-      {/* ─── Subtle ambient glow behind content ─── */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden select-none" aria-hidden="true">
-        <div
-          className="rounded-full blur-3xl"
-          style={{
-            width: "clamp(300px, 60vw, 700px)",
-            height: "clamp(300px, 60vw, 700px)",
-            background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
-            opacity: 0.06,
-            transform: "translateY(-5%)",
-          }}
-        />
-      </div>
+      {/* ─── Centered Content Column ─── */}
+      <div className="relative z-20 flex flex-col items-center text-center gap-8 md:gap-10 px-5 max-w-4xl mx-auto w-full">
 
-      {/* ─── Floating tech badges ─── */}
-      <div className="absolute inset-0 pointer-events-none select-none z-10" aria-hidden="true">
-        {badges.map((b) => (
-          <span
-            key={b.label}
-            className={`absolute ${b.className}`}
-            style={{
-              animation: `hero-fade-up 0.7s cubic-bezier(0.16,1,0.3,1) ${b.del} backwards, badge-float ${b.dur} ease-in-out ${b.del} infinite`,
-            }}
-          >
-            <span className="badge-pill">
-              {b.icon}
-              {b.label}
-            </span>
-          </span>
-        ))}
-      </div>
-
-      {/* ─── Centered content column ─── */}
-      <div className="relative z-20 flex flex-col items-center text-center gap-7 md:gap-10 px-5 max-w-4xl mx-auto w-full">
-
-        {/* ─── Photo stack ─── */}
-        <div
-          className="hero-fade relative flex items-center justify-center w-full mx-auto"
-          style={{
-            maxWidth: "clamp(260px, 48vw, 544px)",
-            animation: "hero-fade-up 0.9s cubic-bezier(0.16,1,0.3,1) 0s backwards",
-          }}
-        >
+        {/* ─── Photo Stack & Revolving Orbit Container ─── */}
+        <div className="hero-gsap-photo relative flex items-center justify-center w-full py-6 my-2">
+          
+          {/* Static Ambient Glow centered directly behind photos */}
           <div
-            className="flex items-center justify-center"
-            style={{ "--card-w": "clamp(160px, 30vw, 340px)" } as React.CSSProperties}
+            className="absolute rounded-full blur-3xl pointer-events-none opacity-[0.09] select-none"
+            style={{
+              width: "clamp(300px, 50vw, 550px)",
+              height: "clamp(300px, 50vw, 550px)",
+              background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Orbit Badges Ring (Revolving smoothly outside photo cards) */}
+          <div className="hidden md:block absolute inset-0 pointer-events-none z-20 overflow-visible" aria-hidden="true">
+            <div className="animate-orbit-ring absolute inset-0 flex items-center justify-center">
+              {orbitBadges.map((b) => {
+                const rad = (b.angleDeg * Math.PI) / 180;
+                const x = Math.cos(rad) * orbitRadius.rx;
+                const y = Math.sin(rad) * orbitRadius.ry;
+
+                return (
+                  <div
+                    key={b.label}
+                    className="absolute pointer-events-auto"
+                    style={{
+                      transform: `translate(${x}px, ${y}px)`,
+                    }}
+                  >
+                    {/* Counter rotate each badge so icon & text stay upright */}
+                    <div className="animate-badge-upright">
+                      <span className="badge-pill group transition-all duration-300 hover:border-accent hover:text-accent hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,136,0.2)]">
+                        {b.icon}
+                        <span>{b.label}</span>
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Photo Stack */}
+          <div
+            className="relative z-10 flex items-center justify-center cursor-default"
+            style={{
+              "--card-w": "clamp(160px, 30vw, 340px)",
+            } as React.CSSProperties}
           >
             {/* Left photo */}
             <div
@@ -200,7 +242,7 @@ export default function Hero() {
                 fill
                 priority
                 sizes="(max-width: 600px) 160px, (max-width: 900px) 230px, 340px"
-                className="object-cover object-top grayscale contrast-115"
+                className="object-cover object-top grayscale contrast-115 transition-all duration-500 hover:grayscale-0 hover:scale-105"
               />
             </div>
             {/* Right photo */}
@@ -220,57 +262,32 @@ export default function Hero() {
                 fill
                 priority
                 sizes="(max-width: 600px) 160px, (max-width: 900px) 230px, 340px"
-                className="object-cover object-top"
+                className="object-cover object-top transition-transform duration-500 hover:scale-105"
               />
             </div>
           </div>
         </div>
 
-        {/* ─── Heading ─── */}
+        {/* ─── Morphing Title Heading ─── */}
         <h1
-          className="hero-fade font-serif text-foreground leading-[1.04] tracking-tight"
+          className="hero-gsap-title font-serif text-foreground leading-[1.08] tracking-tight flex flex-col items-center justify-center text-center w-full"
           style={{
             fontSize: "clamp(2.5rem, 9vw, 5.75rem)",
-            animation: "hero-fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s backwards",
           }}
         >
-          {"Hi, I'm"}
-          <br />
-          <span className="text-accent italic tracking-wide">
-            Gyanendra
-            <span className="inline-block animate-blink font-serif font-light text-foreground ml-1">
-              _
-            </span>
-          </span>
+          <span>{"Hi, I'm"}</span>
+          <div className="relative flex items-center justify-center w-full min-h-[1.25em] mt-1">
+            <MorphingText texts={MORPH_TERMS} />
+          </div>
         </h1>
 
-        {/* ─── Role tagline ─── */}
-        <p
-          className="hero-fade font-mono text-xs md:text-sm text-accent tracking-[0.15em] uppercase font-medium -mt-2 md:-mt-3"
-          style={{
-            animation: "hero-fade-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.35s backwards",
-          }}
-        >
-          AI Engineer &amp; Full Stack Developer
-        </p>
-
         {/* ─── Description ─── */}
-        <p
-          className="hero-fade max-w-2xl text-sm md:text-base leading-relaxed text-muted font-mono"
-          style={{
-            animation: "hero-fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.45s backwards",
-          }}
-        >
+        <p className="hero-gsap-desc max-w-2xl text-sm md:text-base leading-relaxed text-muted font-mono">
           {dataJson.description}
         </p>
 
-        {/* ─── Mobile badge row ─── */}
-        <div
-          className="hero-fade flex md:hidden flex-wrap justify-center gap-2 mt-2"
-          style={{
-            animation: "hero-fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s backwards",
-          }}
-        >
+        {/* ─── Mobile Badge Row ─── */}
+        <div className="flex md:hidden flex-wrap justify-center gap-2 mt-1">
           {["React", "Python", "Git", "LLMs", "Docker"].map((label) => (
             <span key={label} className="badge-pill text-[10px]">
               {label}

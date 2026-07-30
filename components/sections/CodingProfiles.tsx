@@ -199,7 +199,7 @@ function HeatmapCard({
   }>({ text: "", rect: { top: 0, left: 0, width: 0, height: 0, bottom: 0 }, visible: false });
 
   const fetchData = useCallback(
-    async (m: number | null, forceRefresh = false) => {
+    async (m: number | null, forceRefresh = true) => {
       setLoading(true);
       setError(null);
 
@@ -208,7 +208,9 @@ function HeatmapCard({
         if (m !== null) params.set("year", String(m));
         if (forceRefresh) params.set("refresh", "1");
 
-        const res = await fetch(`/api/${platform}/heatmap?${params}`);
+        const res = await fetch(`/api/${platform}/heatmap?${params}`, {
+          cache: "no-store",
+        });
         if (!res.ok) {
           const err = await res.json().catch(() => ({ error: "Failed to load" }));
           throw new Error(err.error || "Failed to load");
@@ -238,65 +240,74 @@ function HeatmapCard({
     [username, platform],
   );
 
+  // Auto refetch on mount and whenever mode changes
   useEffect(() => {
-    fetchData(mode);
+    fetchData(mode, true);
   }, [mode, fetchData]);
 
   // Build year options dynamically
   const yearOptions = buildYearOptions();
 
   return (
-    <div className="glow-card border border-border-custom bg-card rounded-sm p-4 md:p-6">
+    <div className="glow-card border border-border-custom bg-card rounded-sm p-4 md:p-6 transition-all duration-300 hover:border-accent/40">
       {/* Header */}
       <div className="flex items-start justify-between gap-3 mb-4">
         <div>
-          <h3 className="font-serif text-lg md:text-xl font-semibold text-foreground">
-            {title}
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="font-serif text-lg md:text-xl font-semibold text-foreground">
+              {title}
+            </h3>
+            {loading && (
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-accent/10 text-accent border border-accent/20 animate-pulse">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
+                fetching...
+              </span>
+            )}
+          </div>
           <p className="text-[11px] text-muted font-mono mt-0.5">@{username}</p>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
           {/* Year selector — pills on sm+, dropdown on mobile */}
-            {/* Pills: sm+ */}
-            <div className="hidden sm:flex border border-border-custom rounded-sm overflow-hidden">
-              {yearOptions.map((opt) => (
-                <button
-                  key={opt.label}
-                  onClick={() => setMode(opt.value)}
-                  className={`px-2.5 py-1 text-[11px] font-mono font-medium transition-colors duration-150 ${
-                    opt.value === mode
-                      ? "bg-accent text-background"
-                      : "text-muted hover:text-foreground hover:bg-card"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+          <div className="hidden sm:flex border border-border-custom rounded-sm overflow-hidden">
+            {yearOptions.map((opt) => (
+              <button
+                key={opt.label}
+                onClick={() => setMode(opt.value)}
+                className={`px-2.5 py-1 text-[11px] font-mono font-medium transition-colors duration-150 ${
+                  opt.value === mode
+                    ? "bg-accent text-background"
+                    : "text-muted hover:text-foreground hover:bg-card"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
 
-            {/* Dropdown: mobile only */}
-            <select
-              value={mode === null ? "Recent" : String(mode)}
-              onChange={(e) => {
-                const val = e.target.value;
-                setMode(val === "Recent" ? null : Number(val));
-              }}
-              className="sm:hidden px-2 py-1 text-[11px] font-mono bg-card border border-border-custom rounded-sm text-foreground focus:outline-none focus:border-accent appearance-none cursor-pointer"
-            >
-              {yearOptions.map((opt) => (
-                <option key={opt.label} value={opt.label}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+          {/* Dropdown: mobile only */}
+          <select
+            value={mode === null ? "Recent" : String(mode)}
+            onChange={(e) => {
+              const val = e.target.value;
+              setMode(val === "Recent" ? null : Number(val));
+            }}
+            className="sm:hidden px-2 py-1 text-[11px] font-mono bg-card border border-border-custom rounded-sm text-foreground focus:outline-none focus:border-accent appearance-none cursor-pointer"
+          >
+            {yearOptions.map((opt) => (
+              <option key={opt.label} value={opt.label}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
 
-          {/* Refresh */}
+          {/* Refresh button */}
           <button
             onClick={() => fetchData(mode, true)}
             disabled={loading}
             className="p-1.5 border border-border-custom rounded-sm text-muted hover:text-foreground hover:border-accent transition-colors duration-150 disabled:opacity-40"
-            title="Refresh data"
+            title="Refetch live data"
+            aria-label="Refetch live data"
           >
             <svg
               viewBox="0 0 24 24"
@@ -307,7 +318,7 @@ function HeatmapCard({
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={loading ? "animate-spin" : ""}
+              className={loading ? "animate-spin text-accent" : ""}
             >
               <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
             </svg>
@@ -405,13 +416,15 @@ function HeatmapCard({
 
       {/* Heatmap */}
       {weeks.length > 0 && (
-        <HeatmapGrid
-          weeks={weeks}
-          type={platform}
-          year={mode}
-          onHover={(rect, text) => setTooltip({ text, rect, visible: true })}
-          onLeave={() => setTooltip((t) => ({ ...t, visible: false }))}
-        />
+        <div className="transition-opacity duration-500 opacity-100">
+          <HeatmapGrid
+            weeks={weeks}
+            type={platform}
+            year={mode}
+            onHover={(rect, text) => setTooltip({ text, rect, visible: true })}
+            onLeave={() => setTooltip((t) => ({ ...t, visible: false }))}
+          />
+        </div>
       )}
 
       {/* Floating tooltip */}
@@ -428,10 +441,14 @@ export default function CodingProfiles() {
 
   return (
     <section id="profiles" className="scroll-mt-24 flex flex-col gap-8 fade-up-element">
-      <div className="border-b border-border-custom pb-4">
+      <div className="border-b border-border-custom pb-4 flex items-center justify-between">
         <h2 className="font-serif text-5xl md:text-6xl tracking-tight font-normal">
           04 / Code Profiles
         </h2>
+        <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono text-muted">
+          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+          Live Auto-Refreshed
+        </span>
       </div>
 
       <div className="flex flex-col gap-6">
