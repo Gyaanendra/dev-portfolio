@@ -28,7 +28,7 @@ export default function Experience() {
                 <h3 className="text-base font-bold text-foreground font-serif text-lg md:text-xl">
                   {job.title}
                 </h3>
-                <span className="text-xs text-accent flex items-center gap-1.5">
+                <span className="text-xs text-accent flex items-center gap-1.5 font-mono">
                   @ {job.company}
                   {job.end.toLowerCase() === "present" && (
                     <span className="relative flex h-2 w-2" title="Current Position">
@@ -43,7 +43,7 @@ export default function Experience() {
               </span>
             </div>
 
-            <div className="text-xs text-muted flex flex-wrap gap-2">
+            <div className="text-xs text-muted flex flex-wrap gap-2 font-mono">
               <span className="italic border border-border-custom px-2 py-0.5 rounded-sm bg-card/50">
                 {job.location}
               </span>
@@ -60,7 +60,7 @@ export default function Experience() {
               ))}
             </div>
 
-            <ul className="text-xs md:text-sm text-muted leading-relaxed space-y-2 pl-4 list-none mt-1">
+            <ul className="text-xs md:text-sm text-muted leading-relaxed space-y-2 pl-4 list-none mt-1 font-mono">
               {job.description.map((desc, dIdx) => (
                 <li key={dIdx} className="relative">
                   {renderFormattedText(desc)}

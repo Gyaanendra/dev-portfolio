@@ -1,3 +1,5 @@
+"use client";
+
 const frontendSkills = [
   "JavaScript",
   "React",
@@ -56,7 +58,7 @@ export default function Skills() {
         </h2>
       </div>
 
-      <p className="text-xs text-muted max-w-lg mb-2 fade-up-item delay-100">
+      <p className="text-xs text-muted max-w-lg mb-2 fade-up-item delay-100 font-mono">
         Dynamic horizontal index of tools, packages, and frameworks. Hover to
         pause the scroll and inspect.
       </p>
@@ -65,7 +67,6 @@ export default function Skills() {
         {/* ROW 1: Frontend & App Dev */}
         <div className="relative w-full overflow-hidden py-1">
           <div className="animate-marquee flex gap-12 whitespace-nowrap">
-            {/* Render items twice for seamless repeat */}
             {[...frontendSkills, ...frontendSkills, ...frontendSkills].map(
               (skill, idx) => (
                 <span

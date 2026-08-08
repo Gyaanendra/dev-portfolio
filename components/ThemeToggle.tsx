@@ -8,7 +8,10 @@ interface ThemeToggleProps {
   onThemeChange?: (newTheme: "light" | "dark") => void;
 }
 
-export default function ThemeToggle({ className = "", onThemeChange }: ThemeToggleProps) {
+export default function ThemeToggle({
+  className = "",
+  onThemeChange,
+}: ThemeToggleProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [mounted, setMounted] = useState(false);
 
@@ -38,7 +41,10 @@ export default function ThemeToggle({ className = "", onThemeChange }: ThemeTogg
       onThemeChange?.(nextTheme);
     };
 
-    if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      !document.startViewTransition ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       applyTheme();
       return;
     }
@@ -52,7 +58,9 @@ export default function ThemeToggle({ className = "", onThemeChange }: ThemeTogg
 
   if (!mounted) {
     return (
-      <div className={`w-9 h-9 border border-border-custom bg-card rounded-md ${className}`} />
+      <div
+        className={`w-9 h-9 border border-border-custom bg-card rounded-md ${className}`}
+      />
     );
   }
 
@@ -103,7 +111,11 @@ export default function ThemeToggle({ className = "", onThemeChange }: ThemeTogg
               : "opacity-0 scale-50 -rotate-90"
           }`}
         >
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor" className="opacity-20" />
+          <path
+            d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+            fill="currentColor"
+            className="opacity-20"
+          />
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       </div>

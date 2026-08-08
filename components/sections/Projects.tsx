@@ -1,110 +1,144 @@
+"use client";
+
+import { useState } from "react";
 import projectsJson from "@/data/projects.json";
 
 export default function Projects() {
+  const [activeProject, setActiveProject] = useState<number | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
+
   return (
     <section
       id="projects"
-      className="scroll-mt-24 flex flex-col gap-8 fade-up-element"
+      className="scroll-mt-24 flex flex-col gap-8 fade-up-element relative"
+      onMouseMove={handleMouseMove}
     >
-      <div className="border-b border-border-custom pb-4">
-        <h2 className="font-serif text-5xl md:text-6xl tracking-tight">
+      {/* Section Header */}
+      <div className="border-b border-border-custom pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
+        <h2 className="font-serif text-5xl md:text-6xl tracking-tight text-foreground">
           05 / Projects
         </h2>
+        <span className="text-xs font-mono text-muted">
+          ✦ Hover over any project to reveal image preview
+        </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-border-custom">
+      {/* Floating Hover Image Preview (Motion-Designed Tilted Card anchored near title heading) */}
+      {activeProject !== null && projectsJson.projects[activeProject]?.image && (
+        <div
+          className="hidden md:block fixed top-0 left-0 z-50 pointer-events-none w-72 lg:w-[370px] aspect-[16/10.5] rounded-xl overflow-hidden border-2 border-border-custom bg-card shadow-2xl animate-[previewPopIn_250ms_cubic-bezier(0.16,1,0.3,1)] transition-transform duration-200 ease-out"
+          style={{
+            transform: `translate3d(${
+              typeof window !== "undefined"
+                ? Math.min(mousePos.x * 0.12 + 340, window.innerWidth * 0.48)
+                : 380
+            }px, ${mousePos.y - 130}px, 0) rotate(-4deg)`,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            key={activeProject}
+            src={projectsJson.projects[activeProject].image}
+            alt={projectsJson.projects[activeProject].title}
+            className="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 animate-[imageCrossfade_300ms_cubic-bezier(0.16,1,0.3,1)]"
+          />
+        </div>
+      )}
+
+      {/* Project List Rows */}
+      <div className="flex flex-col border-t border-border-custom font-mono">
         {projectsJson.projects.map((project, index) => {
           const numStr = String(index + 1).padStart(2, "0");
+          const isHovered = activeProject === index;
 
           return (
             <div
               key={index}
-              className="relative flex flex-col justify-between p-8 md:p-10 group transition-all duration-300 border-b border-border-custom md:[&:nth-child(even)]:border-l border-border-custom overflow-hidden fade-up-item"
-              style={{ transitionDelay: `${(index + 1) * 120}ms` }}
+              onMouseEnter={() => setActiveProject(index)}
+              onMouseLeave={() => setActiveProject(null)}
+              className={`group relative flex flex-col md:flex-row justify-between items-start md:items-center py-7 px-4 md:px-6 border-b border-border-custom transition-all duration-300 ${
+                isHovered ? "bg-card/60" : "bg-transparent"
+              }`}
             >
-              {/* Sweep-in top accent border on hover */}
-              <div className="absolute top-0 left-0 w-full h-[2px] bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left z-20" />
+              {/* Sweep Accent Indicator Line */}
+              <div
+                className={`absolute left-0 top-0 bottom-0 w-1 bg-accent transition-opacity duration-300 ${
+                  isHovered ? "opacity-100" : "opacity-0"
+                }`}
+              />
 
-              {/* Header: Project Index and Arrow */}
-              <div className="flex justify-between items-center z-10">
-                <span className="text-muted/40 font-mono text-xs select-none">
-                  {numStr} / PROJECT
-                </span>
-                {project.href ? (
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted/30 group-hover:text-accent transition-colors duration-300 font-mono text-base hover:scale-110 transform"
-                    title="View project source"
-                  >
-                    ↗
-                  </a>
-                ) : (
-                  <span className="text-muted/25 font-mono text-base">↗</span>
+              {/* Left Column: Num + Title + Description */}
+              <div className="flex flex-col gap-2 max-w-2xl">
+                <div className="flex items-baseline gap-4">
+                  <span className="text-xs text-accent font-bold select-none">
+                    0{numStr}
+                  </span>
+                  <h3 className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-foreground transition-colors group-hover:text-accent">
+                    {project.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs md:text-sm text-muted leading-relaxed pl-8">
+                  {project.description}
+                </p>
+
+                {/* Tech Pills */}
+                {project.technologies && project.technologies.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pl-8 pt-1">
+                    {project.technologies.map((tech, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="text-[10px] text-muted/80 uppercase px-2 py-0.5 border border-border-custom rounded-sm bg-background select-none group-hover:border-accent/40 group-hover:text-foreground transition-colors"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Inline Thumbnail for Mobile Devices */}
+                {project.image && (
+                  <div className="md:hidden w-full h-40 mt-3 rounded-md border border-border-custom overflow-hidden bg-neutral-950">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 )}
               </div>
 
-              {/* Body: Title, Description, Screenshot, Technologies */}
-              <div className="flex-1 flex flex-col justify-between gap-4 mt-6 z-10">
-                <div className="space-y-4">
-                  <h3 className="font-serif text-3xl font-bold tracking-tight text-foreground transition-colors group-hover:text-accent">
-                    {project.title}
-                  </h3>
+              {/* Right Column: Action Links & Arrow */}
+              <div className="flex items-center gap-4 mt-4 md:mt-0 pl-8 md:pl-0 shrink-0">
+                {project.links && project.links.length > 0 ? (
+                  <div className="flex items-center gap-3 text-xs font-semibold">
+                    {project.links.map((link, lIdx) => (
+                      <a
+                        key={lIdx}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 border border-border-custom px-3 py-1.5 rounded-sm text-foreground hover:border-accent hover:text-accent transition-colors bg-card/40"
+                      >
+                        <span>[{link.type.toLowerCase()}]</span>
+                        <span className="text-[10px]">↗</span>
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <span className="text-xs text-muted/50 italic">
+                    [in progress]
+                  </span>
+                )}
 
-                  <p className="text-xs md:text-sm text-muted leading-relaxed font-mono min-h-[48px]">
-                    {project.description}
-                  </p>
-
-                  {/* Project Main Image Screenshot with scroll parallax window */}
-                  {project.image && project.title !== "Coming Soon" && (
-                    <div className="w-full h-48 flex items-center justify-center mt-4 overflow-hidden border border-border-custom rounded-sm bg-card/10 parallax-container">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-[120%] object-contain transition-all duration-500 ease-out filter grayscale contrast-115 group-hover:grayscale-0 group-hover:scale-105"
-                        style={{
-                          transform:
-                            "translateY(calc((var(--scroll-ratio, 0.5) - 0.5) * -35px))",
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div>
-                  {/* Technologies list */}
-                  {project.technologies && project.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {project.technologies.map((tech, tIdx) => (
-                        <span
-                          key={tIdx}
-                          className="text-[10px] text-muted/80 font-mono uppercase px-2 py-0.5 border border-border-custom rounded-sm bg-card/20 select-none group-hover:border-accent/40 group-hover:text-foreground transition-colors duration-200"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Links list */}
-                  {project.links && project.links.length > 0 && (
-                    <div className="flex gap-4 mt-4 text-xs font-semibold font-mono">
-                      {project.links.map((link, lIdx) => (
-                        <a
-                          key={lIdx}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-accent hover:underline flex items-center gap-1"
-                        >
-                          [{link.type.toLowerCase()}]
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <span className="text-lg text-muted/40 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
+                  →
+                </span>
               </div>
             </div>
           );

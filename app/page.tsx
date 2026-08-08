@@ -257,33 +257,42 @@ export default function Home() {
         </div>
       )}
 
-      {/* Sticky minimal nav */}
-      <nav className="fixed top-0 left-0 w-full z-50 border-b border-border-custom bg-background/80 backdrop-blur-md transition-colors duration-300">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      {/* Floating minimal nav */}
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-4xl z-50 border border-border-custom bg-card/75 backdrop-blur-md rounded-full shadow-md transition-all duration-300">
+        <div className="px-6 h-14 flex items-center justify-between">
           <a
             href="#"
             onClick={handleLogoClick}
-            className="font-bold tracking-tight text-foreground transition-colors hover:text-accent font-serif text-2xl"
+            className="font-bold tracking-tight text-foreground transition-colors hover:text-accent font-serif text-xl sm:text-2xl"
           >
             G.Prakash
           </a>
 
           {/* Desktop nav links & theme toggle */}
-          <div className="hidden md:flex items-center gap-5 text-sm">
+          <div className="hidden md:flex items-center gap-5 text-xs sm:text-sm font-mono">
             <a
               href="#about"
               onClick={(e) => handleNavClick(e, "#about")}
               className={`hover:text-accent transition-colors duration-200 ${
-                activeSection === "about" ? "text-accent" : "text-muted"
+                activeSection === "about" ? "text-accent font-bold" : "text-muted"
               }`}
             >
               [about]
             </a>
             <a
+              href="#skills"
+              onClick={(e) => handleNavClick(e, "#skills")}
+              className={`hover:text-accent transition-colors duration-200 ${
+                activeSection === "skills" ? "text-accent font-bold" : "text-muted"
+              }`}
+            >
+              [skills]
+            </a>
+            <a
               href="#projects"
               onClick={(e) => handleNavClick(e, "#projects")}
               className={`hover:text-accent transition-colors duration-200 ${
-                activeSection === "projects" ? "text-accent" : "text-muted"
+                activeSection === "projects" ? "text-accent font-bold" : "text-muted"
               }`}
             >
               [projects]
@@ -292,13 +301,13 @@ export default function Home() {
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
               className={`hover:text-accent transition-colors duration-200 ${
-                activeSection === "contact" ? "text-accent" : "text-muted"
+                activeSection === "contact" ? "text-accent font-bold" : "text-muted"
               }`}
             >
               [contact]
             </a>
 
-            <ThemeToggle className="ml-1" />
+            <ThemeToggle className="ml-1 rounded-full" />
           </div>
 
           {/* Mobile Morphing Hamburger Button */}

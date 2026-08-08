@@ -128,16 +128,16 @@ export const MorphingText: React.FC<MorphingTextProps> = ({
 
   return (
     <div
-      className={`relative inline-flex items-center justify-center h-[1.25em] w-full max-w-full text-accent italic tracking-wide select-none text-center ${className}`}
+      className={`relative inline-flex items-center h-[1.25em] text-accent font-semibold tracking-wide select-none ${className}`}
       style={{ filter: "url(#threshold) blur(0.6px)" }}
     >
       <span
         ref={text1Ref}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-center"
+        className="absolute left-0 top-1/2 -translate-y-1/2 whitespace-nowrap"
       />
       <span
         ref={text2Ref}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-center"
+        className="absolute left-0 top-1/2 -translate-y-1/2 whitespace-nowrap"
       />
       <SvgFilters />
     </div>
