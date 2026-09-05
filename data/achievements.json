@@ -1,0 +1,25 @@
+{
+   "achievements": [
+      {
+         "title": "ACM Hackathon",
+         "dates": "2025",
+         "location": "ACM Chapter, Bennett University",
+         "achievement": "1st Place",
+         "image": "/images/achievements/acm.jpeg"
+      },
+      {
+         "title": "DeepSight Challenge",
+         "dates": "2025",
+         "location": "Bennett University",
+         "achievement": "3rd Place",
+         "image": "/images/achievements/deepsight.jpeg"
+      },
+      {
+         "title": "Netruon Hackathon",
+         "dates": "Apr 2025",
+         "location": "NST Riverhood Campus",
+         "achievement": "Winner / Finalist",
+         "image": "/images/achievements/netruon.jpg"
+      }
+   ]
+}

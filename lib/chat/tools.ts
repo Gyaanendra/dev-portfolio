@@ -7,7 +7,7 @@ import workJson from "@/data/work.json";
 import projectsJson from "@/data/projects.json";
 import clubsJson from "@/data/clubs.json";
 import contactJson from "@/data/contact.json";
-import funActivityJson from "@/data/fun_activity.json";
+import achievementsJson from "@/data/achievements.json";
 
 // ─── 1. Personal Bio & Background ───
 export const getPersonalInfoTool = tool({
@@ -180,18 +180,19 @@ export const getContactInfoTool = tool({
   },
 });
 
-// ─── 8. Hackathons & Activities ───
-export const getActivitiesAndAwardsTool = tool({
+// ─── 8. Hackathons & Achievements ───
+export const getAchievementsTool = tool({
   description:
-    "Retrieve details about hackathons won, student competitions, campus fests, and extra-curricular initiatives.",
+    "Retrieve details strictly about Gyanendra's verified hackathon wins, podiums, and engineering competition awards.",
   inputSchema: z.object({}),
   execute: async () => {
     return {
-      totalHackathonWins: 3,
-      activities: funActivityJson.fun.map((act) => ({
-        title: act.title,
-        location: act.location,
+      totalAchievements: achievementsJson.achievements.length,
+      achievements: achievementsJson.achievements.map((act) => ({
+        name: act.title,
         dates: act.dates,
+        location: act.location,
+        achievement: act.achievement || "Winner / Finalist",
       })),
     };
   },
@@ -206,5 +207,5 @@ export const portfolioTools = {
   getProjects: getProjectsTool,
   getClubsAndLeadership: getClubsAndLeadershipTool,
   getContactInfo: getContactInfoTool,
-  getActivitiesAndAwards: getActivitiesAndAwardsTool,
+  getAchievements: getAchievementsTool,
 };

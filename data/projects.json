@@ -83,21 +83,6 @@
             }
          ],
          "image": "/pro/dcc.png"
-      },
-      {
-         "title": "Autonomous Agent Mesh",
-         "href": "",
-         "dates": "2025",
-         "active": true,
-         "description": "Problem: Complex task orchestration across isolated LLMs. Approach: Designing a self-hosted multi-agent runtime with tool calling, vector memory, and automated verification loops. Result: In active development.",
-         "technologies": [
-            "FastAPI",
-            "Docker",
-            "LangChain",
-            "Vector DB"
-         ],
-         "links": [],
-         "image": "/comingsoon.png"
       }
    ]
 }

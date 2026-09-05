@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useRef, useEffect } from "react";
 
 export interface CalendarDay {
   date: string;
@@ -26,12 +26,14 @@ interface HeatmapGridProps {
 
 const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const COLORS = {
+export const COLORS = {
   github: ["var(--gh-0)", "var(--gh-1)", "var(--gh-2)", "var(--gh-3)", "var(--gh-4)"],
   leetcode: ["var(--lc-0)", "var(--lc-1)", "var(--lc-2)", "var(--lc-3)", "var(--lc-4)"],
 };
 
 export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: HeatmapGridProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   const monthHeaders = useMemo(() => {
     if (!weeks.length) return [];
     const headers: string[] = new Array(weeks.length).fill("");
@@ -51,37 +53,46 @@ export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: Hea
     return headers;
   }, [weeks, year]);
 
+  // On smaller screens / mobile phones, auto-scroll to the right end so the most recent activity is immediately visible
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const scrollToRight = () => {
+      if (el.scrollWidth > el.clientWidth) {
+        el.scrollLeft = el.scrollWidth - el.clientWidth;
+      }
+    };
+
+    // Run immediately and in animation frame for precise post-render measurement
+    scrollToRight();
+    const frameId = requestAnimationFrame(scrollToRight);
+
+    window.addEventListener("resize", scrollToRight);
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", scrollToRight);
+    };
+  }, [weeks, year]);
+
   const colors = COLORS[type];
 
   if (!weeks.length) return null;
 
   return (
-    <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-sm p-3 md:p-4">
-      {/* Header row: year label + legend */}
-      <div className="flex items-center justify-between mb-3 pb-2 border-b border-[var(--border)]">
-        <span className="text-[11px] font-mono font-semibold text-foreground">
-          {year ? `${year} Activity` : "Past Year Activity"}
-        </span>
-        <div className="flex items-center gap-1.5">
-          <span className="text-[9px] text-muted font-mono">Less</span>
-          <div className="flex items-center gap-[3px]">
-            {colors.map((c, i) => (
-              <div key={i} className="w-[10px] h-[10px] rounded-[2.5px]" style={{ backgroundColor: c }} />
-            ))}
-          </div>
-          <span className="text-[9px] text-muted font-mono">More</span>
-        </div>
-      </div>
-
-      {/* Scrollable heatmap */}
-      <div className="overflow-x-auto pb-1 scrollbar-thin">
+    <div className="w-full">
+      {/* Scrollable heatmap sitting directly on the canvas without card container */}
+      <div
+        ref={scrollRef}
+        className="overflow-x-auto pb-2 scrollbar-thin"
+      >
         <div className="min-w-[790px]">
           {/* Month headers */}
-          <div className="flex ml-[30px] mb-[6px]">
+          <div className="flex ml-[32px] mb-[8px]">
             {monthHeaders.map((label, i) => (
               <div
                 key={i}
-                className="text-[9.5px] text-muted font-mono leading-none"
+                className="text-[10px] text-muted font-mono leading-none select-none"
                 style={{ width: "12px", marginRight: "4px" }}
               >
                 {label}
@@ -91,18 +102,23 @@ export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: Hea
 
           <div className="flex">
             {/* Day labels */}
-            <div className="grid grid-rows-7 gap-[4px] mr-[8px] pt-[1px]" style={{ height: "108px" }}>
+            <div
+              className="grid grid-rows-7 gap-[4px] mr-[10px] pt-[1px] select-none"
+              style={{ height: "108px" }}
+            >
               {DAY_LABELS.map((label, i) => (
                 <span
                   key={i}
-                  className={`text-[9px] text-muted font-mono uppercase tracking-[0.5px] leading-[12px] h-[12px] ${i % 2 === 0 ? "" : "opacity-0"}`}
+                  className={`text-[9px] text-muted font-mono uppercase tracking-[0.5px] leading-[12px] h-[12px] ${
+                    i % 2 === 0 ? "" : "opacity-0"
+                  }`}
                 >
                   {label}
                 </span>
               ))}
             </div>
 
-            {/* Cells grid */}
+            {/* Cells grid directly on page canvas */}
             <div className="flex-1">
               <div
                 className="grid"
@@ -125,8 +141,10 @@ export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: Hea
                           day: "numeric",
                         })
                       : "";
-                    const plural = type === "github" ? "contributions" : "submissions";
-                    const singular = type === "github" ? "contribution" : "submission";
+                    const plural =
+                      type === "github" ? "contributions" : "submissions";
+                    const singular =
+                      type === "github" ? "contribution" : "submission";
                     const label = day.count === 1 ? singular : plural;
                     const hoverText = day.date
                       ? `${day.count} ${label} on ${dateLabel}`
@@ -134,7 +152,16 @@ export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: Hea
 
                     const handleHover = (e: React.MouseEvent) => {
                       const r = e.currentTarget.getBoundingClientRect();
-                      onHover({ top: r.top, left: r.left, width: r.width, height: r.height, bottom: r.bottom }, hoverText);
+                      onHover(
+                        {
+                          top: r.top,
+                          left: r.left,
+                          width: r.width,
+                          height: r.height,
+                          bottom: r.bottom,
+                        },
+                        hoverText
+                      );
                     };
 
                     return (
@@ -143,11 +170,12 @@ export default function HeatmapGrid({ weeks, type, onHover, onLeave, year }: Hea
                         className="relative group"
                       >
                         <div
-                          className="w-[12px] h-[12px] rounded-[3.5px] cursor-pointer transition-transform duration-75 hover:scale-[1.25] hover:z-10 hover:outline hover:outline-[1.5px] hover:outline-offset-[1px] hover:outline-foreground"
+                          className="w-[12px] h-[12px] rounded-[2.5px] cursor-pointer transition-all duration-150 hover:scale-[1.3] hover:z-10 hover:ring-2 hover:ring-accent hover:ring-offset-1 hover:ring-offset-background"
                           style={{ backgroundColor: cellColor }}
                           onMouseEnter={handleHover}
                           onMouseMove={handleHover}
                           onMouseLeave={onLeave}
+                          onClick={handleHover}
                         />
                       </div>
                     );

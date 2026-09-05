@@ -45,7 +45,7 @@ portfolio/
 │       ├── CodingProfiles.tsx
 │       ├── Projects.tsx
 │       ├── EducationClubs.tsx
-│       ├── Activities.tsx
+│       ├── Achievements.tsx
 │       ├── Contact.tsx
 │       └── Footer.tsx
 │
@@ -55,7 +55,7 @@ portfolio/
 │   ├── projects.json         # Projects showcase
 │   ├── clubs.json            # Leadership & societies
 │   ├── contact.json          # Social links, email, phone
-│   ├── fun_activity.json     # Activities gallery
+│   ├── achievements.json     # Hackathon & achievements gallery
 │   └── skills.json           # Skills inventory
 │
 ├── utils/
@@ -77,7 +77,7 @@ portfolio/
 | 05 | Projects | `sections/Projects.tsx` | Showcased ML/AI/Full-stack projects |
 | 06 | Education | `sections/EducationClubs.tsx` | Academic background |
 | 07 | Leadership | `sections/EducationClubs.tsx` | Clubs and societies |
-| 08 | Activities | `sections/Activities.tsx` | Hackathon & college life gallery |
+| 08 | Achievements | `sections/Achievements.tsx` | Hackathon wins & podium finishes |
 | — | Contact | `sections/Contact.tsx` | Social links and contact CTA |
 | — | Footer | `sections/Footer.tsx` | Copyright |
 
@@ -97,18 +97,18 @@ portfolio/
 
 ---
 
-## ✦ Content Updates
+## ✦ Customization
 
-All portfolio content is data-driven through JSON files inside the `data/` directory. No component code needs to change for most updates:
+To personalize the portfolio, edit the JSON files in the `data/` directory:
 
-| What to update | Edit file |
+| What to Update | File to Edit |
 |---|---|
 | Bio, summary, education | `data/data.json` |
 | Work experience | `data/work.json` |
 | Projects | `data/projects.json` |
 | Clubs & leadership roles | `data/clubs.json` |
 | Social links, email, phone | `data/contact.json` |
-| Activities gallery images | `data/fun_activity.json` |
+| Achievements & hackathons | `data/achievements.json` |
 
 ---
 

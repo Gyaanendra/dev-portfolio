@@ -14,7 +14,7 @@ import CodingProfiles from "@/components/sections/CodingProfiles";
 import Projects from "@/components/sections/Projects";
 import Education from "@/components/sections/Education";
 import Leadership from "@/components/sections/Leadership";
-import Activities from "@/components/sections/Activities";
+import Achievements from "@/components/sections/Achievements";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -361,7 +361,7 @@ export default function Home() {
         <Projects />
         <Education />
         <Leadership />
-        <Activities />
+        <Achievements />
         <Contact />
       </main>
 

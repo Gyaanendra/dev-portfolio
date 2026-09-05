@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import HeatmapGrid, { CalendarDay } from "@/components/HeatmapGrid";
+import HeatmapGrid, { CalendarDay, COLORS } from "@/components/HeatmapGrid";
 
 const GITHUB_USER = "Gyaanendra";
 const LEETCODE_USER = "gyaanendra";
@@ -42,19 +42,16 @@ function processLeetcodeData(
   submissionCalendar: Record<string, number>,
   year: number | null,
 ): CalendarDay[][] {
-  // Build date→count map
   const dateMap: Record<string, number> = {};
   for (const [ts, count] of Object.entries(submissionCalendar)) {
     const d = new Date(Number(ts) * 1000).toISOString().split("T")[0];
     dateMap[d] = (dateMap[d] || 0) + Number(count);
   }
 
-  // Determine start date and total days
   let start: Date;
   let totalDays: number;
 
   if (year) {
-    // Exact calendar year
     start = new Date(Date.UTC(year, 0, 1));
     start.setUTCDate(start.getUTCDate() - start.getUTCDay());
 
@@ -62,7 +59,6 @@ function processLeetcodeData(
     end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay()));
     totalDays = Math.ceil((end.getTime() - start.getTime()) / 86400000) + 1;
   } else {
-    // Past ~365 days (rolling, like GitHub)
     const today = new Date();
     const oneYearAgo = new Date(
       Date.UTC(today.getFullYear(), today.getMonth(), today.getDate() - 364),
@@ -70,7 +66,7 @@ function processLeetcodeData(
     const startDow = oneYearAgo.getUTCDay();
     start = new Date(oneYearAgo);
     start.setUTCDate(start.getUTCDate() - startDow);
-    totalDays = 371; // 53 weeks
+    totalDays = 371;
   }
 
   const weeks: CalendarDay[][] = [];
@@ -123,7 +119,11 @@ function computeStats(weeks: CalendarDay[][]) {
 
 // ─── Tooltip ─────────────────────────────────────────────────────
 
-function Tooltip({ text, rect, visible }: {
+function Tooltip({
+  text,
+  rect,
+  visible,
+}: {
   text: string;
   rect: { top: number; left: number; width: number; height: number; bottom: number };
   visible: boolean;
@@ -137,14 +137,14 @@ function Tooltip({ text, rect, visible }: {
 
   return createPortal(
     <div
-      className="fixed z-[9999] pointer-events-none"
+      className="fixed z-[9999] pointer-events-none transition-opacity duration-150"
       style={{
         left: rect.left + rect.width / 2,
         top: above ? rect.top - gap : rect.bottom + gap,
         transform: above ? "translateX(-50%) translateY(-100%)" : "translateX(-50%)",
       }}
     >
-      <div className="relative bg-[#1c1c1c] text-white/90 text-[11px] font-mono px-3 py-1.5 rounded-[5px] whitespace-nowrap shadow-lg">
+      <div className="relative bg-background border border-border-custom text-foreground text-[11px] font-mono px-3 py-1.5 rounded-sm whitespace-nowrap shadow-2xl backdrop-blur-md">
         {text}
         <div
           className="absolute left-1/2 -translate-x-1/2 w-0 h-0"
@@ -154,13 +154,13 @@ function Tooltip({ text, rect, visible }: {
                   bottom: `-${arrowSize}px`,
                   borderLeft: `${arrowSize}px solid transparent`,
                   borderRight: `${arrowSize}px solid transparent`,
-                  borderTop: `${arrowSize}px solid #1c1c1c`,
+                  borderTop: `var(--border)`,
                 }
               : {
                   top: `-${arrowSize}px`,
                   borderLeft: `${arrowSize}px solid transparent`,
                   borderRight: `${arrowSize}px solid transparent`,
-                  borderBottom: `${arrowSize}px solid #1c1c1c`,
+                  borderBottom: `var(--border)`,
                 }),
           }}
         />
@@ -170,9 +170,9 @@ function Tooltip({ text, rect, visible }: {
   );
 }
 
-// ─── Heatmap card ────────────────────────────────────────────────
+// ─── Direct-on-Canvas Heatmap Profile ─────────────────────────────
 
-function HeatmapCard({
+function ProfileHeatmap({
   title,
   username,
   platform,
@@ -191,7 +191,6 @@ function HeatmapCard({
   const [stats, setStats] = useState({ total: 0, activeDays: 0, streak: 0 });
   const hasDataRef = useRef(false);
 
-  // Tooltip state
   const [tooltip, setTooltip] = useState<{
     text: string;
     rect: { top: number; left: number; width: number; height: number; bottom: number };
@@ -240,44 +239,52 @@ function HeatmapCard({
     [username, platform],
   );
 
-  // Auto refetch on mount and whenever mode changes
   useEffect(() => {
     fetchData(mode, true);
   }, [mode, fetchData]);
 
-  // Build year options dynamically
   const yearOptions = buildYearOptions();
 
   return (
-    <div className="glow-card border border-border-custom bg-card rounded-sm p-4 md:p-6 transition-all duration-300 hover:border-accent/40">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h3 className="font-serif text-lg md:text-xl font-semibold text-foreground">
-              {title}
-            </h3>
-            {loading && (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-accent/10 text-accent border border-accent/20 animate-pulse">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
-                fetching...
-              </span>
-            )}
-          </div>
-          <p className="text-[11px] text-muted font-mono mt-0.5">@{username}</p>
+    <div className="flex flex-col gap-4">
+      {/* Header bar: Platform title, username, year filters, live indicator */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 pb-3 border-b border-border-custom/50">
+        <div className="flex flex-wrap items-center gap-3">
+          <h3 className="font-serif text-2xl md:text-3xl font-semibold text-foreground tracking-tight">
+            {title}
+          </h3>
+          <a
+            href={
+              platform === "github"
+                ? `https://github.com/${username}`
+                : `https://leetcode.com/u/${username}/`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-mono text-muted hover:text-accent transition-colors flex items-center gap-1"
+          >
+            @{username} ↗
+          </a>
+          {loading && (
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-accent/10 text-accent border border-accent/20 animate-pulse">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
+              syncing...
+            </span>
+          )}
         </div>
 
+        {/* Controls: Year selector pills + refresh button */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Year selector — pills on sm+, dropdown on mobile */}
-          <div className="hidden sm:flex border border-border-custom rounded-sm overflow-hidden">
+          {/* Year selector pills */}
+          <div className="hidden sm:flex items-center gap-1 p-0.5 rounded-sm border border-border-custom bg-background/50">
             {yearOptions.map((opt) => (
               <button
                 key={opt.label}
                 onClick={() => setMode(opt.value)}
-                className={`px-2.5 py-1 text-[11px] font-mono font-medium transition-colors duration-150 ${
+                className={`px-2.5 py-1 text-[11px] font-mono rounded-xs transition-colors duration-150 ${
                   opt.value === mode
-                    ? "bg-accent text-background"
-                    : "text-muted hover:text-foreground hover:bg-card"
+                    ? "bg-accent text-background font-semibold"
+                    : "text-muted hover:text-foreground hover:bg-foreground/5"
                 }`}
               >
                 {opt.label}
@@ -292,7 +299,7 @@ function HeatmapCard({
               const val = e.target.value;
               setMode(val === "Recent" ? null : Number(val));
             }}
-            className="sm:hidden px-2 py-1 text-[11px] font-mono bg-card border border-border-custom rounded-sm text-foreground focus:outline-none focus:border-accent appearance-none cursor-pointer"
+            className="sm:hidden px-2 py-1 text-[11px] font-mono bg-background border border-border-custom rounded-sm text-foreground focus:outline-none focus:border-accent cursor-pointer"
           >
             {yearOptions.map((opt) => (
               <option key={opt.label} value={opt.label}>
@@ -305,14 +312,14 @@ function HeatmapCard({
           <button
             onClick={() => fetchData(mode, true)}
             disabled={loading}
-            className="p-1.5 border border-border-custom rounded-sm text-muted hover:text-foreground hover:border-accent transition-colors duration-150 disabled:opacity-40"
+            className="p-1.5 border border-border-custom rounded-sm text-muted hover:text-accent hover:border-accent transition-colors duration-150 disabled:opacity-40"
             title="Refetch live data"
             aria-label="Refetch live data"
           >
             <svg
               viewBox="0 0 24 24"
-              width="14"
-              height="14"
+              width="13"
+              height="13"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -326,53 +333,61 @@ function HeatmapCard({
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="flex items-center gap-4 mb-4 text-xs font-mono text-muted">
-        <span className="flex items-center gap-1.5">
-          <span
-            className={`w-2 h-2 rounded-full ${platform === "github" ? "bg-[#30a14e]" : "bg-[#f4871f]"}`}
-          />
-          {stats.total.toLocaleString()} total
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-foreground/20" />
-          {stats.activeDays} days active
-        </span>
-        <span className="flex items-center gap-1.5">
-          <svg
-            viewBox="0 0 24 24"
-            width="12"
-            height="12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            className="text-accent"
-          >
-            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          {stats.streak}d streak
-        </span>
+      {/* Stats row + Inline Legend */}
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-muted py-1">
+        <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+          <span className="flex items-center gap-2 font-medium text-foreground">
+            <span
+              className={`w-2 h-2 rounded-full ${
+                platform === "github" ? "bg-[#30a14e]" : "bg-[#f4871f]"
+              }`}
+            />
+            {stats.total.toLocaleString()}{" "}
+            {platform === "github" ? "contributions" : "submissions"}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-foreground/20" />
+            {stats.activeDays} days active
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="text-accent font-bold">⚡</span>
+            {stats.streak}d streak
+          </span>
+        </div>
+
+        {/* Legend */}
+        <div className="flex items-center gap-1.5 text-[10px] font-mono text-muted select-none">
+          <span>Less</span>
+          <div className="flex items-center gap-[3px]">
+            {COLORS[platform].map((c, i) => (
+              <div
+                key={i}
+                className="w-[10px] h-[10px] rounded-[2px]"
+                style={{ backgroundColor: c }}
+              />
+            ))}
+          </div>
+          <span>More</span>
+        </div>
       </div>
 
-      {/* Error — full page on fresh load */}
+      {/* Error display */}
       {error && weeks.length === 0 && !loading && (
-        <div className="py-8 text-center">
+        <div className="py-8 text-center border border-dashed border-border-custom rounded-sm">
           <p className="text-xs text-muted font-mono">{error}</p>
           <button
             onClick={() => fetchData(mode, true)}
-            className="mt-2 text-xs text-accent border border-accent px-3 py-1 rounded-sm hover:bg-accent hover:text-background transition-colors"
+            className="mt-2 text-xs text-accent border border-accent px-3 py-1 rounded-sm hover:bg-accent hover:text-background transition-colors font-mono"
           >
-            Retry
+            Retry Connection
           </button>
         </div>
       )}
 
-      {/* Error — soft banner when old data exists */}
       {error && weeks.length > 0 && !loading && (
-        <div className="mb-3 border border-red-400/20 bg-red-400/[0.03] rounded-sm px-3 py-2">
+        <div className="border border-red-400/20 bg-red-400/[0.03] rounded-sm px-3 py-2">
           <p className="text-[10px] text-muted font-mono">
-            Refresh failed: {error}
+            Sync failed: {error}
             <button
               onClick={() => fetchData(mode, true)}
               className="ml-2 text-accent underline hover:no-underline"
@@ -383,38 +398,43 @@ function HeatmapCard({
         </div>
       )}
 
-      {/* Skeleton */}
+      {/* Skeleton directly on canvas */}
       {loading && weeks.length === 0 && (
-        <div className="animate-pulse bg-[var(--card-bg)] border border-[var(--border)] rounded-sm p-3 md:p-4">
-          <div className="flex items-center justify-between mb-3 pb-2 border-b border-[var(--border)]">
-            <div className="h-3 w-28 bg-foreground/10 rounded" />
-            <div className="flex gap-1.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="w-[10px] h-[10px] bg-foreground/10 rounded-[2.5px]" />
+        <div className="animate-pulse py-2 overflow-x-auto pb-2 scrollbar-thin">
+          <div className="min-w-[790px]">
+            <div className="flex ml-[32px] gap-[4px] mb-[8px]">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="w-[12px] h-[9px] bg-foreground/10 rounded" />
               ))}
             </div>
-          </div>
-          <div className="flex ml-[30px] gap-[4px] mb-[6px]">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="w-[12px] h-[9px] bg-foreground/8 rounded" />
-            ))}
-          </div>
-          <div className="flex gap-[8px]">
-            <div className="grid grid-rows-7 gap-[4px]">
-              {Array.from({ length: 7 }).map((_, i) => (
-                <div key={i} className={`h-[12px] w-[20px] bg-foreground/8 rounded ${i % 2 === 0 ? "" : "opacity-0"}`} />
-              ))}
-            </div>
-            <div className="flex-1 grid grid-cols-[repeat(53,12px)] gap-[4px]" style={{ gridTemplateRows: "repeat(7,12px)" }}>
-              {Array.from({ length: 371 }).map((_, i) => (
-                <div key={i} className="w-[12px] h-[12px] bg-foreground/8 rounded-[3.5px]" />
-              ))}
+            <div className="flex gap-[10px]">
+              <div className="grid grid-rows-7 gap-[4px]">
+                {Array.from({ length: 7 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-[12px] w-[20px] bg-foreground/10 rounded ${
+                      i % 2 === 0 ? "" : "opacity-0"
+                    }`}
+                  />
+                ))}
+              </div>
+              <div
+                className="flex-1 grid grid-cols-[repeat(53,12px)] gap-[4px]"
+                style={{ gridTemplateRows: "repeat(7,12px)" }}
+              >
+                {Array.from({ length: 371 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-[12px] h-[12px] bg-foreground/10 rounded-[2.5px]"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Heatmap */}
+      {/* Heatmap Grid directly on website canvas */}
       {weeks.length > 0 && (
         <div className="transition-opacity duration-500 opacity-100">
           <HeatmapGrid
@@ -427,7 +447,6 @@ function HeatmapCard({
         </div>
       )}
 
-      {/* Floating tooltip */}
       <Tooltip text={tooltip.text} rect={tooltip.rect} visible={tooltip.visible} />
     </div>
   );
@@ -440,9 +459,13 @@ export default function CodingProfiles() {
   const [lcMode, setLcMode] = useState<number | null>(null);
 
   return (
-    <section id="profiles" className="scroll-mt-24 flex flex-col gap-8 fade-up-element">
+    <section
+      id="profiles"
+      className="scroll-mt-24 flex flex-col gap-10 fade-up-element"
+    >
+      {/* Uniform Section Heading */}
       <div className="border-b border-border-custom pb-4 flex items-center justify-between">
-        <h2 className="font-serif text-5xl md:text-6xl tracking-tight font-normal">
+        <h2 className="font-serif text-5xl md:text-6xl tracking-tight text-foreground font-normal">
           04 / Code Profiles
         </h2>
         <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono text-muted">
@@ -451,15 +474,20 @@ export default function CodingProfiles() {
         </span>
       </div>
 
-      <div className="flex flex-col gap-6">
-        <HeatmapCard
+      {/* Heatmap sections sitting directly on the canvas without card framing */}
+      <div className="flex flex-col gap-14">
+        <ProfileHeatmap
           title="GitHub Contributions"
           username={GITHUB_USER}
           platform="github"
           mode={ghMode}
           setMode={setGhMode}
         />
-        <HeatmapCard
+
+        {/* Minimalist hairline divider between platforms */}
+        <div className="border-b border-border-custom" />
+
+        <ProfileHeatmap
           title="LeetCode Activity"
           username={LEETCODE_USER}
           platform="leetcode"
@@ -479,8 +507,7 @@ export default function CodingProfiles() {
         >
           Stepcode-heatmaps
         </a>{" "}
-        by{" "}
-        <span className="text-foreground">TheAyushTandon</span>
+        by <span className="text-foreground">TheAyushTandon</span>
       </p>
     </section>
   );

@@ -9,7 +9,7 @@
 > - **DO NOT** use Google Fonts, generic system fonts, or external serif/sans fonts (such as Inter, Space Grotesk, Roboto, Titillium Web, etc.) for any UI element, heading, button, or body copy.
 > - In `globals.css`, all font tokens (`--font-serif`, `--font-sans`, `--font-titillium`, `--font-mono`) MUST resolve to `var(--font-trt-interval), 'TRT INTERVAL', monospace`.
 > - All section headings across the website must be strictly uniform in style:
->   `01 / About`, `02 / Skills`, `03 / Experience`, `04 / Code Profiles`, `05 / Projects`, `06 / Education`, `07 / Leadership`, `08 / Activities`, `09 / Contact`.
+>   `01 / About`, `02 / Skills`, `03 / Experience`, `04 / Code Profiles`, `05 / Projects`, `06 / Education`, `07 / Leadership`, `08 / Achievements`, `09 / Contact`.
 >   Using `font-serif text-5xl md:text-6xl tracking-tight text-foreground` with a clean bottom hairline divider (`border-b border-border-custom pb-4`).
 
 ---
