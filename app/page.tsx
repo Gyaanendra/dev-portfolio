@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useLenis } from "lenis/react";
 import ThemeToggle from "@/components/ThemeToggle";
 import VerticalDock from "@/components/VerticalDock";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
@@ -366,6 +367,9 @@ export default function Home() {
 
       {/* FOOTER */}
       <Footer />
+
+      {/* FLOATING AI CHAT AGENT WIDGET */}
+      <ChatWidget />
     </div>
   );
 }
