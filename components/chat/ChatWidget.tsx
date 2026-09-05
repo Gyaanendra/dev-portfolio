@@ -228,7 +228,15 @@ export default function ChatWidget() {
       });
 
       if (!res.ok) {
-        throw new Error("API request failed with status " + res.status);
+        const errJson = await res.json().catch(() => null);
+        const errMsg =
+          errJson?.error ||
+          (res.status === 429
+            ? "Rate limit exceeded. Please wait a few seconds before sending another message."
+            : res.status === 403
+            ? "Forbidden: cross-origin or unauthorized request."
+            : ERROR_MESSAGE);
+        throw new Error(errMsg);
       }
 
       if (!res.body) {
@@ -270,7 +278,7 @@ export default function ChatWidget() {
         return; // User cancelled
       }
       console.error("Chat Agent Error:", err);
-      setErrorMessage(ERROR_MESSAGE);
+      setErrorMessage(err?.message || ERROR_MESSAGE);
       // Remove empty assistant placeholder if failed completely
       setMessages((prev) =>
         prev.filter((m) => m.id !== assistantMsgId || m.content.length > 0)
