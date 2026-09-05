@@ -27,16 +27,24 @@ export default function Projects() {
         </span>
       </div>
 
-      {/* Floating Hover Image Preview (Motion-Designed Tilted Card anchored near title heading) */}
+      {/* Floating Hover Image Preview (Intelligent Boundary Tracking, Never Occluding Buttons) */}
       {activeProject !== null && projectsJson.projects[activeProject]?.image && (
         <div
-          className="hidden md:block fixed top-0 left-0 z-50 pointer-events-none w-72 lg:w-[370px] aspect-[16/10.5] rounded-xl overflow-hidden border-2 border-border-custom bg-card shadow-2xl animate-[previewPopIn_250ms_cubic-bezier(0.16,1,0.3,1)] transition-transform duration-200 ease-out"
+          className="hidden md:block fixed top-0 left-0 z-40 pointer-events-none w-72 lg:w-[360px] aspect-[16/10.5] rounded-xl overflow-hidden border-2 border-border-custom bg-card shadow-2xl animate-[previewPopIn_250ms_cubic-bezier(0.16,1,0.3,1)] transition-transform duration-150 ease-out"
           style={{
             transform: `translate3d(${
               typeof window !== "undefined"
-                ? Math.min(mousePos.x * 0.12 + 340, window.innerWidth * 0.48)
-                : 380
-            }px, ${mousePos.y - 130}px, 0) rotate(-4deg)`,
+                ? mousePos.x > window.innerWidth * 0.52
+                  ? Math.max(20, mousePos.x - 380)
+                  : Math.min(mousePos.x + 28, window.innerWidth - 380)
+                : 280
+            }px, ${
+              typeof window !== "undefined"
+                ? Math.max(70, Math.min(mousePos.y - 110, window.innerHeight - 260))
+                : 200
+            }px, 0) rotate(${
+              typeof window !== "undefined" && mousePos.x > window.innerWidth * 0.52 ? "3deg" : "-3deg"
+            })`,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}

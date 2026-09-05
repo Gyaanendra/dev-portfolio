@@ -1,8 +1,45 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Titillium_Web, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import LenisProvider from "@/components/LenisProvider";
 import "./globals.css";
 
+const titilliumWeb = Titillium_Web({
+  weight: ["300", "400", "600", "700", "900"],
+  subsets: ["latin"],
+  variable: "--font-titillium-web",
+});
+
+const trtInterval = localFont({
+  src: [
+    {
+      path: "../public/trt-interval-monospace/TRTINTERVALDemo-ExtraLight-BF68ca292fc3020.ttf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../public/trt-interval-monospace/TRTINTERVALDemo-Light-BF68ca292fd8537.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/trt-interval-monospace/TRTINTERVALDemo-Regular-BF68ca29300a775.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/trt-interval-monospace/TRTINTERVALDemo-Medium-BF68ca292fcd716.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/trt-interval-monospace/TRTINTERVALDemo-Bold-BF68ca292f8d5c6.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-trt-interval",
+});
 
 const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
@@ -129,7 +166,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${trtInterval.variable} ${titilliumWeb.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

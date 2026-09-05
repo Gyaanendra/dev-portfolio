@@ -23,12 +23,20 @@ export default function Experience() {
             {/* Timeline node */}
             <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border border-accent bg-background transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
 
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-              <div className="flex items-center gap-3">
-                <h3 className="text-base font-bold text-foreground font-serif text-lg md:text-xl">
-                  {job.title}
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5">
+              <div className="flex flex-wrap items-center gap-3">
+                <h3 className="font-bold text-foreground font-serif text-xl md:text-2xl tracking-tight flex items-center gap-2">
+                  <span>{job.title}</span>
+                  {job.badges && job.badges.map((badge: string, bIdx: number) => (
+                    <span
+                      key={bIdx}
+                      className="text-[10px] font-mono font-semibold text-accent border border-accent/60 px-1.5 py-0.5 rounded-xs uppercase tracking-wider"
+                    >
+                      {badge}
+                    </span>
+                  ))}
                 </h3>
-                <span className="text-xs text-accent flex items-center gap-1.5 font-mono">
+                <span className="text-sm md:text-base text-accent font-semibold flex items-center gap-1.5 font-mono">
                   @ {job.company}
                   {job.end.toLowerCase() === "present" && (
                     <span className="relative flex h-2 w-2" title="Current Position">
@@ -38,13 +46,13 @@ export default function Experience() {
                   )}
                 </span>
               </div>
-              <span className="text-xs text-muted font-mono">
+              <span className="text-xs sm:text-sm text-muted font-mono font-medium">
                 {job.start} — {job.end}
               </span>
             </div>
 
-            <div className="text-xs text-muted flex flex-wrap gap-2 font-mono">
-              <span className="italic border border-border-custom px-2 py-0.5 rounded-sm bg-card/50">
+            <div className="text-xs sm:text-sm text-muted flex flex-wrap gap-2 font-mono">
+              <span className="italic border border-border-custom px-2.5 py-0.5 rounded-sm bg-card/50">
                 {job.location}
               </span>
               {job.links?.map((link, lIdx) => (
@@ -53,16 +61,16 @@ export default function Experience() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent hover:underline flex items-center gap-1"
+                  className="text-accent hover:underline flex items-center gap-1 font-medium"
                 >
                   [{link.type}]
                 </a>
               ))}
             </div>
 
-            <ul className="text-xs md:text-sm text-muted leading-relaxed space-y-2 pl-4 list-none mt-1 font-mono">
+            <ul className="text-sm sm:text-base leading-relaxed text-foreground/85 dark:text-[#d8d8d8] space-y-3 pl-4 list-none mt-2 font-mono">
               {job.description.map((desc, dIdx) => (
-                <li key={dIdx} className="relative">
+                <li key={dIdx} className="relative leading-relaxed">
                   {renderFormattedText(desc)}
                 </li>
               ))}

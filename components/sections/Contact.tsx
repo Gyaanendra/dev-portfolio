@@ -12,86 +12,161 @@ export default function Contact() {
     setTimeout(() => setCopiedType(null), 2000);
   };
 
-  return (
-    <section
-      id="contact"
-      className="scroll-mt-24 flex flex-col gap-10 relative py-16 min-h-[45vh] justify-center items-center text-center fade-up-element overflow-hidden"
-    >
+  const socialLinks = [
+    [
+      { label: "GITHUB", href: contactJson.contact.social.GitHub.url },
+      { label: "LEETCODE", href: "https://leetcode.com/u/gyaanendra/" },
+    ],
+    [
+      { label: "LINKEDIN", href: contactJson.contact.social.LinkedIn.url },
+      { label: "TWITTER (X)", href: contactJson.contact.social.X.url },
+    ],
+    [
+      { label: "RESUME", href: "/resume.pdf" },
+      { label: "MAIL", href: `mailto:${contactJson.contact.email}` },
+    ],
+  ];
 
-      <div className="relative z-10 flex flex-col items-center gap-6 max-w-2xl px-4">
-        {/* Status Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-border-custom bg-card/60 font-mono text-xs text-muted shadow-xs">
-          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-          <span>AVAILABLE FOR AI ROLES & FREELANCE BUILDS</span>
+  return (
+    <section id="contact" className="scroll-mt-24 py-10 sm:py-16 md:py-20 fade-up-element w-full group">
+      {/* Top Monogram & Menu Bar */}
+      <div className="flex items-center justify-between w-full">
+        {/* Circular/Oval Monogram Badge (like the 'A' badge in reference) */}
+        <div className="flex items-center justify-center w-12 h-7 sm:w-14 sm:h-8 rounded-full border border-border-custom text-xs sm:text-sm font-serif font-black tracking-tighter hover:border-accent hover:text-accent transition-colors select-none text-foreground">
+          GP
         </div>
 
-        {/* Headline */}
-        <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
-          Let's build <span className="italic font-normal text-accent">something</span> together.
+        {/* Minimalist 2-line Icon on right */}
+        <div className="flex flex-col gap-1.5 w-6 sm:w-7 items-end justify-center">
+          <span className="w-full h-[1.5px] bg-foreground rounded-full" />
+          <span className="w-full h-[1.5px] bg-foreground rounded-full" />
+        </div>
+      </div>
+
+      {/* ─── SECTION HEADING: 09 / Contact + ARROW (Uniform with all sections) ─── */}
+      <div className="border-b border-border-custom pb-4 flex items-baseline justify-between gap-4 mt-6 sm:mt-8 md:mt-10 mb-8 sm:mb-12">
+        <h2 className="font-serif text-5xl md:text-6xl tracking-tight text-foreground">
+          09 / Contact
         </h2>
 
-        <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-lg font-mono">
-          Have an ambitious project, full-stack role, or AI agent integration?
-          Or just want to chat about Python, LLMs, and servers? Drop a line below.
-        </p>
-
-        {/* Interactive Copy Buttons (1-Click Copy Email & Phone) */}
-        <div className="flex flex-col sm:flex-row items-center gap-3 mt-2 font-mono">
-          <button
-            onClick={() =>
-              handleCopy(
-                contactJson.contact.social.email.url.replace("mailto:", ""),
-                "email"
-              )
-            }
-            className="group relative inline-flex items-center gap-2 border border-accent/80 bg-accent/10 text-accent font-semibold px-4 py-2.5 rounded-md hover:bg-accent hover:text-background transition-all duration-200 text-xs shadow-xs"
-            title="Click to copy email address"
+        {/* Down-Right Giant Arrow (Matching Reference Placement) */}
+        <div className="text-foreground shrink-0 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:translate-y-1.5">
+          <svg
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 stroke-current fill-none stroke-[2.5]"
+            viewBox="0 0 24 24"
           >
-            <span>{contactJson.contact.social.email.url.replace("mailto:", "")}</span>
-            <span className="text-[10px]">
-              {copiedType === "email" ? "✓ COPIED!" : "📋"}
-            </span>
-          </button>
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <polyline points="8 18 18 18 18 8" />
+          </svg>
+        </div>
+      </div>
 
-          <button
+      {/* ─── MIDDLE CONTENT ROW: SCULPTURAL IMAGE + TABULAR INFO ─── */}
+      <div className="flex flex-col md:flex-row items-stretch gap-6 sm:gap-8 md:gap-10 lg:gap-12 pb-10 sm:pb-14">
+        
+        {/* Left: Tactile AI Monolithic Sculpture Image */}
+        <div className="relative w-full sm:w-56 md:w-48 lg:w-60 aspect-[3/4] rounded-sm overflow-hidden border border-border-custom shrink-0 bg-card shadow-sm">
+          <img
+            src="/images/ai-sculpture.jpg"
+            alt="Neural AI Organic Sculpture"
+            className="w-full h-full object-cover grayscale contrast-125 hover:scale-105 transition-transform duration-700"
+          />
+          {/* Artistic badge overlay */}
+          <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-xs bg-black/80 backdrop-blur-md text-white text-[9px] font-mono tracking-widest uppercase border border-white/10">
+            AI INTEL / MONOLITH
+          </div>
+        </div>
+
+        {/* Right: Tabular Info Rows with hairline dividers */}
+        <div className="flex-1 flex flex-col justify-center">
+          
+          {/* Row 1: PHONE */}
+          <div
             onClick={() => handleCopy(contactJson.contact.tel, "phone")}
-            className="inline-flex items-center gap-2 border border-border-custom bg-card/60 text-foreground font-semibold px-4 py-2.5 rounded-md hover:border-accent hover:text-accent transition-colors duration-200 text-xs"
+            className="group/row flex items-center justify-between py-4 sm:py-5 border-t border-border-custom hover:border-accent transition-colors cursor-pointer"
             title="Click to copy phone number"
           >
-            <span>{contactJson.contact.tel}</span>
-            <span className="text-[10px]">
-              {copiedType === "phone" ? "✓ COPIED!" : "📞"}
+            <span className="font-sans font-bold text-xs sm:text-sm md:text-base tracking-widest uppercase text-muted group-hover/row:text-accent transition-colors">
+              PHONE
             </span>
-          </button>
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-medium text-xs sm:text-sm md:text-base text-foreground group-hover/row:text-accent transition-colors">
+                {contactJson.contact.tel}
+              </span>
+              {copiedType === "phone" && (
+                <span className="text-[10px] font-mono text-accent animate-pulse font-bold">
+                  [COPIED!]
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Row 2: ADDRESS / LOCATION */}
+          <div className="group/row flex flex-col sm:flex-row sm:items-center justify-between py-4 sm:py-5 border-t border-border-custom gap-1 sm:gap-4">
+            <span className="font-sans font-bold text-xs sm:text-sm md:text-base tracking-widest uppercase text-muted">
+              ADDRESS
+            </span>
+            <span className="font-mono font-medium text-xs sm:text-sm md:text-base text-foreground text-left sm:text-right tracking-tight">
+              MOHALI, PUNJAB / GREATER NOIDA, INDIA
+            </span>
+          </div>
+
+          {/* Row 3: MAIL */}
+          <div
+            onClick={() => handleCopy(contactJson.contact.email, "email")}
+            className="group/row flex flex-col sm:flex-row sm:items-center justify-between py-4 sm:py-5 border-t border-b border-border-custom hover:border-accent transition-colors cursor-pointer gap-1 sm:gap-4"
+            title="Click to copy email address"
+          >
+            <span className="font-sans font-bold text-xs sm:text-sm md:text-base tracking-widest uppercase text-muted group-hover/row:text-accent transition-colors">
+              MAIL
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-medium text-xs sm:text-sm md:text-base uppercase text-foreground group-hover/row:text-accent transition-colors">
+                {contactJson.contact.email}
+              </span>
+              {copiedType === "email" && (
+                <span className="text-[10px] font-mono text-accent animate-pulse font-bold">
+                  [COPIED!]
+                </span>
+              )}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ─── BOTTOM ROW: SLASHED SOCIAL LINKS & COPYRIGHT ─── */}
+      <div className="pt-8 sm:pt-10 border-t border-border-custom flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        
+        {/* 3 Columns of Slashed Links (Matching Reference Placement) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 sm:gap-x-12 gap-y-3 font-mono text-xs sm:text-sm">
+          {socialLinks.map((col, colIdx) => (
+            <div key={colIdx} className="flex flex-col gap-2.5">
+              {col.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/link inline-flex items-center gap-1.5 text-foreground/85 hover:text-accent transition-colors font-medium"
+                >
+                  <span className="text-muted/60 group-hover/link:text-accent transition-colors">
+                    /
+                  </span>
+                  <span className="tracking-wide group-hover/link:translate-x-0.5 transition-transform duration-150">
+                    {link.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+          ))}
         </div>
 
-        {/* Social Link Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono mt-4">
-          <a
-            href={contactJson.contact.social.GitHub.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent border border-border-custom px-4 py-2 bg-card rounded-md hover:border-accent transition-all duration-200 hover:scale-105"
-          >
-            [github ↗]
-          </a>
-          <a
-            href={contactJson.contact.social.LinkedIn.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent border border-border-custom px-4 py-2 bg-card rounded-md hover:border-accent transition-all duration-200 hover:scale-105"
-          >
-            [linkedin ↗]
-          </a>
-          <a
-            href={contactJson.contact.social.X.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent border border-border-custom px-4 py-2 bg-card rounded-md hover:border-accent transition-all duration-200 hover:scale-105"
-          >
-            [x ↗]
-          </a>
+        {/* Copyright Mark on Bottom Right */}
+        <div className="font-mono text-xs sm:text-sm text-muted tracking-wider">
+          ©2026
         </div>
+
       </div>
     </section>
   );

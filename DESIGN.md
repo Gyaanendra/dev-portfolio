@@ -12,10 +12,10 @@ colors:
   border-dark: "#1f1f1f"
 typography:
   display:
-    fontFamily: "var(--font-space-grotesk), sans-serif"
+    fontFamily: "var(--font-trt-interval), 'TRT INTERVAL', monospace"
     fontSize: "clamp(2.5rem, 7vw, 4.5rem)"
   body:
-    fontFamily: "var(--font-jetbrains-mono), monospace"
+    fontFamily: "var(--font-trt-interval), 'TRT INTERVAL', monospace"
     fontSize: "14px"
 rounded:
   sm: "2px"
@@ -57,14 +57,13 @@ A high-contrast neutral layout punctuated by a single neon green/emerald green a
 
 ## 3. Typography
 
-**Display Font:** Space Grotesk (geometric sans-serif, via CSS var `--font-space-grotesk` mapped as `--font-serif`)
-**Body Font:** JetBrains Mono (monospace, via CSS var `--font-jetbrains-mono` mapped as `--font-mono`)
+**Exclusive Font:** TRT INTERVAL Monospace (`var(--font-trt-interval), 'TRT INTERVAL', monospace`).
+All UI elements, section headings, display titles, numbers, labels, and body text exclusively use the provided `TRT INTERVAL Monospace` font.
 
 ### Hierarchy
-- **Display** (weight: 400, size: text-6xl to text-9xl, font: serif): Hero header hierarchy and title highlights.
-- **Headline** (weight: 400, size: text-4xl to text-6xl, font: serif): Major page section titles.
-- **Body** (weight: 400, size: 14px, font: mono): Default text block.
-- **Label** (weight: 500, size: 12px, font: mono): Secondary metadata and buttons.
+- **Display / Headings** (weight: 700 / 500, size: text-5xl to text-6xl, font: mono): Major section titles (`01 / About`, `02 / Skills`, `03 / Experience`, `04 / Code Profiles`, `05 / Projects`, `06 / Contact`).
+- **Body** (weight: 400, size: 14px, font: mono): Default text blocks and descriptions.
+- **Label** (weight: 500, size: 12px, font: mono): Slashed links, metadata, and badges.
 
 ## 4. Elevation
 

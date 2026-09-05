@@ -1,5 +1,26 @@
 [
    {
+      "organization": "Dean Career Cloud (DCC), Bennett University",
+      "image": "/images/bennett.png",
+      "links": [
+         {
+            "title": "Website",
+            "href": "https://dcc-wesbite.vercel.app/"
+         },
+         {
+            "title": "Bennett",
+            "href": "https://bennett.edu.in/"
+         }
+      ],
+      "post": [
+         {
+            "title": "Tech Lead",
+            "dates": "Aug 2025 - Present",
+            "description": "The official career development forum under SCSET, Bennett University. Designed and engineered the full production web platform (dcc-wesbite.vercel.app) to empower students through technical interview prep, 1-on-1 alumni mentorship, ATS resume clinics, and direct industry pipelines."
+         }
+      ]
+   },
+   {
       "organization": "Free and Open Source Software Club, Bennett University",
       "image": "/images/foss-bu.jpg",
       "links": [

@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useLenis } from "lenis/react";
 import ThemeToggle from "@/components/ThemeToggle";
+import VerticalDock from "@/components/VerticalDock";
 
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
@@ -10,7 +11,8 @@ import Skills from "@/components/sections/Skills";
 import Experience from "@/components/sections/Experience";
 import CodingProfiles from "@/components/sections/CodingProfiles";
 import Projects from "@/components/sections/Projects";
-import EducationClubs from "@/components/sections/EducationClubs";
+import Education from "@/components/sections/Education";
+import Leadership from "@/components/sections/Leadership";
 import Activities from "@/components/sections/Activities";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
@@ -115,30 +117,18 @@ export default function Home() {
     }, 2100);
   };
 
-  // DOM References for high performance updates
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
-
-  // Setup scroll progress and custom cursor tracking
+  // Setup scroll section detection
   useEffect(() => {
-    // 1. Scroll Progress Handler
+    // 1. Scroll Handler
     const handleScroll = () => {
-      if (progressBarRef.current) {
-        const totalHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const progress =
-          totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
-        progressBarRef.current.style.width = `${progress}%`;
-      }
-
-      // Check current active section for minimal nav indicator
-      const sections = ["about", "work", "projects", "activities", "contact"];
+      // Check current active section for dock navigation
+      const sections = ["about", "skills", "work", "projects", "contact"];
       let currentSection = "about";
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 160) {
+          if (rect.top <= 200) {
             currentSection = sectionId;
           }
         }
@@ -159,31 +149,7 @@ export default function Home() {
       });
     };
 
-    // 2. Custom Cursor Handler
-    const handleMouseMove = (e: MouseEvent) => {
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${e.clientX}px`;
-        cursorRef.current.style.top = `${e.clientY}px`;
-      }
-    };
-
-    // Attach custom hover events
-    const addCursorHoverClass = () =>
-      cursorRef.current?.classList.add("custom-cursor-hover");
-    const removeCursorHoverClass = () =>
-      cursorRef.current?.classList.remove("custom-cursor-hover");
-
-    const setupInteractiveHover = () => {
-      const interactives = document.querySelectorAll(
-        "a, button, select, input, textarea, [role='button'], .interactive-hover",
-      );
-      interactives.forEach((item) => {
-        item.addEventListener("mouseenter", addCursorHoverClass);
-        item.addEventListener("mouseleave", removeCursorHoverClass);
-      });
-    };
-
-    // 3. Intersection Observer for Scroll Fade-up Transitions
+    // 2. Intersection Observer for Scroll Fade-up Transitions
     const observerOptions = {
       root: null,
       rootMargin: "0px",
@@ -203,34 +169,18 @@ export default function Home() {
 
     // Listeners and initialization
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("mousemove", handleMouseMove);
 
     // Initial trigger
     handleScroll();
-    setupInteractiveHover();
-
-    // Re-check for hovers on dynamic updates
-    const hoverInterval = setInterval(setupInteractiveHover, 1000);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("mousemove", handleMouseMove);
-      clearInterval(hoverInterval);
       observer.disconnect();
     };
   }, []);
 
   return (
     <div className="relative min-h-screen bg-background text-foreground transition-colors duration-300 antialiased overflow-x-hidden pb-12 selection:bg-accent selection:text-background font-mono">
-      {/* Scroll Progress Bar */}
-      <div ref={progressBarRef} className="scroll-progress-bar" />
-
-      {/* Custom Mouse Cursor (Desktop) */}
-      <div
-        ref={cursorRef}
-        className="custom-cursor hidden pointer-events-none md:block"
-      />
-
       {/* Staggered page transition curtain overlay */}
       {isNavTransitioning && (
         <div
@@ -257,60 +207,27 @@ export default function Home() {
         </div>
       )}
 
-      {/* Floating minimal nav */}
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-4xl z-50 border border-border-custom bg-card/75 backdrop-blur-md rounded-full shadow-md transition-all duration-300">
-        <div className="px-6 h-14 flex items-center justify-between">
-          <a
-            href="#"
-            onClick={handleLogoClick}
-            className="font-bold tracking-tight text-foreground transition-colors hover:text-accent font-serif text-xl sm:text-2xl"
-          >
-            G.Prakash
-          </a>
+      {/* Left Side Middle Vertical Dock Station with Fluid Motion */}
+      <div className="hidden md:block">
+        <VerticalDock
+          activeSection={activeSection}
+          onNavClick={handleNavClick}
+          onLogoClick={handleLogoClick}
+        />
+      </div>
 
-          {/* Desktop nav links & theme toggle */}
-          <div className="hidden md:flex items-center gap-5 text-xs sm:text-sm font-mono">
-            <a
-              href="#about"
-              onClick={(e) => handleNavClick(e, "#about")}
-              className={`hover:text-accent transition-colors duration-200 ${
-                activeSection === "about" ? "text-accent font-bold" : "text-muted"
-              }`}
-            >
-              [about]
-            </a>
-            <a
-              href="#skills"
-              onClick={(e) => handleNavClick(e, "#skills")}
-              className={`hover:text-accent transition-colors duration-200 ${
-                activeSection === "skills" ? "text-accent font-bold" : "text-muted"
-              }`}
-            >
-              [skills]
-            </a>
-            <a
-              href="#projects"
-              onClick={(e) => handleNavClick(e, "#projects")}
-              className={`hover:text-accent transition-colors duration-200 ${
-                activeSection === "projects" ? "text-accent font-bold" : "text-muted"
-              }`}
-            >
-              [projects]
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => handleNavClick(e, "#contact")}
-              className={`hover:text-accent transition-colors duration-200 ${
-                activeSection === "contact" ? "text-accent font-bold" : "text-muted"
-              }`}
-            >
-              [contact]
-            </a>
+      {/* Floating Mobile Top Bar with Logo & Hamburger */}
+      <div className="md:hidden fixed top-3 left-4 right-4 z-50 flex items-center justify-between p-2 pl-4 rounded-full border border-border-custom bg-card/80 backdrop-blur-md shadow-md">
+        <a
+          href="#"
+          onClick={handleLogoClick}
+          className="font-bold tracking-tight text-foreground transition-colors hover:text-accent font-serif text-lg"
+        >
+          G.Prakash
+        </a>
 
-            <ThemeToggle className="ml-1 rounded-full" />
-          </div>
-
-          {/* Mobile Morphing Hamburger Button */}
+        <div className="flex items-center gap-2">
+          <ThemeToggle className="w-8 h-8 rounded-full border-0 bg-transparent" />
           <button
             ref={hamburgerRef}
             onClick={() => {
@@ -324,27 +241,27 @@ export default function Home() {
                 setMobileMenuOpen(true);
               }
             }}
-            className="md:hidden relative z-50 flex flex-col justify-center items-center w-10 h-10 rounded-sm text-muted hover:text-accent focus:outline-none transition-colors"
+            className="flex flex-col justify-center items-center w-8 h-8 rounded-full text-muted hover:text-accent focus:outline-none transition-colors"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             <span
-              className={`block w-5 h-[1.5px] bg-current rounded-full transition-transform duration-300 origin-center ${
-                mobileMenuOpen ? "rotate-45 translate-y-[3px]" : "-translate-y-[4px]"
+              className={`block w-4 h-[1.5px] bg-current rounded-full transition-transform duration-300 origin-center ${
+                mobileMenuOpen ? "rotate-45 translate-y-[2.5px]" : "-translate-y-[3px]"
               }`}
             />
             <span
-              className={`block w-5 h-[1.5px] bg-current rounded-full transition-opacity duration-200 ${
+              className={`block w-4 h-[1.5px] bg-current rounded-full transition-opacity duration-200 ${
                 mobileMenuOpen ? "opacity-0" : "opacity-100"
               }`}
             />
             <span
-              className={`block w-5 h-[1.5px] bg-current rounded-full transition-transform duration-300 origin-center ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-[3px]" : "translate-y-[4px]"
+              className={`block w-4 h-[1.5px] bg-current rounded-full transition-transform duration-300 origin-center ${
+                mobileMenuOpen ? "-rotate-45 -translate-y-[2.5px]" : "translate-y-[3px]"
               }`}
             />
           </button>
         </div>
-      </nav>
+      </div>
 
       {/* Mobile circular menu overlay */}
       <div
@@ -434,14 +351,15 @@ export default function Home() {
       </div>
 
       {/* Main Container */}
-      <main className="max-w-5xl mx-auto px-6 pt-32 flex flex-col gap-24 md:gap-36">
+      <main className="max-w-5xl mx-auto px-6 pt-16 sm:pt-20 md:pt-24 flex flex-col gap-24 md:gap-36">
         <Hero />
         <About />
         <Skills />
         <Experience />
         <CodingProfiles />
         <Projects />
-        <EducationClubs />
+        <Education />
+        <Leadership />
         <Activities />
         <Contact />
       </main>

@@ -5,7 +5,7 @@
          "href": "https://github.com/Gyaanendra/AIML-PROJECT-CSET312",
          "dates": "2025",
          "active": true,
-         "description": "LLM-augmented fake news detection using fine-tuned deep learning models. FastAPI backend + frontend UI.",
+         "description": "Problem: Rampant misinformation spread across digital media. Approach: Fine-tuned RoBERTa transformer paired with Ollama local LLM verification, deployed with FastAPI backend and React frontend. Result: 94.2% classification accuracy with transparent reasoning.",
          "technologies": [
             "Python",
             "PyTorch",
@@ -25,7 +25,7 @@
          "href": "https://huggingface.co/spaces/gyaanendra/deepsightsapiens",
          "dates": "2025",
          "active": true,
-         "description": "Edge-optimized ANPR system achieving 99.49% mAP@50 with only 2.6M params. Dual OCR + night vision.",
+         "description": "Problem: License plate recognition failures under low-light edge constraints. Approach: Ultra-lightweight YOLOv11 detector (2.6M params), dual OCR, and ONNX Runtime acceleration. Result: 99.49% mAP@50 at 45 FPS on low-power hardware.",
          "technologies": [
             "YOLOv11",
             "PyTorch",
@@ -49,7 +49,7 @@
          "href": "https://github.com/Gyaanendra/Penguin-Predictor",
          "dates": "2025",
          "active": true,
-         "description": "Species classification using morphological data with Streamlit visualization and Scikit-learn pipeline.",
+         "description": "Problem: Rapid morphological species identification in environmental research. Approach: Scikit-learn classification pipeline with feature analysis and interactive Streamlit UI. Result: 98.7% test accuracy on the Palmer Archipelago dataset.",
          "technologies": [
             "Python",
             "Streamlit",
@@ -64,12 +64,38 @@
          "image": "/pro/penguin.png"
       },
       {
-         "title": "Coming Soon",
+         "title": "Dean Career Cloud Platform",
+         "href": "https://dcc-wesbite.vercel.app/",
+         "dates": "2026",
+         "active": true,
+         "description": "Problem: Fragmented career resources and lack of centralized placement architecture for 5,000+ SCSET engineering students. Approach: Architected official career forum portal featuring specialized cohort tracks, 1-on-1 MAANG mentorship pipelines, and real-time query desks. Result: Shipped to production at dcc-wesbite.vercel.app serving university-wide placement cohorts.",
+         "technologies": [
+            "Next.js",
+            "TypeScript",
+            "TailwindCSS",
+            "Framer Motion",
+            "Vercel"
+         ],
+         "links": [
+            {
+               "type": "Live Demo",
+               "href": "https://dcc-wesbite.vercel.app/"
+            }
+         ],
+         "image": "/pro/dcc.png"
+      },
+      {
+         "title": "Autonomous Agent Mesh",
          "href": "",
          "dates": "2025",
          "active": true,
-         "description": "More projects are currently under development. Stay tuned for updates!",
-         "technologies": [],
+         "description": "Problem: Complex task orchestration across isolated LLMs. Approach: Designing a self-hosted multi-agent runtime with tool calling, vector memory, and automated verification loops. Result: In active development.",
+         "technologies": [
+            "FastAPI",
+            "Docker",
+            "LangChain",
+            "Vector DB"
+         ],
          "links": [],
          "image": "/comingsoon.png"
       }

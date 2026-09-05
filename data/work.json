@@ -3,12 +3,12 @@
       {
          "company": "Hypotenuse Analytics",
          "href": "https://www.hypotenuseanalytics.com",
-         "badges": [],
+         "badges": ["Incoming"],
          "location": "Remote",
          "title": "Full Stack AI Engineer",
          "logoUrl": "",
          "start": "May 2026",
-         "end": "Present",
+         "end": "Aug 2026",
          "description": [
             " **•** Designing and developing **Meera**, an internal AI Agent that automates meeting recordings, transcription summaries, and business operations.",
             " **•** Architecting full-stack integrations to streamline and manage **company HR responsibilities** and workflow pipelines.",

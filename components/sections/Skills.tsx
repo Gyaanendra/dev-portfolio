@@ -52,10 +52,13 @@ export default function Skills() {
       id="skills"
       className="scroll-mt-24 flex flex-col gap-6 fade-up-element overflow-hidden"
     >
-      <div className="border-b border-border-custom pb-4">
+      <div className="border-b border-border-custom pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
         <h2 className="font-serif text-5xl md:text-6xl tracking-tight">
           02 / Skills
         </h2>
+        <span className="text-xs font-mono text-muted">
+          ✦ Comprehensive Technical Arsenal &amp; Tools
+        </span>
       </div>
 
       <p className="text-xs text-muted max-w-lg mb-2 fade-up-item delay-100 font-mono">
