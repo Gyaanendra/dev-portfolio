@@ -111,14 +111,14 @@ export default function Leadership() {
               </span>
             </div>
 
-            {/* DCC / Bennett University Official Logo */}
-            <div className="w-14 h-14 border border-border-custom rounded-lg bg-card p-2 shrink-0 relative overflow-hidden flex items-center justify-center shadow-xs mt-1">
+            {/* DCC Official Logo */}
+            <div className="w-14 h-14 border border-border-custom rounded-lg bg-card p-1.5 shrink-0 relative overflow-hidden flex items-center justify-center shadow-xs mt-1">
               <Image
-                src="/images/bennett.png"
+                src="/images/dcc.png"
                 alt="Dean Career Cloud, Bennett University"
-                width={42}
-                height={42}
-                className="object-contain"
+                width={48}
+                height={48}
+                className="object-contain dark:invert"
               />
             </div>
           </div>
