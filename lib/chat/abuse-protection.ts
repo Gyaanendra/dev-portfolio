@@ -124,6 +124,49 @@ export function isValidVisitorId(visitorId: string | null | undefined): boolean 
 }
 
 /**
+ * Validates whether the incoming request exhibits authentic browser metadata headers.
+ * Modern browsers automatically send Sec-Fetch-Site and Sec-Fetch-Mode headers.
+ * Non-browser clients (curl, python, postman, direct bots) either omit or forge these.
+ */
+export function validateBrowserMetadata(req: Request): { isBrowser: boolean; reason?: string } {
+  const secFetchSite = req.headers.get("sec-fetch-site");
+  const secFetchMode = req.headers.get("sec-fetch-mode");
+  const userAgent = req.headers.get("user-agent") || "";
+
+  // Check 1: If Sec-Fetch-Site is present, it must be same-origin or same-site
+  if (secFetchSite) {
+    const site = secFetchSite.toLowerCase();
+    if (site !== "same-origin" && site !== "same-site") {
+      return {
+        isBrowser: false,
+        reason: `Cross-site fetch blocked by Sec-Fetch-Site policy: ${site}`,
+      };
+    }
+  }
+
+  // Check 2: If Sec-Fetch-Mode is present, it must be cors or same-origin
+  if (secFetchMode) {
+    const mode = secFetchMode.toLowerCase();
+    if (mode !== "cors" && mode !== "same-origin") {
+      return {
+        isBrowser: false,
+        reason: `Invalid Sec-Fetch-Mode: ${mode}`,
+      };
+    }
+  }
+
+  // Check 3: If Sec-Fetch headers are missing entirely AND user-agent is not a standard browser
+  if (!secFetchSite && (!userAgent || !userAgent.includes("Mozilla"))) {
+    return {
+      isBrowser: false,
+      reason: "Non-browser client detected (missing Sec-Fetch metadata & standard browser headers)",
+    };
+  }
+
+  return { isBrowser: true };
+}
+
+/**
  * Checks if an entity (IP or device ID) is currently in the 5-hour ban list.
  */
 async function checkActiveBan(key: string): Promise<{ isBanned: boolean; retryAfter: number; reason?: string }> {
@@ -343,7 +386,24 @@ export async function checkChatAbuseAndLimits(
     };
   }
 
-  // ─── STEP 2: Bot & Scraper User-Agent Detection (5-Hour Penalty) ───
+  // ─── STEP 2: Browser Metadata & Non-Browser Client Detection (5-Hour Penalty) ───
+  const browserCheck = validateBrowserMetadata(req);
+  if (!browserCheck.isBrowser) {
+    const banReason =
+      browserCheck.reason || "Non-browser automated client detected.";
+    const retryAfter = await applyHarshBotBan(`ip:${ip}`, banReason);
+    await applyHarshBotBan(effectiveDeviceId, banReason);
+
+    return {
+      allowed: false,
+      status: 429,
+      message: RATE_LIMIT_CONFIG.RATE_LIMIT_MESSAGE,
+      retryAfter,
+      reason: banReason,
+    };
+  }
+
+  // ─── STEP 3: Bot & Scraper User-Agent Detection (5-Hour Penalty) ───
   if (detectBotUserAgent(userAgent)) {
     const banReason = "Automated scraper or bot user-agent detected.";
     const retryAfter = await applyHarshBotBan(`ip:${ip}`, banReason);
@@ -358,7 +418,7 @@ export async function checkChatAbuseAndLimits(
     };
   }
 
-  // ─── STEP 3: Tampered / Malformed Token Detection (5-Hour Penalty) ───
+  // ─── STEP 4: Tampered / Malformed Token Detection (5-Hour Penalty) ───
   if (visitorId && !isValidVisitorId(visitorId)) {
     const banReason = "Tampered / forged device fingerprint token detected.";
     const retryAfter = await applyHarshBotBan(`ip:${ip}`, banReason);

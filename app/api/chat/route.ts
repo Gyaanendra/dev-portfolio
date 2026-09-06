@@ -220,8 +220,18 @@ export async function POST(req: Request) {
   // ─── F1: Origin / CSRF Verification ───
   if (!validateOrigin(req)) {
     return Response.json(
-      { error: "Forbidden: cross-origin requests are not allowed" },
-      { status: 403 }
+      {
+        error: "hire me for higher limist",
+        message: "hire me for higher limist",
+        reason: "Forbidden: cross-origin or direct non-browser request.",
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": "18000",
+          "X-RateLimit-Remaining": "0",
+        },
+      }
     );
   }
 
