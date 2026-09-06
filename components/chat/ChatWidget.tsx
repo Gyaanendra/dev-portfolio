@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { MODEL_MAPPING } from "@/app/api/chat/route";
+import { getVisitorFingerprint } from "@/lib/chat/fingerprint";
 
 interface Message {
   id: string;
@@ -170,6 +171,14 @@ export default function ChatWidget() {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const visitorIdRef = useRef<string>("");
+
+  // Initialize device fingerprint in background on mount
+  useEffect(() => {
+    getVisitorFingerprint().then((id) => {
+      visitorIdRef.current = id;
+    });
+  }, []);
 
   // Auto-scroll messages to bottom
   const scrollToBottom = () => {
@@ -187,107 +196,129 @@ export default function ChatWidget() {
   }, [isOpen, messages, isLoading]);
 
   // Handle form submission and streaming
-  const sendMessage = async (messageText: string) => {
-    const textToSend = messageText.trim();
-    if (!textToSend || isLoading) return;
+  const sendMessage = React.useCallback(
+    async (messageText: string) => {
+      const textToSend = messageText.trim();
+      if (!textToSend || isLoading) return;
 
-    setErrorMessage(null);
-    const userMsg: Message = {
-      id: "user-" + Date.now(),
-      role: "user",
-      content: textToSend,
-    };
+      setErrorMessage(null);
+      const userMsgId = `user-${Date.now()}`;
+      const userMsg: Message = {
+        id: userMsgId,
+        role: "user",
+        content: textToSend,
+      };
 
-    const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
-    setInput("");
-    setIsLoading(true);
+      const newMessages = [...messages, userMsg];
+      setMessages(newMessages);
+      setInput("");
+      setIsLoading(true);
 
-    const assistantMsgId = "assistant-" + Date.now();
-    let accumulatedText = "";
+      const assistantMsgId = `assistant-${Date.now()}`;
+      const textChunks: string[] = [];
 
-    // Abort prior stream if active
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: newMessages.map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
-          model: selectedModel,
-        }),
-        signal: controller.signal,
-      });
-
-      if (!res.ok) {
-        const errJson = await res.json().catch(() => null);
-        const errMsg =
-          errJson?.error ||
-          (res.status === 429
-            ? "Rate limit exceeded. Please wait a few seconds before sending another message."
-            : res.status === 403
-            ? "Forbidden: cross-origin or unauthorized request."
-            : ERROR_MESSAGE);
-        throw new Error(errMsg);
+      // Abort prior stream if active
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
       }
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
 
-      if (!res.body) {
-        throw new Error("No response body received");
-      }
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-
-      // Initialize assistant placeholder in message list
-      setMessages((prev) => [
-        ...prev,
-        { id: assistantMsgId, role: "assistant", content: "" },
-      ]);
-
-      let done = false;
-      while (!done) {
-        const { value, done: readerDone } = await reader.read();
-        done = readerDone;
-        if (value) {
-          const chunk = decoder.decode(value, { stream: !done });
-          accumulatedText += chunk;
-          setMessages((prev) =>
-            prev.map((msg) =>
-              msg.id === assistantMsgId
-                ? { ...msg, content: accumulatedText }
-                : msg
-            )
-          );
+      try {
+        // Resolve visitor fingerprint if not yet cached
+        let visitorId = visitorIdRef.current;
+        if (!visitorId) {
+          visitorId = await getVisitorFingerprint();
+          visitorIdRef.current = visitorId;
         }
-      }
 
-      // If finished without any content, show error fallback
-      if (!accumulatedText.trim()) {
-        throw new Error("Empty response received from LLM");
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-visitor-id": visitorId,
+          },
+          body: JSON.stringify({
+            messages: newMessages.map((m) => ({
+              role: m.role,
+              content: m.content,
+            })),
+            model: selectedModel,
+            visitorId,
+          }),
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          const errJson = (await res.json().catch(() => null)) as {
+            error?: string;
+            message?: string;
+          } | null;
+          const errMsg =
+            errJson?.error ||
+            errJson?.message ||
+            (res.status === 429
+              ? "hire me for higher limist"
+              : res.status === 403
+              ? "Forbidden: cross-origin or unauthorized request."
+              : ERROR_MESSAGE);
+          throw new Error(errMsg);
+        }
+
+        if (!res.body) {
+          throw new Error("No response body received");
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+
+        // Initialize assistant placeholder in message list
+        setMessages((prev) => [
+          ...prev,
+          { id: assistantMsgId, role: "assistant", content: "" },
+        ]);
+
+        let done = false;
+        while (!done) {
+          const { value, done: readerDone } = await reader.read();
+          done = readerDone;
+          if (value) {
+            const chunk = decoder.decode(value, { stream: !done });
+            textChunks.push(chunk);
+            const currentFullText = textChunks.join("");
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === assistantMsgId
+                  ? { ...msg, content: currentFullText }
+                  : msg
+              )
+            );
+          }
+        }
+
+        // If finished without any content, show error fallback
+        const finalText = textChunks.join("").trim();
+        if (!finalText) {
+          throw new Error("Empty response received from LLM");
+        }
+      } catch (err: unknown) {
+        const errObj = err as { name?: string; message?: string };
+        if (errObj?.name === "AbortError") {
+          return; // User cancelled
+        }
+        console.error("Chat Agent Error:", err);
+        setErrorMessage(errObj?.message || ERROR_MESSAGE);
+        // Remove empty assistant placeholder if failed completely
+        setMessages((prev) =>
+          prev.filter((m) => m.id !== assistantMsgId || m.content.length > 0)
+        );
+      } finally {
+        setIsLoading(false);
+        abortControllerRef.current = null;
       }
-    } catch (err: any) {
-      if (err.name === "AbortError") {
-        return; // User cancelled
-      }
-      console.error("Chat Agent Error:", err);
-      setErrorMessage(err?.message || ERROR_MESSAGE);
-      // Remove empty assistant placeholder if failed completely
-      setMessages((prev) =>
-        prev.filter((m) => m.id !== assistantMsgId || m.content.length > 0)
-      );
-    } finally {
-      setIsLoading(false);
-      abortControllerRef.current = null;
-    }
-  };
+    },
+    [isLoading, messages, selectedModel]
+  );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -479,14 +510,51 @@ export default function ChatWidget() {
               </div>
             )}
 
-            {/* Error Message Fallback */}
+            {/* Error Message / Rate Limit Fallback */}
             {errorMessage && (
-              <div className="p-3.5 sm:p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs sm:text-sm space-y-1.5">
-                <div className="flex items-center gap-1.5 font-semibold text-xs text-red-300">
-                  <span>[!]</span>
-                  <span>SYSTEM ALERT</span>
+              <div
+                className={`p-3.5 sm:p-4 rounded-xl border ${
+                  errorMessage.toLowerCase().includes("hire me") ||
+                  errorMessage.toLowerCase().includes("limist") ||
+                  errorMessage.toLowerCase().includes("limit")
+                    ? "border-accent/40 bg-accent/5 text-foreground"
+                    : "border-red-500/30 bg-red-500/10 text-red-400"
+                } text-xs sm:text-sm space-y-2 font-mono`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 font-bold text-xs text-accent">
+                    <span>[!]</span>
+                    <span>
+                      {errorMessage.toLowerCase().includes("hire me")
+                        ? "RATE LIMIT REACHED"
+                        : "SYSTEM ALERT"}
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-muted border border-border-custom px-1.5 py-0.5 rounded">
+                    HTTP 429
+                  </span>
                 </div>
-                <p className="leading-normal">{errorMessage}</p>
+                <p className="leading-normal font-semibold text-accent text-sm">
+                  {errorMessage}
+                </p>
+                {errorMessage.toLowerCase().includes("hire me") && (
+                  <div className="pt-1 flex flex-wrap items-center gap-2.5">
+                    <a
+                      href="#contact"
+                      onClick={() => setIsOpen(false)}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-accent text-background dark:text-black font-bold text-xs hover:opacity-90 transition-opacity"
+                    >
+                      <span>Contact Gyanendra</span>
+                      <span>→</span>
+                    </a>
+                    <a
+                      href="mailto:contact@gyanendra.vihar.in"
+                      className="text-xs text-muted hover:text-foreground underline underline-offset-2 transition-colors"
+                    >
+                      contact@gyanendra.vihar.in
+                    </a>
+                  </div>
+                )}
               </div>
             )}
 

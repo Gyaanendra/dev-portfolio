@@ -1,8 +1,7 @@
 import { createGroq } from "@ai-sdk/groq";
 import { streamText, isStepCount } from "ai";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 import { portfolioTools } from "@/lib/chat/tools";
+import { checkChatAbuseAndLimits } from "@/lib/chat/abuse-protection";
 
 // Strictly read from environment variable — never hardcoded in source
 const apiKey = process.env.GROQ_API_KEY;
@@ -34,55 +33,6 @@ export const MODEL_MAPPING: Record<string, { id: string; label: string }> = {
     label: "GPT OSS 20B",
   },
 };
-
-// Rate Limiter Setup (F2): Upstash Redis if env configured, sliding window in-memory fallback
-const hasUpstash =
-  Boolean(process.env.UPSTASH_REDIS_REST_URL) &&
-  Boolean(process.env.UPSTASH_REDIS_REST_TOKEN);
-
-const upstashRatelimit = hasUpstash
-  ? new Ratelimit({
-      redis: Redis.fromEnv(),
-      limiter: Ratelimit.slidingWindow(10, "1 m"),
-      analytics: true,
-      prefix: "@upstash/ratelimit/portfolio-chat",
-    })
-  : null;
-
-// In-memory sliding window fallback (per IP, 10 req / 60s)
-const inMemoryStore = new Map<string, number[]>();
-
-async function checkRateLimit(
-  ip: string
-): Promise<{ success: boolean; reset: number }> {
-  if (upstashRatelimit) {
-    try {
-      const result = await upstashRatelimit.limit(ip);
-      return { success: result.success, reset: result.reset };
-    } catch (err) {
-      console.warn(
-        "Upstash rate limit error, falling back to in-memory store:",
-        err
-      );
-    }
-  }
-
-  const now = Date.now();
-  const windowMs = 60_000;
-  const limit = 10;
-  const timestamps = (inMemoryStore.get(ip) || []).filter(
-    (t) => t > now - windowMs
-  );
-
-  if (timestamps.length >= limit) {
-    const oldest = timestamps[0];
-    return { success: false, reset: oldest + windowMs };
-  }
-
-  timestamps.push(now);
-  inMemoryStore.set(ip, timestamps);
-  return { success: true, reset: now + windowMs };
-}
 
 // Origin & Referer Verification (F1)
 function isAllowedHost(urlStr: string | null): boolean {
@@ -134,6 +84,7 @@ type ValidatedInput = {
   ok: true;
   messages: Array<{ role: "user" | "assistant"; content: string }>;
   modelKey: string;
+  visitorId?: string;
 };
 
 type ValidationError = {
@@ -216,10 +167,14 @@ function validateRequestBody(body: unknown): ValidatedInput | ValidationError {
       ? b.model
       : "qwen-3.8";
 
+  const visitorId =
+    typeof b.visitorId === "string" ? b.visitorId.trim() : undefined;
+
   return {
     ok: true,
     messages: sanitizedMessages,
     modelKey,
+    visitorId,
   };
 }
 
@@ -270,31 +225,6 @@ export async function POST(req: Request) {
     );
   }
 
-  // ─── F2: Per-IP Sliding Window Rate Limiter ───
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    req.headers.get("x-real-ip") ||
-    "127.0.0.1";
-
-  const { success, reset } = await checkRateLimit(ip);
-  if (!success) {
-    const retryAfter = Math.max(1, Math.ceil((reset - Date.now()) / 1000)).toString();
-    return Response.json(
-      {
-        error: "Rate limit exceeded. Please wait a moment before sending another message.",
-      },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": retryAfter,
-          "X-RateLimit-Limit": "10",
-          "X-RateLimit-Remaining": "0",
-          "X-RateLimit-Reset": reset.toString(),
-        },
-      }
-    );
-  }
-
   // ─── F4: Safe JSON Body Parsing (Returns 400 on Malformed JSON, Not 500) ───
   const rawBody = await req.json().catch(() => null);
   if (rawBody === null) {
@@ -307,7 +237,32 @@ export async function POST(req: Request) {
     return Response.json({ error: validation.reason }, { status: 400 });
   }
 
-  const { messages, modelKey } = validation;
+  const { messages, modelKey, visitorId } = validation;
+
+  // ─── F2: Device Fingerprint & Multi-Bot Rate Limiting / Abuse Protection ───
+  const abuseCheck = await checkChatAbuseAndLimits(req, visitorId);
+  if (!abuseCheck.allowed) {
+    return Response.json(
+      {
+        error: abuseCheck.message,
+        message: abuseCheck.message,
+        reason: abuseCheck.reason,
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": abuseCheck.retryAfter.toString(),
+          "X-RateLimit-Limit": "8",
+          "X-RateLimit-Remaining": "0",
+          "X-RateLimit-Reset": (
+            Date.now() +
+            abuseCheck.retryAfter * 1000
+          ).toString(),
+        },
+      }
+    );
+  }
+
   const modelConfig = MODEL_MAPPING[modelKey] || MODEL_MAPPING["qwen-3.8"];
   const resolvedModelId = modelConfig.id;
 
@@ -323,16 +278,23 @@ export async function POST(req: Request) {
 
     return result.toTextStreamResponse({
       headers: {
-        "X-RateLimit-Limit": "10",
+        "X-RateLimit-Limit": "8",
         "X-RateLimit-Remaining": "1",
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     // ─── F5: Distinct Upstream Error Mapping ───
     console.error("Groq API / Chat Agent Error:", error);
 
-    const status = error?.status || error?.statusCode || error?.response?.status;
-    const message = (error?.message || "").toLowerCase();
+    const errObj = error as {
+      status?: number;
+      statusCode?: number;
+      response?: { status?: number };
+      message?: string;
+    };
+    const status =
+      errObj?.status || errObj?.statusCode || errObj?.response?.status;
+    const message = (errObj?.message || "").toLowerCase();
 
     if (
       status === 429 ||
@@ -340,7 +302,10 @@ export async function POST(req: Request) {
       message.includes("too many requests")
     ) {
       return Response.json(
-        { error: "Upstream rate limited, please try again shortly" },
+        {
+          error: "hire me for higher limist",
+          message: "hire me for higher limist",
+        },
         { status: 429, headers: { "Retry-After": "30" } }
       );
     }
