@@ -1,7 +1,15 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
+import {
+  UserIcon,
+  CodeXmlIcon,
+  LaptopMinimalIcon,
+  FolderIcon,
+  MailIcon,
+} from "@animateicons/react/lucide";
 
 interface VerticalDockProps {
   activeSection: string;
@@ -31,7 +39,7 @@ export default function VerticalDock({
 
   // References for all items: 0 = GP, 1..5 = Nav Items, 6 = Theme
   const itemRefs = useRef<(HTMLElement | null)[]>([]);
-  const restingCenters = useRef<number[]>([]);
+  const [restingCenters, setRestingCenters] = useState<number[]>([]);
 
   const navItems: NavItem[] = [
     {
@@ -39,21 +47,14 @@ export default function VerticalDock({
       label: "About",
       href: "#about",
       icon: (active) => (
-        <svg
-          className={`w-5 h-5 transition-colors duration-200 ${
+        <UserIcon
+          size={18}
+          className={`transition-colors duration-200 ${
             active
-              ? "stroke-black dark:stroke-[#00D2FF]"
-              : "stroke-[#9C9C9C] group-hover:stroke-black dark:group-hover:stroke-white"
+              ? "text-black dark:text-[#00D2FF]"
+              : "text-[#9C9C9C] group-hover:text-black dark:group-hover:text-white"
           }`}
-          viewBox="0 0 24 24"
-          fill="none"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
+        />
       ),
     },
     {
@@ -61,21 +62,14 @@ export default function VerticalDock({
       label: "Skills",
       href: "#skills",
       icon: (active) => (
-        <svg
-          className={`w-5 h-5 transition-colors duration-200 ${
+        <CodeXmlIcon
+          size={18}
+          className={`transition-colors duration-200 ${
             active
-              ? "stroke-black dark:stroke-[#00D2FF]"
-              : "stroke-[#9C9C9C] group-hover:stroke-black dark:group-hover:stroke-white"
+              ? "text-black dark:text-[#00D2FF]"
+              : "text-[#9C9C9C] group-hover:text-black dark:group-hover:text-white"
           }`}
-          viewBox="0 0 24 24"
-          fill="none"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="16 18 22 12 16 6" />
-          <polyline points="8 6 2 12 8 18" />
-        </svg>
+        />
       ),
     },
     {
@@ -83,21 +77,14 @@ export default function VerticalDock({
       label: "Experience",
       href: "#work",
       icon: (active) => (
-        <svg
-          className={`w-5 h-5 transition-colors duration-200 ${
+        <LaptopMinimalIcon
+          size={18}
+          className={`transition-colors duration-200 ${
             active
-              ? "stroke-black dark:stroke-[#00D2FF]"
-              : "stroke-[#9C9C9C] group-hover:stroke-black dark:group-hover:stroke-white"
+              ? "text-black dark:text-[#00D2FF]"
+              : "text-[#9C9C9C] group-hover:text-black dark:group-hover:text-white"
           }`}
-          viewBox="0 0 24 24"
-          fill="none"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-        </svg>
+        />
       ),
     },
     {
@@ -105,20 +92,14 @@ export default function VerticalDock({
       label: "Projects",
       href: "#projects",
       icon: (active) => (
-        <svg
-          className={`w-5 h-5 transition-colors duration-200 ${
+        <FolderIcon
+          size={18}
+          className={`transition-colors duration-200 ${
             active
-              ? "stroke-black dark:stroke-[#00D2FF]"
-              : "stroke-[#9C9C9C] group-hover:stroke-black dark:group-hover:stroke-white"
+              ? "text-black dark:text-[#00D2FF]"
+              : "text-[#9C9C9C] group-hover:text-black dark:group-hover:text-white"
           }`}
-          viewBox="0 0 24 24"
-          fill="none"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-        </svg>
+        />
       ),
     },
     {
@@ -126,20 +107,14 @@ export default function VerticalDock({
       label: "Contact",
       href: "#contact",
       icon: (active) => (
-        <svg
-          className={`w-5 h-5 transition-colors duration-200 ${
+        <MailIcon
+          size={18}
+          className={`transition-colors duration-200 ${
             active
-              ? "stroke-black dark:stroke-[#00D2FF]"
-              : "stroke-[#9C9C9C] group-hover:stroke-black dark:group-hover:stroke-white"
+              ? "text-black dark:text-[#00D2FF]"
+              : "text-[#9C9C9C] group-hover:text-black dark:group-hover:text-white"
           }`}
-          viewBox="0 0 24 24"
-          fill="none"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </svg>
+        />
       ),
     },
   ];
@@ -154,21 +129,23 @@ export default function VerticalDock({
       }
     });
     if (centers.length > 0) {
-      restingCenters.current = centers;
+      setRestingCenters(centers);
     }
   }, []);
 
   useEffect(() => {
-    measureRestingCenters();
-    window.addEventListener("resize", measureRestingCenters);
-    return () => window.removeEventListener("resize", measureRestingCenters);
+    const handleResize = () => {
+      measureRestingCenters();
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [measureRestingCenters]);
 
   // macOS-style Cosine Bell-Curve magnification
   const getScale = (itemIndex: number) => {
-    if (mouseY === null || !restingCenters.current[itemIndex]) return 1;
+    if (mouseY === null || !restingCenters[itemIndex]) return 1;
 
-    const centerY = restingCenters.current[itemIndex];
+    const centerY = restingCenters[itemIndex];
     const distance = Math.abs(mouseY - centerY);
 
     if (distance > INFLUENCE_RADIUS) return 1;
@@ -211,7 +188,7 @@ export default function VerticalDock({
       aria-label="Vertical Navigation Dock"
       className="fixed left-3 sm:left-5 lg:left-6 top-1/2 -translate-y-1/2 z-50 select-none pointer-events-auto"
     >
-      {/* ─── DOCK SHELF CAPSULE (Dynamically wraps and expands) ─── */}
+      {/* ─── DOCK SHELF CAPSULE (Minimalist, uniform, precision-crafted) ─── */}
       <div
         ref={dockRef}
         onMouseEnter={handleMouseEnter}
@@ -220,13 +197,13 @@ export default function VerticalDock({
         style={{
           width: `${dockWidth}px`,
         }}
-        className={`relative flex flex-col items-center gap-1.5 sm:gap-2 p-2 rounded-[28px] sm:rounded-full bg-white/80 dark:bg-[#0a0a0c]/85 backdrop-blur-2xl border border-black/10 dark:border-white/[0.12] shadow-2xl shadow-black/25 dark:shadow-[0_12px_40px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)] ${
+        className={`relative flex flex-col items-center gap-1.5 p-1.5 rounded-full bg-white/70 dark:bg-[#0c0c0e]/80 backdrop-blur-xl border border-black/[0.08] dark:border-white/[0.1] shadow-xl shadow-black/5 dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] ${
           isHovering
             ? "transition-[width] duration-100 ease-out"
             : "transition-all duration-300 ease-out"
         }`}
       >
-        {/* ─── 0. TOP GP LOGO / HOME ANCHOR ─── */}
+        {/* ─── 0. TOP AVATAR / SCROLL TO TOP ─── */}
         {(() => {
           const scale = scales[0];
           const slotSize = Math.round(BASE_SIZE * scale);
@@ -253,16 +230,23 @@ export default function VerticalDock({
                   transform: `scale(${scale})`,
                   transformOrigin: "center center",
                 }}
-                className="group relative flex items-center justify-center w-10 h-10 rounded-full text-foreground hover:text-black dark:hover:text-[#00D2FF] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] active:scale-90 transition-all duration-150 cursor-pointer"
+                className="group relative flex items-center justify-center w-10 h-10 rounded-full cursor-pointer focus:outline-none"
                 title="Scroll to Top"
                 aria-label="Scroll to top"
               >
-                <span className="font-serif font-black text-sm tracking-tighter">
-                  GP
-                </span>
+                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-black/15 dark:border-white/20 group-hover:border-accent transition-colors duration-200 shadow-xs">
+                  <Image
+                    src="/images/me1.jpg"
+                    alt="Gyanendra Prakash"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-300"
+                    priority
+                  />
+                </div>
 
                 {/* macOS Slide-out Tooltip */}
-                <div className="absolute left-full ml-4 px-2.5 py-1 rounded-md bg-black/95 dark:bg-[#161618]/95 text-white text-[11px] font-mono whitespace-nowrap shadow-2xl border border-white/10 opacity-0 -translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 z-50">
+                <div className="absolute left-full ml-3.5 px-2.5 py-1 rounded-md bg-black/95 dark:bg-[#161618]/95 text-white text-[11px] font-mono whitespace-nowrap shadow-xl border border-white/10 opacity-0 -translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 z-50">
                   <span>[top]</span>
                 </div>
               </a>
@@ -271,10 +255,10 @@ export default function VerticalDock({
         })()}
 
         {/* Divider 1 */}
-        <div className="w-5 h-[1px] bg-black/10 dark:bg-white/[0.12] my-0.5 shrink-0" />
+        <div className="w-4 h-[1px] bg-black/[0.08] dark:bg-white/[0.1] my-0.5 shrink-0" />
 
-        {/* ─── 1..5 NAVIGATION ITEMS (WITH MOTION WRAPPING & HIGH CONTRAST) ─── */}
-        <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+        {/* ─── 1..5 NAVIGATION ITEMS (CLEAN & UNIFORM) ─── */}
+        <div className="flex flex-col items-center gap-1.5">
           {navItems.map((item, i) => {
             const itemIndex = i + 1; // 1 to 5
             const isActive = activeSection === item.id;
@@ -304,27 +288,24 @@ export default function VerticalDock({
                     transform: `scale(${scale})`,
                     transformOrigin: "center center",
                   }}
-                  className={`group relative flex items-center justify-center w-10 h-10 rounded-full active:scale-90 transition-all duration-150 cursor-pointer ${
+                  className={`group relative flex items-center justify-center w-10 h-10 rounded-full cursor-pointer focus:outline-none transition-colors duration-200 ${
                     isActive
-                      ? "bg-black/10 dark:bg-white/[0.14] border border-black/30 dark:border-[#00D2FF]/70 shadow-sm dark:shadow-[0_0_18px_rgba(0,210,255,0.4)] text-black dark:text-[#00D2FF]"
-                      : "text-[#9C9C9C] hover:text-black dark:hover:text-white hover:bg-black/[0.06] dark:hover:bg-white/[0.08]"
+                      ? "text-black dark:text-[#00D2FF]"
+                      : "text-[#9C9C9C] hover:text-black dark:text-[#737373] dark:hover:text-white"
                   }`}
                   aria-label={item.label}
                 >
-                  {/* Clean Non-Clipping Active Dot Indicator on the inside left edge */}
+                  {/* Minimalist edge indicator bar for active state */}
                   {isActive && (
-                    <span className="absolute left-1.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-black dark:bg-[#00D2FF] shadow-[0_0_8px_rgba(0,210,255,0.95)] pointer-events-none" />
+                    <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-[3px] h-3.5 rounded-full bg-black dark:bg-[#00D2FF] pointer-events-none transition-all duration-200" />
                   )}
 
-                  {/* Icon with crisp, radiant contrast */}
+                  {/* Clean Icon with no bulky circle background */}
                   {item.icon(isActive)}
 
                   {/* macOS Slide-out Tooltip */}
-                  <div className="absolute left-full ml-4 px-2.5 py-1 rounded-md bg-black/95 dark:bg-[#161618]/95 text-white text-[11px] font-mono font-medium whitespace-nowrap shadow-2xl border border-white/10 opacity-0 -translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 flex items-center gap-2 z-50">
+                  <div className="absolute left-full ml-3.5 px-2.5 py-1 rounded-md bg-black/95 dark:bg-[#161618]/95 text-white text-[11px] font-mono whitespace-nowrap shadow-xl border border-white/10 opacity-0 -translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 flex items-center gap-2 z-50">
                     <span>[{item.label.toLowerCase()}]</span>
-                    {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00D2FF] shadow-[0_0_6px_#00D2FF]" />
-                    )}
                   </div>
                 </a>
               </div>
@@ -333,7 +314,7 @@ export default function VerticalDock({
         </div>
 
         {/* Divider 2 */}
-        <div className="w-5 h-[1px] bg-black/10 dark:bg-white/[0.12] my-0.5 shrink-0" />
+        <div className="w-4 h-[1px] bg-black/[0.08] dark:bg-white/[0.1] my-0.5 shrink-0" />
 
         {/* ─── 6. BOTTOM THEME TOGGLE ─── */}
         {(() => {
@@ -360,12 +341,12 @@ export default function VerticalDock({
                   transform: `scale(${scale})`,
                   transformOrigin: "center center",
                 }}
-                className="group relative flex items-center justify-center w-10 h-10 active:scale-90 transition-all duration-150"
+                className="group relative flex items-center justify-center w-10 h-10 transition-all duration-150"
               >
-                <ThemeToggle className="!w-10 !h-10 !rounded-full !border-0 !bg-transparent hover:!bg-black/[0.06] dark:hover:!bg-white/[0.08]" />
+                <ThemeToggle className="!w-10 !h-10 !rounded-full !border-0 !bg-transparent text-[#9C9C9C] hover:text-black dark:text-[#737373] dark:hover:text-white" />
 
                 {/* macOS Slide-out Tooltip */}
-                <div className="absolute left-full ml-4 px-2.5 py-1 rounded-md bg-black/95 dark:bg-[#161618]/95 text-white text-[11px] font-mono whitespace-nowrap shadow-2xl border border-white/10 opacity-0 -translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 z-50">
+                <div className="absolute left-full ml-3.5 px-2.5 py-1 rounded-md bg-black/95 dark:bg-[#161618]/95 text-white text-[11px] font-mono whitespace-nowrap shadow-xl border border-white/10 opacity-0 -translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 z-50">
                   <span>[theme]</span>
                 </div>
               </div>

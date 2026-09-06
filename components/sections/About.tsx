@@ -27,14 +27,17 @@ export default function About() {
             I believe intelligent software should feel like <span className="italic font-normal text-accent">magic</span> — it&apos;s the moment an AI agent <span className="italic font-normal text-accent">actually</span> solves a problem, the server that <span className="italic font-normal text-accent">never</span> crashes, and the interface that <span className="italic font-normal text-accent">delights</span> every user.
           </h3>
 
-          {/* Narrative Summary */}
-          <div className="text-xs sm:text-sm leading-relaxed text-muted space-y-3 font-mono">
-            <p>
-              I&apos;m <strong className="text-foreground">Gyanendra Prakash</strong>, a 2nd-year B.Tech Computer Science Engineering student at <strong className="text-foreground">Bennett University</strong>, passionate about building autonomous AI agents, LLM integrations, and scalable full-stack web applications.
-            </p>
-            <p>
-              I have <span className="text-accent font-semibold">won 3 hackathons</span>, self-host a cloud-based <strong className="text-foreground">Hermes AI agent</strong>, and converted a repurposed desktop PC into my own home server. When I&apos;m not coding, I&apos;m gaming, exploring movies, or trying new recipes in the kitchen.
-            </p>
+          {/* Status Pill & Modern Narrative Summary */}
+          <div className="flex flex-col gap-4">
+
+            <div className="text-sm sm:text-base md:text-[17px] leading-[1.8] text-foreground/85 space-y-4 font-mono">
+              <p>
+                I&apos;m <strong className="text-foreground font-bold">Gyanendra Prakash</strong>, a <span className="text-accent font-bold">3rd-year B.Tech Computer Science &amp; Engineering</span> student at <strong className="text-foreground font-bold">Bennett University</strong>, passionate about architecting autonomous AI agents, production LLM integrations, and scalable full-stack web applications.
+              </p>
+              <p>
+                A <span className="text-accent font-bold">3x hackathon winner</span> and active builder, I self-host custom cloud AI infrastructure—including a cloud-based <strong className="text-foreground font-bold">Hermes AI agent</strong>—and converted a repurposed desktop PC into my own 24/7 Linux home server. When I&apos;m not pushing code, I&apos;m gaming, exploring cinema, or trying new recipes in the kitchen.
+              </p>
+            </div>
           </div>
 
           {/* Minimalist Resume Button */}

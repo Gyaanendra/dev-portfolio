@@ -1,46 +1,81 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
+import { SunIcon, MoonIcon } from "@animateicons/react/lucide";
 
-interface ThemeToggleProps {
-  className?: string;
+interface ThemeToggleProps
+  extends React.ComponentPropsWithoutRef<"button"> {
+  duration?: number;
   onThemeChange?: (newTheme: "light" | "dark") => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export default function ThemeToggle({
   className = "",
+  duration = 700,
   onThemeChange,
+  ...props
 }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
+  const isDark = useSyncExternalStore(
+    (callback) => {
+      const observer = new MutationObserver(callback);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+      return () => observer.disconnect();
+    },
+    () => document.documentElement.classList.contains("dark"),
+    () => false
+  );
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const isTransitioningRef = useRef(false);
+
+  // Ensure View Transition root pseudo-element rules are active
   useEffect(() => {
-    setMounted(true);
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
+    let styleElement = document.getElementById(
+      "toggle-theme-vt-override"
+    ) as HTMLStyleElement | null;
+    if (!styleElement) {
+      styleElement = document.createElement("style");
+      styleElement.id = "toggle-theme-vt-override";
+      styleElement.textContent = `
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation: none;
+          mix-blend-mode: normal;
+        }
+      `;
+      document.head.appendChild(styleElement);
+    }
   }, []);
 
-  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const x = e.clientX;
-    const y = e.clientY;
+  const toggleTheme = useCallback(async () => {
+    if (!buttonRef.current || isTransitioningRef.current) return;
 
-    document.documentElement.style.setProperty("--click-x", `${x}px`);
-    document.documentElement.style.setProperty("--click-y", `${y}px`);
-
-    const nextTheme = theme === "light" ? "dark" : "light";
+    const nextTheme = !isDark;
 
     const applyTheme = () => {
-      setTheme(nextTheme);
-      localStorage.setItem("theme", nextTheme);
-      if (nextTheme === "dark") {
+      if (nextTheme) {
         document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
       } else {
         document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
       }
-      onThemeChange?.(nextTheme);
+      onThemeChange?.(nextTheme ? "dark" : "light");
     };
 
+    // Fallback for browsers without View Transition API or prefers-reduced-motion
     if (
       !document.startViewTransition ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -49,79 +84,78 @@ export default function ThemeToggle({
       return;
     }
 
-    document.startViewTransition(() => {
-      flushSync(() => {
-        applyTheme();
-      });
-    });
-  };
+    isTransitioningRef.current = true;
+
+    try {
+      // 1. Wait for the DOM update snapshot to complete within the View Transition
+      await document.startViewTransition(() => {
+        flushSync(() => {
+          applyTheme();
+        });
+      }).ready;
+
+      // 2. Measure coordinates and dimensions AFTER the new DOM snapshot is ready
+      const { top, left, width, height } =
+        buttonRef.current.getBoundingClientRect();
+      const x = left + width / 2;
+      const y = top + height / 2;
+      const maxRadius = Math.hypot(
+        Math.max(left, window.innerWidth - left),
+        Math.max(top, window.innerHeight - top)
+      );
+
+      // 3. Exact Lightswind circle-spread hardware-accelerated clipPath animation
+      const animation = document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${maxRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      );
+
+      await animation.finished;
+    } catch {
+      // Fallback in case transition is aborted or fails
+    } finally {
+      isTransitioningRef.current = false;
+    }
+  }, [isDark, duration, onThemeChange]);
 
   if (!mounted) {
     return (
       <div
-        className={`w-9 h-9 border border-border-custom bg-card rounded-md ${className}`}
+        className={`w-9 h-9 border border-border-custom bg-card rounded-sm ${className}`}
+        aria-hidden="true"
       />
     );
   }
 
-  const isDark = theme === "dark";
-
   return (
     <button
+      ref={buttonRef}
+      type="button"
       onClick={toggleTheme}
-      className={`group relative flex items-center justify-center w-9 h-9 border border-border-custom hover:border-accent bg-card transition-all duration-300 rounded-sm text-foreground overflow-hidden focus:outline-none focus-visible:ring-1 focus-visible:ring-accent ${className}`}
+      className={`group relative flex items-center justify-center w-9 h-9 border border-border-custom hover:border-accent bg-card rounded-sm text-foreground overflow-hidden focus:outline-none focus-visible:ring-1 focus-visible:ring-accent cursor-pointer ${className}`}
       title={`Switch to ${isDark ? "light" : "dark"} mode`}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      {...props}
     >
-      <div className="relative w-4 h-4 flex items-center justify-center pointer-events-none">
-        {/* Sun Icon */}
-        <svg
-          viewBox="0 0 24 24"
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`absolute inset-0 transition-all duration-500 transform ${
-            isDark
-              ? "opacity-0 scale-50 rotate-90"
-              : "opacity-100 scale-100 rotate-0 text-accent"
-          }`}
-        >
-          <circle cx="12" cy="12" r="5" fill="currentColor" className="opacity-20" />
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-        </svg>
+      {isDark ? (
+        <SunIcon size={18} className="text-accent pointer-events-none" />
+      ) : (
+        <MoonIcon size={18} className="text-current pointer-events-none" />
+      )}
 
-        {/* Moon Icon */}
-        <svg
-          viewBox="0 0 24 24"
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`absolute inset-0 transition-all duration-500 transform ${
-            isDark
-              ? "opacity-100 scale-100 rotate-0 text-accent"
-              : "opacity-0 scale-50 -rotate-90"
-          }`}
-        >
-          <path
-            d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-            fill="currentColor"
-            className="opacity-20"
-          />
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-      </div>
-
-      {/* Subtle hover ring */}
-      <span className="absolute inset-0 rounded-sm border border-accent/0 group-hover:border-accent/40 transition-colors duration-300" />
+      {/* Subtle hover accent outline only when bordered */}
+      {!className.includes("!border-0") && (
+        <span className="absolute inset-0 rounded-sm border border-transparent group-hover:border-accent/30 pointer-events-none" />
+      )}
     </button>
   );
 }

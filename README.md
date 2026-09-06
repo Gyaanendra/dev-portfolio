@@ -7,7 +7,7 @@
 
 ## ✦ Overview
 
-A personal portfolio for **Gyanendra Prakash**, a second-year B.Tech CSE student from Mohali, India — passionate about AI, LLMs, and intelligent systems. The site is built with an editorial minimalism aesthetic, premium micro-animations, and a modular component architecture.
+A personal portfolio for **Gyanendra Prakash**, a 3rd-year B.Tech CSE student at Bennett University from Mohali, India — passionate about AI, LLMs, and intelligent systems. The site is built with an editorial minimalism aesthetic, premium micro-animations, and a modular component architecture.
 
 ---
 

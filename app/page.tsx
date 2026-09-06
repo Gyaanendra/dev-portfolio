@@ -181,7 +181,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground transition-colors duration-300 antialiased overflow-x-hidden pb-12 selection:bg-accent selection:text-background font-mono">
+    <div className="relative min-h-screen bg-background text-foreground antialiased overflow-x-hidden pb-12 selection:bg-accent selection:text-background font-mono">
       {/* Staggered page transition curtain overlay */}
       {isNavTransitioning && (
         <div

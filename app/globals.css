@@ -144,7 +144,6 @@ body::before {
   z-index: 10;
   opacity: var(--noise-opacity);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  transition: opacity 0.3s ease;
 }
 
 /* Animations */
@@ -333,89 +332,17 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* --- VIEW TRANSITIONS THEME TOGGLE SPELL --- */
+/* --- VIEW TRANSITIONS THEME TOGGLE (Exact Lightswind Circle Spread) --- */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
-  transform-origin: var(--click-x, 50%) var(--click-y, 50%);
 }
 
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
-@keyframes circle-reveal {
-  from {
-    clip-path: circle(0% at var(--click-x, 50%) var(--click-y, 50%));
-  }
-
-  to {
-    clip-path: circle(150vmax at var(--click-x, 50%) var(--click-y, 50%));
-  }
-}
-
-@keyframes scale-down-fade {
-  0% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-    filter: blur(0px) brightness(1);
-  }
-
-  35% {
-    transform: scale(0.96) rotate(1deg);
-    opacity: 0.9;
-    filter: blur(2px) brightness(0.95);
-  }
-
-  70% {
-    transform: scale(0.9) rotate(2deg);
-    opacity: 0.15;
-    filter: blur(6px) brightness(0.8) contrast(1.1);
-  }
-
-  100% {
-    transform: scale(0.9) rotate(2deg);
-    opacity: 0;
-    filter: blur(8px) brightness(0.8) contrast(1);
-  }
-}
-
-@keyframes scale-up-reveal {
-  0% {
-    transform: scale(0.9) rotate(-2deg);
-    filter: blur(8px) brightness(1);
-  }
-
-  35% {
-    transform: scale(0.9) rotate(-2deg);
-    filter: blur(8px) brightness(1);
-  }
-
-  70% {
-    transform: scale(1.02) rotate(0.5deg);
-    filter: blur(2px) brightness(1.05) contrast(1.05);
-  }
-
-  100% {
-    transform: scale(1) rotate(0deg);
-    filter: blur(0px) brightness(1) contrast(1);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root) {
-    animation: scale-down-fade 1000ms cubic-bezier(0.86, 0, 0.07, 1) both;
-  }
-
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation:
-      circle-reveal 1000ms cubic-bezier(0.86, 0, 0.07, 1) both,
-      scale-up-reveal 1000ms cubic-bezier(0.86, 0, 0.07, 1) both;
+    animation: none !important;
   }
 }
 
