@@ -22,9 +22,9 @@ export default function About() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
         {/* Left Content Area (Quote + Narrative + Resume + 3-Column Grid) */}
         <div className="lg:col-span-7 flex flex-col gap-6 pt-2 sm:pt-0 order-2 lg:order-1">
-          {/* Statement Quote */}
+          {/* Intro Narrative Headline */}
           <h3 className="text-lg sm:text-xl md:text-2xl font-serif leading-relaxed text-foreground">
-            I believe intelligent software should feel like <span className="italic font-normal text-accent">magic</span> — it&apos;s the moment an AI agent <span className="italic font-normal text-accent">actually</span> solves a problem, the server that <span className="italic font-normal text-accent">never</span> crashes, and the interface that <span className="italic font-normal text-accent">delights</span> every user.
+            Architecting <span className="italic text-accent">autonomous AI systems</span>, scalable full-stack applications, and storytelling through code.
           </h3>
 
           {/* Status Pill & Modern Narrative Summary */}
@@ -32,24 +32,12 @@ export default function About() {
 
             <div className="text-sm sm:text-base md:text-[17px] leading-[1.8] text-foreground/85 space-y-4 font-mono">
               <p>
-                I&apos;m <strong className="text-foreground font-bold">Gyanendra Prakash</strong>, a <span className="text-accent font-bold">3rd-year B.Tech Computer Science &amp; Engineering</span> student at <strong className="text-foreground font-bold">Bennett University</strong>, passionate about architecting autonomous AI agents, production LLM integrations, and scalable full-stack web applications.
+                My name is <strong className="text-foreground font-bold">Gyanendra Prakash</strong>. My core strengths are <span className="text-foreground font-bold border-b-2 border-accent">AI Engineering</span>, <strong className="text-foreground font-bold">Full Stack Development</strong>, and <strong className="text-foreground font-bold">Intelligent Agents</strong>. Currently a <span className="text-accent font-bold">3rd-year B.Tech Computer Science &amp; Engineering</span> student at <strong className="text-foreground font-bold">Bennett University</strong>, I love building autonomous systems and contributing my technical skills to innovative, high-impact projects.
               </p>
               <p>
                 A <span className="text-accent font-bold">3x hackathon winner</span> and active builder, I self-host custom cloud AI infrastructure—including a cloud-based <strong className="text-foreground font-bold">Hermes AI agent</strong>—and converted a repurposed desktop PC into my own 24/7 Linux home server. When I&apos;m not pushing code, I&apos;m gaming, exploring cinema, or trying new recipes in the kitchen.
               </p>
             </div>
-          </div>
-
-          {/* Minimalist Resume Button */}
-          <div>
-            <a
-              href="/resume.pdf"
-              download="Gyanendra_Prakash_Resume.pdf"
-              className="inline-flex items-center gap-2 border border-accent text-accent font-mono text-xs font-semibold px-4 py-2 rounded-sm bg-card/40 hover:bg-accent hover:text-background transition-colors duration-200"
-            >
-              <span>Download Engineering Resume</span>
-              <span className="text-[10px]">↓</span>
-            </a>
           </div>
 
           {/* 3-Column Subgrid (Responsive Stacking) */}
@@ -92,9 +80,9 @@ export default function About() {
           </div>
         </div>
 
-        {/* Right Visual Area (Main B&W Photo) */}
+        {/* Right Visual Area (Main B&W Photo + Resume Button) */}
         <div className="lg:col-span-5 relative flex justify-center lg:justify-end pt-6 sm:pt-4 order-1 lg:order-2">
-          <div className="relative group w-full max-w-[340px] sm:max-w-[380px]">
+          <div className="relative group w-full max-w-[340px] sm:max-w-[380px] flex flex-col gap-3">
             {/* Main Photo Card */}
             <div className="relative rounded-xl overflow-hidden border border-border-custom bg-card shadow-md">
               <div className="relative aspect-[4/4.8] w-full">
@@ -116,6 +104,16 @@ export default function About() {
                 </span>
               </div>
             </div>
+
+            {/* Minimalist Resume Button Directly Below Image */}
+            <a
+              href="/resume.pdf"
+              download="Gyanendra_Prakash_Resume.pdf"
+              className="w-full justify-center inline-flex items-center gap-2 border border-accent text-accent font-mono text-xs font-semibold px-4 py-2.5 rounded-sm bg-card/40 hover:bg-accent hover:text-background transition-colors duration-200 shadow-sm"
+            >
+              <span>Download Engineering Resume</span>
+              <span className="text-[10px]">↓</span>
+            </a>
           </div>
         </div>
       </div>

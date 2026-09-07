@@ -48,7 +48,7 @@
   --text-muted: #9C9C9C;
   --accent: #0080FF;
   --border: #e5e5e5;
-  --noise-opacity: 0.008;
+  --noise-opacity: 0.01;
   --font-titillium: var(--font-trt-interval), 'TRT INTERVAL', monospace;
   --font-serif: var(--font-trt-interval), 'TRT INTERVAL', monospace;
   --font-sans: var(--font-trt-interval), 'TRT INTERVAL', monospace;
@@ -72,7 +72,7 @@
   --text-muted: #9C9C9C;
   --accent: #00D2FF;
   --border: #222222;
-  --noise-opacity: 0.012;
+  --noise-opacity: 0.01;
   --gh-0: #161b22;
   --gh-1: #0e4429;
   --gh-2: #006d32;
@@ -143,6 +143,8 @@ body::before {
   pointer-events: none;
   z-index: 10;
   opacity: var(--noise-opacity);
+  transform: translateZ(0);
+  will-change: transform;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
@@ -332,7 +334,7 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* --- VIEW TRANSITIONS THEME TOGGLE (Exact Lightswind Circle Spread) --- */
+/* --- VIEW TRANSITIONS THEME TOGGLE (Responsive Dual-Mode) --- */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

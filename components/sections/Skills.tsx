@@ -50,7 +50,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="scroll-mt-24 flex flex-col gap-6 fade-up-element overflow-hidden"
+      className="scroll-mt-28 sm:scroll-mt-32 pt-4 sm:pt-6 flex flex-col gap-6 fade-up-element"
     >
       <div className="border-b border-border-custom pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
         <h2 className="font-serif text-5xl md:text-6xl tracking-tight">

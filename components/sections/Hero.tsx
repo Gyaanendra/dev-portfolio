@@ -91,7 +91,7 @@ export default function Hero() {
     >
       {/* ─── 3-COLUMN CONTENT GRID (Placed directly on the page, no outer card container) ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-stretch w-full">
-        
+
         {/* ─── COLUMN 1 (LEFT): Rounded Portrait Photo (Clean Authentic Treatment) ─── */}
         <div className="hero-portrait-col lg:col-span-4 flex items-center justify-center">
           <div className="relative w-full h-[360px] sm:h-[440px] lg:h-full min-h-[400px] rounded-[28px] sm:rounded-[36px] overflow-hidden bg-[#9C9C9C]/10 border border-[#9C9C9C]/20 shadow-sm group">
@@ -119,21 +119,22 @@ export default function Hero() {
               </h1>
             </div>
 
-            {/* Bio Narrative (Monochromatic text with vibrant accent) */}
-            <div className="flex flex-col gap-3 text-sm sm:text-base leading-relaxed text-[#000000]/80 dark:text-[#ffffff]/80">
+            {/* Tech Quote Statement */}
+            <div className="flex flex-col gap-2.5 text-base sm:text-lg md:text-xl leading-relaxed text-[#000000]/85 dark:text-[#ffffff]/85 font-serif pt-1">
               <p>
-                My name is <strong className="font-semibold text-[#000000] dark:text-[#ffffff]">Gyanendra Prakash</strong>. My strengths are <span className="font-semibold text-[#000000] dark:text-[#ffffff] border-b-2 border-accent">AI Engineering</span>, <strong className="font-semibold text-[#000000] dark:text-[#ffffff]">Full Stack Development</strong> and <strong className="font-semibold text-[#000000] dark:text-[#ffffff]">Intelligent Agents</strong>. I love building autonomous systems and storytelling through code. I look forward to contributing my creativity and technical skills to innovative projects.
+                &ldquo;A <span className="italic text-accent">bug</span> is never just a mistake. It represents something bigger. An <span className="italic text-accent">error of thinking</span> that makes you who you are.&rdquo;
               </p>
-              <p className="font-medium text-[#9C9C9C]">
-                Hope you enjoy my portfolio!
-              </p>
+              <div className="flex items-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
+                <span className="text-accent font-bold">/</span>
+                <span>mr. robot · eps1.2_d3bug</span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* ─── COLUMN 3 (RIGHT): SKILLS Grid + EXPERIENCE (matching reference placement) ─── */}
         <div className="hero-right-col lg:col-span-3 flex flex-col justify-between gap-6 sm:gap-8">
-          
+
           {/* Top Block: CORE STACK Heading & 3x2 Grid */}
           <div className="flex flex-col gap-3">
             <div className="flex items-baseline justify-between">
@@ -187,10 +188,8 @@ export default function Hero() {
               {/* Role 1 */}
               <div>
                 <div className="flex items-center gap-2 text-base sm:text-lg font-bold text-[#000000] dark:text-[#ffffff]">
-                  <span>May 2026 – Aug 2026</span>
-                  <span className="text-[10px] font-mono font-semibold text-accent border border-accent/60 px-1.5 py-0.2 rounded-xs uppercase tracking-wider">
-                    Incoming
-                  </span>
+                  <span> 2026</span>
+
                 </div>
                 <div className="text-sm sm:text-base text-[#9C9C9C] dark:text-[#b0b0b0]">
                   Full Stack AI Engineer at Hypotenuse Analytics
@@ -215,7 +214,7 @@ export default function Hero() {
 
       {/* ─── BOTTOM ROW: Footer Contact Strip (Matching Reference Placement) ─── */}
       <div className="hero-footer-bar mt-10 sm:mt-12 pt-6 border-t border-[#9C9C9C]/25 flex flex-wrap items-center justify-between gap-y-3 gap-x-6 text-xs sm:text-sm text-[#9C9C9C]">
-        
+
         {/* 1. Phone */}
         <button
           onClick={() => handleCopy(contactJson.contact.tel, "phone")}
