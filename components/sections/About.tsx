@@ -118,7 +118,6 @@ export default function About({ isChatOpen = false, onToggleChat }: AboutProps) 
                 className="w-full justify-center inline-flex items-center gap-2.5 border border-accent text-accent text-sm font-bold px-5 py-3.5 rounded-sm bg-card/40 hover:bg-accent hover:text-background transition-colors duration-200 shadow-sm tracking-wide"
               >
                 <span>Download Engineering Resume</span>
-                <span className="text-base leading-none">↓</span>
               </a>
 
               {/* Toggle AI Agent Chat Button */}
@@ -138,12 +137,7 @@ export default function About({ isChatOpen = false, onToggleChat }: AboutProps) 
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
                   </span>
                   <span>
-                    {isChatOpen
-                      ? "Close AI Wingman Chat ✕"
-                      : "Chat with AI Wingman 💬"}
-                  </span>
-                  <span className="text-xs text-muted ml-auto">
-                    {isChatOpen ? "▲" : "▼"}
+                    {isChatOpen ? "Close AI Wingman Chat" : "Chat with AI Wingman"}
                   </span>
                 </button>
               )}
