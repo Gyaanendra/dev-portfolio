@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useLenis } from "lenis/react";
 import ThemeToggle from "@/components/ThemeToggle";
 import VerticalDock from "@/components/VerticalDock";
-import ChatWidget from "@/components/chat/ChatWidget";
+import EmbeddedChat from "@/components/chat/EmbeddedChat";
 
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
@@ -20,6 +20,7 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("about");
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const [isNavTransitioning, setIsNavTransitioning] = useState(false);
   const [isNavActive, setIsNavActive] = useState(false);
@@ -117,6 +118,11 @@ export default function Home() {
       setIsNavTransitioning(false);
     }, 2100);
   };
+
+  // Toggle AI chat panel open/closed
+  const handleToggleChat = useCallback(() => {
+    setIsChatOpen((prev) => !prev);
+  }, []);
 
   // Setup scroll section detection
   useEffect(() => {
@@ -354,7 +360,7 @@ export default function Home() {
       {/* Main Container */}
       <main className="max-w-5xl mx-auto px-6 pt-16 sm:pt-20 md:pt-24 flex flex-col gap-24 md:gap-36">
         <Hero />
-        <About />
+        <About isChatOpen={isChatOpen} onToggleChat={handleToggleChat} />
         <Skills />
         <Experience />
         <CodingProfiles />
@@ -368,8 +374,8 @@ export default function Home() {
       {/* FOOTER */}
       <Footer />
 
-      {/* FLOATING AI CHAT AGENT WIDGET */}
-      <ChatWidget />
+      {/* FLOATING AI CHAT PANEL (slide-from-right overlay) */}
+      <EmbeddedChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }

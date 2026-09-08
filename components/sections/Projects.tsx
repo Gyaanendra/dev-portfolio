@@ -81,13 +81,19 @@ export default function Projects() {
 
               {/* Left Column: Num + Title + Description */}
               <div className="flex flex-col gap-2 max-w-2xl">
-                <div className="flex items-baseline gap-4">
+                <div className="flex items-baseline gap-3 flex-wrap">
                   <span className="text-xs text-accent font-bold select-none">
                     0{numStr}
                   </span>
                   <h3 className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-foreground transition-colors group-hover:text-accent">
                     {project.title}
                   </h3>
+                  {project.dates?.includes("In Progress") && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm border border-accent/60 bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-widest shrink-0">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                      In Progress
+                    </span>
+                  )}
                 </div>
 
                 <p className="text-xs md:text-sm text-muted leading-relaxed pl-8">
@@ -121,28 +127,31 @@ export default function Projects() {
                 )}
               </div>
 
-              {/* Right Column: Action Links & Arrow */}
+              {/* Right Column: Date + Action Links & Arrow */}
               <div className="flex items-center gap-4 mt-4 md:mt-0 pl-8 md:pl-0 shrink-0">
-                {project.links && project.links.length > 0 ? (
-                  <div className="flex items-center gap-3 text-xs font-semibold">
-                    {project.links.map((link, lIdx) => (
-                      <a
-                        key={lIdx}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 border border-border-custom px-3 py-1.5 rounded-sm text-foreground hover:border-accent hover:text-accent transition-colors bg-card/40"
-                      >
-                        <span>[{link.type.toLowerCase()}]</span>
-                        <span className="text-[10px]">↗</span>
-                      </a>
-                    ))}
-                  </div>
-                ) : (
-                  <span className="text-xs text-muted/50 italic">
-                    [in progress]
-                  </span>
-                )}
+                <div className="flex flex-col items-end gap-2">
+                  {project.dates && (
+                    <span className="text-[10px] text-muted/60 font-mono">{project.dates}</span>
+                  )}
+                  {project.links && project.links.length > 0 ? (
+                    <div className="flex items-center gap-3 text-xs font-semibold">
+                      {project.links.map((link, lIdx) => (
+                        <a
+                          key={lIdx}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 border border-border-custom px-3 py-1.5 rounded-sm text-foreground hover:border-accent hover:text-accent transition-colors bg-card/40"
+                        >
+                          <span>[{link.type.toLowerCase()}]</span>
+                          <span className="text-[10px]">↗</span>
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="text-xs text-muted/50 italic">[in progress]</span>
+                  )}
+                </div>
 
                 <span className="text-lg text-muted/40 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
                   →

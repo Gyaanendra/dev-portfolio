@@ -158,7 +158,7 @@ export default function Leadership() {
           <div className="md:col-span-3 flex md:flex-col gap-8 md:gap-5 font-mono md:pl-4">
             <div>
               <div className="font-serif text-3xl sm:text-4xl font-bold text-foreground">
-                250+
+                25+
               </div>
               <div className="text-xs text-muted">
                 mentorship sessions
@@ -167,7 +167,7 @@ export default function Leadership() {
 
             <div>
               <div className="font-serif text-3xl sm:text-4xl font-bold text-foreground">
-                50+
+                10+
               </div>
               <div className="text-xs text-muted">
                 industry partners

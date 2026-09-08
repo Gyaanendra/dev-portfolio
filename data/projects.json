@@ -1,6 +1,49 @@
 {
    "projects": [
       {
+         "title": "Criminal Network Analysis",
+         "href": "https://github.com/Gyaanendra",
+         "dates": "2026 — In Progress",
+         "active": true,
+         "description": "Built for Smart India Hackathon (SIH). Problem: Law enforcement agencies struggle to map and disrupt criminal networks from fragmented data. Approach: Graph-based network analysis pipeline using relationship mapping, entity extraction from case reports, and pattern detection to surface hidden connections between criminal actors, organizations, and events.",
+         "technologies": [
+            "Python",
+            "NetworkX",
+            "NLP",
+            "Graph Analysis",
+            "FastAPI"
+         ],
+         "links": [
+            {
+               "type": "GitHub",
+               "href": "https://github.com/Gyaanendra"
+            }
+         ],
+         "image": ""
+      },
+      {
+         "title": "LegalMind AI",
+         "href": "https://github.com/Gyaanendra",
+         "dates": "2026 — In Progress",
+         "active": true,
+         "description": "Problem: Lawyers spend hours manually hunting through past judgments to find relevant citations and build solid case arguments. Approach: AI-powered legal assistant that extracts citations from uploaded judgments, surfaces related precedents, and helps lawyers construct stronger case laws using RAG over a legal document corpus.",
+         "technologies": [
+            "Python",
+            "RAG",
+            "LangChain",
+            "Vector DB",
+            "Next.js",
+            "FastAPI"
+         ],
+         "links": [
+            {
+               "type": "GitHub",
+               "href": "https://github.com/Gyaanendra"
+            }
+         ],
+         "image": ""
+      },
+      {
          "title": "Fake News Classifier",
          "href": "https://github.com/Gyaanendra/AIML-PROJECT-CSET312",
          "dates": "2025",
@@ -68,7 +111,7 @@
          "href": "https://dcc-wesbite.vercel.app/",
          "dates": "2026",
          "active": true,
-         "description": "Problem: Fragmented career resources and lack of centralized placement architecture for 5,000+ SCSET engineering students. Approach: Architected official career forum portal featuring specialized cohort tracks, 1-on-1 MAANG mentorship pipelines, and real-time query desks. Result: Shipped to production at dcc-wesbite.vercel.app serving university-wide placement cohorts.",
+         "description": "Problem: Fragmented career resources and lack of centralized placement architecture for SCSET engineering students. Approach: Architected official career forum portal featuring specialized cohort tracks, 1-on-1 MAANG mentorship pipelines, and real-time query desks. Result: Shipped to production at dcc-wesbite.vercel.app serving university-wide placement cohorts.",
          "technologies": [
             "Next.js",
             "TypeScript",

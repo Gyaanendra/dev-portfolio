@@ -1,7 +1,12 @@
 import Image from "next/image";
 import dataJson from "@/data/data.json";
 
-export default function About() {
+interface AboutProps {
+  isChatOpen?: boolean;
+  onToggleChat?: () => void;
+}
+
+export default function About({ isChatOpen = false, onToggleChat }: AboutProps) {
   return (
     <section
       id="about"
@@ -29,7 +34,6 @@ export default function About() {
 
           {/* Status Pill & Modern Narrative Summary */}
           <div className="flex flex-col gap-4">
-
             <div className="text-sm sm:text-base md:text-[17px] leading-[1.8] text-foreground/85 space-y-4 font-mono">
               <p>
                 My name is <strong className="text-foreground font-bold">Gyanendra Prakash</strong>. My core strengths are <span className="text-foreground font-bold border-b-2 border-accent">AI Engineering</span>, <strong className="text-foreground font-bold">Full Stack Development</strong>, and <strong className="text-foreground font-bold">Intelligent Agents</strong>. Currently a <span className="text-accent font-bold">3rd-year B.Tech Computer Science &amp; Engineering</span> student at <strong className="text-foreground font-bold">Bennett University</strong>, I love building autonomous systems and contributing my technical skills to innovative, high-impact projects.
@@ -80,7 +84,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Right Visual Area (Main B&W Photo + Resume Button) */}
+        {/* Right Visual Area (Main B&W Photo + Action Buttons) */}
         <div className="lg:col-span-5 relative flex justify-center lg:justify-end pt-6 sm:pt-4 order-1 lg:order-2">
           <div className="relative group w-full max-w-[340px] sm:max-w-[380px] flex flex-col gap-3">
             {/* Main Photo Card */}
@@ -105,15 +109,45 @@ export default function About() {
               </div>
             </div>
 
-            {/* Minimalist Resume Button Directly Below Image */}
-            <a
-              href="/resume.pdf"
-              download="Gyanendra_Prakash_Resume.pdf"
-              className="w-full justify-center inline-flex items-center gap-2 border border-accent text-accent font-mono text-xs font-semibold px-4 py-2.5 rounded-sm bg-card/40 hover:bg-accent hover:text-background transition-colors duration-200 shadow-sm"
-            >
-              <span>Download Engineering Resume</span>
-              <span className="text-[10px]">↓</span>
-            </a>
+            {/* Action Buttons Stack (Resume + Open/Close AI Chat) */}
+            <div className="flex flex-col gap-3 w-full font-mono">
+              {/* Resume Button */}
+              <a
+                href="/resume.pdf"
+                download="Gyanendra_Prakash_Resume.pdf"
+                className="w-full justify-center inline-flex items-center gap-2.5 border border-accent text-accent text-sm font-bold px-5 py-3.5 rounded-sm bg-card/40 hover:bg-accent hover:text-background transition-colors duration-200 shadow-sm tracking-wide"
+              >
+                <span>Download Engineering Resume</span>
+                <span className="text-base leading-none">↓</span>
+              </a>
+
+              {/* Toggle AI Agent Chat Button */}
+              {onToggleChat && (
+                <button
+                  type="button"
+                  onClick={onToggleChat}
+                  className={`w-full justify-center inline-flex items-center gap-3 border text-sm font-bold px-5 py-3.5 rounded-sm transition-all duration-200 shadow-sm cursor-pointer tracking-wide ${
+                    isChatOpen
+                      ? "border-accent bg-accent/10 text-accent"
+                      : "border-border-custom hover:border-accent text-foreground hover:text-accent bg-card/60"
+                  }`}
+                  aria-expanded={isChatOpen}
+                >
+                  <span className="relative flex h-2.5 w-2.5 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
+                  </span>
+                  <span>
+                    {isChatOpen
+                      ? "Close AI Wingman Chat ✕"
+                      : "Chat with AI Wingman 💬"}
+                  </span>
+                  <span className="text-xs text-muted ml-auto">
+                    {isChatOpen ? "▲" : "▼"}
+                  </span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

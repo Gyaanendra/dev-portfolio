@@ -87,10 +87,11 @@ export const getSkillsTool = tool({
 // ─── 4. Work Experience ───
 export const getWorkExperienceTool = tool({
   description:
-    "Retrieve Gyanendra's professional work experience, internships, roles, companies, and responsibilities.",
+    "Retrieve Gyanendra's professional work experience, past internships, roles, companies, and responsibilities. Note: He is not currently employed anywhere — his last internship was at Hypotenuse Analytics which ended August 2026.",
   inputSchema: z.object({}),
   execute: async () => {
     return {
+      currentStatus: "Not currently employed. Last internship completed Aug 2026.",
       experience: workJson.work.map((job) => ({
         company: job.company,
         role: job.title,
@@ -135,13 +136,13 @@ export const getClubsAndLeadershipTool = tool({
   execute: async () => {
     return {
       currentLeadership: {
-        role: "Tech Lead",
+        role: "Volunteer Tech Lead",
         organization: "Dean Career Cloud (DCC), SCSET, Bennett University",
         duration: "Aug 2025 — Present",
         website: "https://dcc-wesbite.vercel.app/",
-        metrics: "250+ mentorship sessions, 50+ industry partners, 5K+ students served",
+        metrics: "25+ mentorship sessions, 10+ industry partners",
         description:
-          "Engineered official career development web platform for SCSET, Bennett University, featuring algorithmic bootcamps, MAANG 1-on-1 mentorship pipelines, and ATS clinics.",
+          "Volunteering as Tech Lead to engineer the official career development web platform for SCSET, Bennett University, featuring algorithmic bootcamps, MAANG 1-on-1 mentorship pipelines, and ATS clinics.",
       },
       executiveRole: {
         role: "Chief Technical Officer",
